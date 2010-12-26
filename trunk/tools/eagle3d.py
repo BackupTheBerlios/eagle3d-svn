@@ -379,8 +379,8 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 
 	filepath = None
 
-	def __init__(self):
-		self.filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'eagle3d.conf')
+	def __init__(self, filepath):
+		self.filepath = filepath
 		ConfigParser.SafeConfigParser.__init__(self)
 
 	def config_exists(self):
@@ -416,14 +416,23 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 		return item
 
 	def _get(self, key):
-		if self.has_option('general', key):
+		if self.has_option('commandline', key):
 			if key.endswith('_list'):
 				items = []
-				for i in self.convert(self.get('general', key)).split(','):
+				for i in self.convert(self.get('commandline', key)).split(','):
 					items.append(i.strip())
 				return items
 			else:
-				return self.convert(self.get('general', key))
+				return self.convert(self.get('commandline', key))
+		elif self.has_option('internal', key):
+			if key.endswith('_list'):
+				items = []
+				for i in self.convert(self.get('internal', key)).split(','):
+					items.append(i.strip())
+				return items
+			else:
+				return self.convert(self.get('internal', key))
+		#otherwise we assume we are trying to get a section
 		elif self.has_section(key):
 			if key.endswith('_map'):
 				items = {}
@@ -432,7 +441,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 				return items
 			else:
 				return self.items(key)
-		raise ConfigParser.NoOptionError('general', key)
+		raise ConfigParser.NoOptionError('UNKNOWN', key)
 
 	def _getbin(self, name):
 		#returns the absolute path to a given binary, or False if it does not exist
@@ -446,7 +455,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 
 	def update_options(self, options, defaults=None):
 		for opt in options.__dict__:
-			if opt in ['help', 'rewrite_config', 'recheck_config']:
+			if opt in ['help', 'logfile', 'configfile', 'rewrite_config', 'recheck_config']:
 				continue
 			value = options.__dict__[opt]
 			#ignore the option if it is the default,
@@ -467,7 +476,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 				prefix = 'n:'
 			else:
 				prefix = 'u:'
-			config.set('general', opt, prefix+str(value))
+			config.set('commandline', opt, prefix+str(value))
 
 	def init_config(self):
 		self.set_boilerplate_config()
@@ -488,7 +497,11 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 
 	def set_boilerplate_config(self):
 
-		section = 'general'
+		section = 'commandline'
+		if not self.has_section(section):
+			self.add_section(section)
+
+		section = 'internal'
 		if not self.has_section(section):
 			self.add_section(section)
 		self.set(section, 'src_inc_file_ignore_list',         's:pre.pre, pos.pos, *_tools.inc.src')
@@ -498,6 +511,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 		self.set(section, 'img_extension',                    's:.png')
 		self.set(section, 'render_extension',                 's:.pov')
 		self.set(section, 'src_inc_suffix',                   's:_GRND')
+		self.set(section, 'actions_list',                     's:clean, create, env, release, render, renderhtml, verify')
 
 		section = 'src_inc_prefix_map'
 		if not self.has_section(section):
@@ -556,6 +570,7 @@ class _OptionsParser():
 	option_list = None
 	group_description = None
 	parser = None
+	defaults = {}
 
 	def __init__(self):
 		self.get_option_list()
@@ -563,7 +578,7 @@ class _OptionsParser():
 		self.parser = OptionParser(usage=None,
 		                           version="%prog v"+SCRIPT_VERSION,
 		                           add_help_option=False,
-		                           option_list=self.option_list['none'])
+		                           option_list=self.option_list['common'])
 
 		for option_list_key in self.group_description.keys():
 			group = OptionGroup(self.parser, option_list_key, self.group_description[option_list_key])
@@ -572,7 +587,16 @@ class _OptionsParser():
 			self.parser.add_option_group(group)
 
 
-	def handle_command_line(self):
+	def get_config_file_path(self):
+		#this should be simplified, we call parse_args() twice
+		(options, args) = self.parser.parse_args()
+		if options.configfile == self.defaults['configfile']:
+			return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'eagle3d.conf')
+		else:
+			return options.configfile
+
+
+	def handle_command_line(self, args=sys.argv[1:]):
 
 		usage_string = """Usage: %prog [ACTION] [options]
 
@@ -592,13 +616,16 @@ Two options may be used without an action:
 		self.parser.set_usage(usage_string)
 
 		#parse the command line arguments
-		(options, args) = self.parser.parse_args()
+		(options, args) = self.parser.parse_args(args)
 
 		#load the config
-		config.read_config()
-		if not config.config_exists():
-			config.update_options(options)
-			config.write_config()
+		if options.ignore_config:
+			config.init_config()
+		else:
+			config.read_config()
+			if not config.config_exists():
+				config.update_options(options)
+				config.write_config()
 
 		#if the command line arg is set, reset the system section of config
 		if options.recheck_config:
@@ -624,12 +651,19 @@ Two options may be used without an action:
 				sys.exit(1)
 
 		if options.help or action == 'help':
-			self.parser.print_help()
-			sys.exit(0)
+			## handle the case where we just want to print the options for a specific action
+			#if len(sys.argv) > 2 and sys.argv[2] in self.group_description.keys():
+				#print_line = False
+				#a = sys.argv[2]
+				#a_len = len(a)
+				#for line in self.parser.format_option_help().split("\n"):
+					#if line[:a_len+3] == "  "+a+":":
+						#print_line = True
+					#if print_line:
+						#print line
 
-		if options.helpall or action == 'helpall':
-			for action in optiongroups_keys:
-				self.parser.add_option_group(optiongroups[action])
+			#else:
+				#self.parser.print_help()
 			self.parser.print_help()
 			sys.exit(0)
 
@@ -642,23 +676,31 @@ Two options may be used without an action:
 		self.option_list = {}
 		self.group_description = {}
 
-		key = "none"
+		key = "common"
 		self.option_list[key] = []
 		self.option_list[key].append(make_option("-h", "--help",
 		                                       action="store_true", dest="help", default=False,
 		                                       help="show basic help message and exit."))
-		self.option_list[key].append(make_option("--helpall",
-												action="store_true", dest="helpall", default=False,
-												help="show help messages for all commands and exit."))
 		self.option_list[key].append(make_option("--noconsole",
 												action="store_true", dest="noconsole", default=False,
 												help="do not print to console, only to log file (default is %default)."))
+		self.defaults['logfile'] = "[ACTION].log"
+		self.option_list[key].append(make_option("--logfile",
+												action="store", dest="logfile", default=self.defaults['logfile'], metavar="[FILE]",
+												help="log file to print to (default is %default)."))
 		self.option_list[key].append(make_option("-q", "--quiet",
 												action="store_true", dest="quiet", default=False,
 												help="do not print 'no errors' message (default is %default)."))
 		self.option_list[key].append(make_option("-s", "--silent",
 												action="store_true", dest="silent", default=False,
 												help="print and log nothing, return non-zero on any error (default is %default)."))
+		self.defaults['configfile'] = "eagle3d.conf"
+		self.option_list[key].append(make_option("--configfile",
+												action="store", dest="configfile", default=self.defaults['configfile'], metavar="[FILE]",
+												help="configuration file to use (default is eagle3d.conf in the script directory)."))
+		self.option_list[key].append(make_option("--ignore-config",
+												action="store_true", dest="ignore_config", default=False,
+												help="ignore the existing configuration file, do not write one if it does not exist"))
 		self.option_list[key].append(make_option("--rewrite-config",
 												action="store_true", dest="rewrite_config", default=False,
 												help="overwrite the existing configuration file, replacing it with defaults and rechecking paths"))
@@ -680,11 +722,6 @@ this option default is %default"""))
 
 		key = "help"
 		self.group_description[key] = "show basic help message and exit."
-		self.option_list[key] = []
-
-
-		key = "helpall"
-		self.group_description[key] = "show help messages for all commands and exit."
 		self.option_list[key] = []
 
 
@@ -1919,12 +1956,11 @@ class _Worker:
 if __name__ == "__main__":
 	global config, worker
 
-	config = _ConfigParser()
-
 	worker = _Worker()
 	worker.timestamp = datetime.datetime.now()
 
 	optparser = _OptionsParser()
+	config = _ConfigParser(optparser.get_config_file_path())
 	action, options = optparser.handle_command_line()
 
 	logger = logging.getLogger(action)
@@ -1935,7 +1971,11 @@ if __name__ == "__main__":
 		sys.exit(1)
 
 	if not options.silent:
-		loghandler = logging.FileHandler(os.path.join(os.path.dirname(os.path.abspath(__file__)), action+'.log'), 'w')
+		if options.logfile == optparser.defaults['logfile']:
+			logfile = os.path.join(os.path.dirname(os.path.abspath(__file__)), action+'.log')
+		else:
+			logfile = options.logfile
+		loghandler = logging.FileHandler(logfile, 'w')
 		loghandler.setFormatter(logging.Formatter('%(message)s'))
 		logger.addHandler(loghandler)
 		logger.setLevel(logging.INFO)
