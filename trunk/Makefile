@@ -1,10 +1,13 @@
-all:
-	tools/create_eagle_3d.sh
+all: create
+
+create:
+	tools/eagle3d.py create
+
 clean:
-	tools/clean_eagle_3d.sh
-lib:
-	tools/create_lib_files.pl --src=./src --build=./build
+	tools/eagle3d.py clean
+
 render: all
-	tools/render.sh
+	tools/eagle3d.py render
+
 release: all
-	tools/create_release_files.sh TEST
+	tools/eagle3d.py release --release-name=TEST

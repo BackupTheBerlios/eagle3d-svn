@@ -561,6 +561,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 		self.set(section, 'nice',                             str(which('nice')))
 		self.set(section, 'convert',                          str(which('convert')))
 		self.set(section, 'montage',                          str(which('montage')))
+		self.set(section, 'makensis',                         str(which('makensis')))
 
 
 ###############################################################################
@@ -1595,7 +1596,7 @@ class _Worker:
 				if retcode != 0:
 					total_errors = total_errors+1
 			else:
-				logger.info('cound not find bzip2, not making tar.bz2 archive')
+				logger.info('cound not find gzip, not making tar.gzq archive')
 		else:
 			logger.info('cound not find tar, not making tar.* archives')
 
@@ -1622,10 +1623,21 @@ class _Worker:
 			retcode = subprocess_call(command, env.OUTDIR_ROOT)
 			if retcode != 0:
 				total_errors = total_errors+1
+		else:
+			logger.info('cound not find zip, not making zip archive')
+		
+		_makensis = config._getbin('makensis')
+		if _makensis:
+			command = [_makensis, '-DVERSION=' + release_safename, env.SCRIPTDIR + '/installer/installer.nsi' ]
+			logger.info('calling: '+" ".join(command))
+			retcode = subprocess_call(command, env.OUTDIR_ROOT)
+			if retcode != 0:
+				total_errors = total_errors+1
+		else:
+			logger.info('cound not find makensis, not making windows installer')
 
 		logger.info('done')
 		logger.info('totalerrors: %s'%(str(total_errors)))
-
 
 	########################################
 	#
