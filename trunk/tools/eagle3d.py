@@ -1188,6 +1188,8 @@ class _Worker:
 				os.remove(filepath)
 			for filepath in glob.glob(os.path.join(env.ARCHIVE_OUTPUT_DIR, "eagle3d*.tar.bz2")):
 				os.remove(filepath)
+			for filepath in glob.glob(os.path.join(env.ARCHIVE_OUTPUT_DIR, "eagle3d*.exe")):
+				os.remove(filepath)
 			for filepath in glob.glob(os.path.join(env.ARCHIVE_OUTPUT_DIR, "partSize.dat")):
 				os.remove(filepath)
 
