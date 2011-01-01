@@ -1,9 +1,9 @@
-Eagle3D (v1.05)
-(c)2002... 2008 Matthias Weißer - Traducción al espańol por Juan Enrique Castillo & cdr - updated Apr03-2008
+Eagle3D (v###VERSIONDUMMY###)
+(c)2011 Matthias Weißer - Traducción al espańol por Juan Enrique Castillo & cdr - updated Apr03-2008
 matthias@matwei.de
-Instrucciones y Licencia, por favor ver Eagle3D_e.pdf
+Instrucciones y Licencia, por favor ver COPYING
 Este programa se ejecuta solo en el Circuito Impreso (.brd)
-Eagle3D (v1.05-2006) - Entrada de Parámetros
+Eagle3D (v###VERSIONDUMMY###) - Entrada de Parámetros
 General
 Renderizar solo las siguientes partes:
 Componentes

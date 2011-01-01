@@ -18,7 +18,7 @@
 
 #usage  "<b>Converter from Eagle-BRD to POV-Ray v###VERSIONDUMMY###</b>"
         "<p>"
-        "See Eagle3D.pdf or Eagle3D_e.pdf for reference"
+        "See developer.berlios.de/projects/eagle3d/"
         "<p>"
 #40        "Use only for Eagle v4.08 to v4.09r2"
 #41        "Use only for Eagle v4.10 and later"

@@ -1228,7 +1228,7 @@ class _Worker:
 				f_inc.write("//Eagle3D ###VERSIONDUMMY### INC-File %s\n"%(os.path.basename(f_inc_filepath)))
 				f_inc.write("//created by: %s\n"%(SCRIPT_NAME))
 				f_inc.write("//created on: %s\n"%(worker.formatted_datetime()))
-				f_inc.write("//(c) 2002-2010 by M. Weisser\n")
+				f_inc.write("//(c) 2011 by M. Weisser\n")
 				f_inc.write("//or the author of the macro\n")
 				f_inc.write("\n")
 
@@ -1357,7 +1357,7 @@ class _Worker:
 					f_pov.write('//POVRay test file for macro %s\n'%(macro[0]))
 					f_pov.write('//created by: %s\n'%(SCRIPT_NAME))
 					f_pov.write('//created on: %s\n'%(worker.formatted_datetime()))
-					f_pov.write('//(c) 2002-2010 by M. Weisser\n')
+					f_pov.write('//(c) 2011 by M. Weisser\n')
 					f_pov.write('\n')
 					f_pov.write('#include "povpre.pov"\n')
 					f_pov.write('#local macroname = "%s"\n'%(macro[0]))
