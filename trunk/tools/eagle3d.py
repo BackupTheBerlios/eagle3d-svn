@@ -561,8 +561,8 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 		self.set(section, 'nice',                             str(which('nice')))
 		self.set(section, 'convert',                          str(which('convert')))
 		self.set(section, 'montage',                          str(which('montage')))
+		self.set(section, 'recode',                           str(which('recode')))
 		self.set(section, 'makensis',                         str(which('makensis')))
-
 
 ###############################################################################
 #
@@ -1557,6 +1557,7 @@ class _Worker:
 
 		total_errors = 0
 
+		#Set the release name in all files
 		logger.info('setting the current version in all files...')
 		for filepattern in ['*.ulp', '*.dat', '*.inc', '*.txt']:
 			for rootdir, dirlist, filelist in os.walk(env.RELEASEDIR):
@@ -1566,6 +1567,22 @@ class _Worker:
 					if retcode != 0:
 						total_errors = total_errors+1
 
+		#We need latin2 encoding for older Eagles
+		_recode = config._getbin('recode')
+		if _recode:
+			logger.info('Recoding files for Eagle 4.x to latin2...')
+			for filepattern in ['*40.ulp', '*41.ulp']:
+				for rootdir, dirlist, filelist in os.walk(env.RELEASEDIR):
+					for filepath in glob.glob(os.path.join(rootdir, filepattern)):
+						if not quiet: logger.info('  %s'%(filepath))
+						retcode = subprocess_call([_recode, "u8..latin2", filepath])
+						if retcode != 0:
+							total_errors = total_errors+1
+		else:
+			logger.info('Need "recode" to do a release...')
+			return
+
+		#Be sure to have Unix line endings
 		logger.info('preparing release for *nix systems...')
 		_dos2unix = config._getbin('dos2unix')
 		if _dos2unix:
@@ -1578,6 +1595,7 @@ class _Worker:
 						if retcode != 0:
 							total_errors = total_errors+1
 
+		#Create the output tars
 		_tar = config._getbin('tar')
 		if _tar:
 			if config._getbin('bzip2'):
@@ -1602,6 +1620,7 @@ class _Worker:
 		else:
 			logger.info('cound not find tar, not making tar.* archives')
 
+		#Making DOS line endings
 		logger.info('preparing release for non *nix systems...')
 		_unix2dos = False
 		_unix2dos = config._getbin('todos')
@@ -1617,6 +1636,7 @@ class _Worker:
 						if retcode != 0:
 							total_errors = total_errors+1
 
+		#Create the output ZIP
 		_zip = config._getbin('zip')
 		if _zip:
 			filepath = os.path.join(env.ARCHIVE_OUTPUT_DIR, "eagle3d_"+release_safename+".zip")
@@ -1628,6 +1648,7 @@ class _Worker:
 		else:
 			logger.info('cound not find zip, not making zip archive')
 		
+		#Create the windows installer
 		_makensis = config._getbin('makensis')
 		if _makensis:
 			command = [_makensis, '-DVERSION=' + release_safename, env.SCRIPTDIR + '/installer/installer.nsi' ]
@@ -1782,6 +1803,7 @@ class _Worker:
 
 		total_errors = total_errors + warning_rendering_procs
 
+		# Creating gallery files
 		total_rendering_results = total_rendering_attempts + total_rendering_skipped
 		_im_montage = config._getbin('montage')
 		render_colsperpage = config._get('render_colsperpage')
