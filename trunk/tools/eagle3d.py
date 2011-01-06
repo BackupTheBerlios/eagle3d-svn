@@ -863,7 +863,7 @@ class env:
 			env.RELEASEDIR = os.path.join(env.OUTDIR_ROOT,'eagle3d')
 			env.RELEASEDIR_ULP = os.path.join(env.RELEASEDIR,'ulp')
 			env.RELEASEDIR_POVRAY = os.path.join(env.RELEASEDIR,'povray')
-			env.RELEASEDIR_ULP = os.path.join(env.RELEASEDIR,'doc')
+			env.RELEASEDIR_DOC = os.path.join(env.RELEASEDIR,'doc')
 			env.RELEASEDIR_EXAMPLES = os.path.join(env.RELEASEDIR,'examples')
 
 		#is the working directory one level up from tools?
