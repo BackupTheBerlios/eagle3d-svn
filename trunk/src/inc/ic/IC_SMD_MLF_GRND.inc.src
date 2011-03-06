@@ -73,32 +73,37 @@ union{
         object{TOOLS_PCB_SMD(cool_x,cool_z,H/2,15) texture{e3d_tex_silver}}
     #end
 
+    // OStan edited (did not work for MLF64)
+
     // Pins auf linker Seite
     #local i=0;
-    #while(i<(pin_l/2))
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-(div(pin_l,2)-i)*pitch,0,-BK/2-0.01> rotate<0,90,0> }
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_l,2)-i)*pitch,0,-BK/2-0.01> rotate<0,90,0> }
+    #while(i<(pin_l))
+        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-((pin_l-1)/2-i)*pitch,0,-BK/2-0.01> rotate<0,90,0> }
+        //object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_l,2)-i)*pitch,0,-BK/2-0.01> rotate<0,90,0> }
         #local i=i+1;
     #end
+    
     // Pins auf rechter Seite
     #local i=0;
-    #while(i<(pin_r/2))
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-(div(pin_r,2)-i)*pitch,0,-BK/2-0.01> rotate<0,-90,0> }
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_r,2)-i)*pitch,0,-BK/2-0.01> rotate<0,-90,0> }
+    #while(i<(pin_r))
+        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-((pin_r-1)/2-i)*pitch,0,-BK/2-0.01> rotate<0,-90,0> }
+        //object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_r,2)-i)*pitch,0,-BK/2-0.01> rotate<0,-90,0> }
         #local i=i+1;
     #end
+         
     // Pins auf vorderen/"unteren" Seite
     #local i=0;
-    #while(i<pin_u)
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-(div(pin_u,2)-i)*pitch,0,-LK/2-0.01>}
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_u,2)-i)*pitch,0,-LK/2-0.01>}
+    #while(i<(pin_u))
+        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-((pin_u-1)/2-i)*pitch,0,-LK/2-0.01>}
+        //object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_u,2)-i)*pitch,0,-LK/2-0.01>}
         #local i=i+1;
-    #end
+    #end    
+
     // Pins auf hinteren/"oberen" Seite
     #local i=0;
     #while(i<pin_o)
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-(div(pin_o,2)-i)*pitch,0,-LK/2-0.01> rotate<0,180,0> }
-        object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_o,2)-i)*pitch,0,-LK/2-0.01> rotate<0,180,0> }
+        object{MLF_PIN(pin_h,pin_br,pin_t) translate<-((pin_o-1)/2-i)*pitch,0,-LK/2-0.01> rotate<0,180,0> }
+        //object{MLF_PIN(pin_h,pin_br,pin_t) translate<+(div(pin_o,2)-i)*pitch,0,-LK/2-0.01> rotate<0,180,0> }
         #local i=i+1;
     #end
     rotate<0,KORW,0>
