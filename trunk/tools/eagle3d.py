@@ -1277,50 +1277,54 @@ class _Worker:
 				# get the main macro name and argument list
 				mainmacro = incsrc.parse_inc_src(2)
 
-				# print the comments
-				f_inc.write("/********************************************************************************************************************************************\n")
-				for i in incsrc.parse_inc_src(0):
-					f_inc.write(i)
-					f_inc.write("\n")
-				f_inc.write("********************************************************************************************************************************************/\n")
-
-				# print the macro header
-				f_inc.write("#macro ")
-				f_inc.write(mainmacro[0])
-				f_inc.write(mainmacro[1])
-				f_inc.write("\n")
-
-				# print the main macro body
-				for i in incsrc.parse_inc_src(5):
-					f_inc.write(i)
-					f_inc.write("\n")
-
-				# print the macro calls
-				for i in incsrc.parse_inc_src(3):
-					if i.strip() == '':
-						pass
-					elif i[:2] == "//":
-						f_inc.write(i)
-						f_inc.write("\n")
-					elif i[:1] == "(":
-						f_inc.write(mainmacro[0])
-						f_inc.write(i)
-						f_inc.write("\n#end\n")
-					else:
-						f_inc.write("#macro ")
-						f_inc.write(i)
-						f_inc.write("\n")
-
-				f_inc.write("\n\n")
-				f_inc.close()
 
 				####################
 				# append the 3dpack.dat file
 				for i in incsrc.parse_inc_src(1):
 					f_3dpack.write(i)
 					f_3dpack.write("\n")
-
 				####################
+
+				if incsrc.parse_inc_src(3):
+					# print the comments
+					f_inc.write("//***************************************************************************\n")
+					for i in incsrc.parse_inc_src(0):
+						f_inc.write(i)
+						f_inc.write("\n")
+					f_inc.write("//***************************************************************************\n")
+
+					# print the macro header
+					f_inc.write("#macro ")
+					f_inc.write(mainmacro[0])
+					f_inc.write(mainmacro[1])
+					f_inc.write("\n")
+
+					# print the main macro body
+					for i in incsrc.parse_inc_src(5):
+						f_inc.write(i)
+						f_inc.write("\n")
+
+					# print the macro calls
+					for i in incsrc.parse_inc_src(3):
+						if i.strip() == '':
+							pass
+						elif i[:2] == "//":
+							f_inc.write(i)
+							f_inc.write("\n")
+						elif i[:1] == "(":
+							f_inc.write(mainmacro[0])
+							f_inc.write(i)
+							f_inc.write("\n#end\n")
+						else:
+							f_inc.write("#macro ")
+							f_inc.write(i)
+							f_inc.write("\n")
+
+					f_inc.write("\n\n")
+					f_inc.close()
+				else:
+					return 1
+
 				# build the povray files
 				macro_list = []
 				for i in incsrc.parse_inc_src(3):
