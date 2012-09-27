@@ -27,7 +27,6 @@ NOEAGLEPAC:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_T
 RES_DIS_TRIM_BI_TECH_GRND
 (L,W,H,Color,S_Dia,Pitch,Model)
 ###############################################################################
-// waagerecht
 RES_DIS_TRIM_BI_TECH_64W(value)
 (6.35,4.19,6.86,Khaki,1.78,0,"64W")
 RES_DIS_TRIM_BI_TECH_64Y(value)
@@ -91,6 +90,7 @@ union {
     object{Leads translate< 2.54,0,-Pitch>} // Lead 3
     texture{col_silver}
   }
+
   // Adjustment Screw
   difference{
     cylinder{<0,0,0> <0,1.02,0>S_Dia/2}
@@ -98,6 +98,8 @@ union {
     translate <-1.65,H-0.01,(W/2)-1.4>
     texture{col_silver}
   }
+
+  // Text
   union{
     text {ttf besch_font value 0.1,0 scale<1,1,0>
       rotate<-270,0,0> translate<-L/2+1.25,H+0.01,-W+2.5>}
