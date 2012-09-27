@@ -13,7 +13,7 @@ Tactile Switch
 // L:           Lenght of switch
 // W:           Width of switch
 // H:           Height of switch
-// L_Width:  Lead width
+// L_Width:     Lead width
 // Lead_X:      Lead 1 X location - Use Positive Number
 // Lead_Y:      Lead 1 Y location - Use Positive Number
 // Lead_Y_ESD:  ESD Lead Y location - Use Positive Number (0 for no lead)
@@ -37,7 +37,7 @@ NOEAGLEPAC:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TA
 NOEAGLEPAC:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_12X12X120(:Tact switch 12x12x4.3:
 ####################################################################################################
 SWITCH_TACT_GRND
-()
+(L, W, H, L_Width, Lead_X, Lead_Y, Lead_Y_ESD, B_Dia, B_Height, Color)
 ####################################################################################################
 SWITCH_TACT_6X6X43()
 (6, 6, 3.6, 0.7, 3.25, 2.25, 0, 4, 4.3, Black)
@@ -98,11 +98,11 @@ union{
   //// Placement of rivets
   // Rivet 1 - Upper Left
   union{Rivet_Shape translate<-((L/2)-(B_Dia/5)),0, ((W/2)-(B_Dia/5))>}	
-	// Rivet 2 - Upper Right
+  // Rivet 2 - Upper Right
   union{Rivet_Shape translate< ((L/2)-(B_Dia/5)),0, ((W/2)-(B_Dia/5))>}
-	// Rivet 3 - Lower Left
+  // Rivet 3 - Lower Left
   union{Rivet_Shape translate<-((L/2)-(B_Dia/5)),0,-((W/2)-(B_Dia/5))>}
-	// Rivet 4 - Lower Right
+  // Rivet 4 - Lower Right
   union{Rivet_Shape translate< ((L/2)-(B_Dia/5)),0,-((W/2)-(B_Dia/5))>}
 
   // Lead construction
@@ -153,4 +153,5 @@ union{
   #end
 }
 #end
+
 
