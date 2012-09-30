@@ -1,0 +1,276 @@
+16x2 LCD
+//
+//   LCD Macro
+//
+//  By MC Cason <farmerboy1967(replace with at)gmail.com>
+// Text handling by Jeremy Blum jeremy@jeremyblum.com
+//
+//  ***** Almost there, Needs a bit more Work *****
+//
+// Color:     Color of LCD
+// BL:        Turn Backlight on
+// Height:    Height of LCD above board.
+//
+//  Standoffs are working, but the screw heads need to be created, and
+// the pin header needs to be added.
+//
+###############################################################################
+NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_1602(:LCD 16 x 2 Adafruit:
+NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 Sparkfun:
+###############################################################################
+SPC_LCD_16X2_GRND
+(Color,BL,Height)
+###############################################################################
+SPC_LCD_1602(Color,BL,Height)
+(Color,BL,Height)
+SPC_LCD_16X2(Color,BL,Height)
+(Color,BL,Height) translate<-40,0,-18>
+###############################################################################
+###############################################################################
+  #local USER_GRID = 2.54;
+  #local USER_PCB_THICKNESS = 1.6;
+  #local USER_LCD_FONT = "alphalcd.ttf";
+  #local USER_LCD_MESSAGE_1 = "16x2 LCD Module ";
+  #local USER_LCD_MESSAGE_2 = "0123456789012345";
+  #local USER_LCD_MESSAGE_3 = "0123456789012345";
+  #local USER_LCD_MESSAGE_4 = "0123456789012345";
+
+  // Amber on Black
+  #if(Color = 0)
+    #local C_Text= pigment{OldGold}; // ??? for Amber
+    #if(BL =1) // Backlight on
+      #local C_LCD = pigment{DarkSlateGray};
+    #else // Backlight off
+      #local C_LCD = pigment{Black}; 
+    #end
+  #end
+  // Amber on Blue
+  #if(Color = 1)
+    #local C_Text= pigment{OldGold};
+    #if(BL =1) // Backlight on
+      #local C_LCD = pigment{SlateBlue};
+    #else // Backlight off
+      #local C_LCD = pigment{DarkSlateBlue}; 
+    #end
+  #end
+  // Black on Grey
+  #if(Color = 2)
+    #local C_Text= pigment{Black};
+    #if(BL =1) // Backlight on
+      #local C_LCD = pigment{Gray50};
+    #else // Backlight off
+      #local C_LCD = pigment{Gray20}; 
+    #end
+  #end
+  // Black on Yellow/Green
+  #if(Color = 3)
+    #local C_Text= pigment{Black};
+    #if(BL =1) // Backlight on
+      #local C_LCD = pigment{YellowGreen};
+    #else // Backlight off
+      #local C_LCD = pigment{DarkGreen}; 
+    #end
+  #end
+  // White on Blue
+  #if(Color = 4)
+    #local C_Text= pigment{White};
+    #if(BL =1) // Backlight on
+      #local C_LCD = pigment{SlateBlue};
+    #else // Backlight off
+      #local C_LCD = pigment{DarkSlateBlue}; 
+    #end
+  #end
+
+  #local msg_string_1 = text {
+    ttf USER_LCD_FONT, USER_LCD_MESSAGE_1, 1, 0
+    rotate < 90, 0, 0 >
+    scale < 5, 0.1, 5 >
+    texture {C_Text}
+  }
+  #local msg_string_2 = text {
+    ttf USER_LCD_FONT, USER_LCD_MESSAGE_2, 1, 0
+    rotate < 90, 0, 0 >
+    scale < 5, 0.1, 5 >
+    texture {C_Text}
+  }
+  //#local message_extent_1=max_extent(message_string_1);
+  //#local message_extent_2=max_extent(message_string_2);
+  #local Height = (Height+2.3)+pcb_height;
+
+  union{
+    // Standoffs
+    union{
+      #local Stand = difference{
+        cylinder{<0,0,0>    <0,-(Height-pcb_height),0>2.5}
+        cylinder{<0,2,0> <0,-(Height-pcb_height)-1>1.35}
+      };
+      object{Stand translate< 2.5,-1.6, 2.5>}
+      object{Stand translate< 2.5,-1.6,33.5>}
+      object{Stand translate<77.5,-1.6, 2.5>}
+      object{Stand translate<77.5,-1.6,33.5>}
+      texture{pigment{Silver}}
+      translate<0,Height,0>
+    }
+
+    // Complete Board
+    union{
+      difference{
+        union{
+          //Board
+          prism{-1.500000,0.000000,8
+            <0.000000,0.000000><80.000000,0.000000>
+            <80.000000,0.000000><80.000000,36.000000>
+            <80.000000,36.000000><0.000000,36.000000>
+            <0.000000,36.000000><0.000000,0.000000>
+            texture{pigment{DarkGreen}}
+          }//End union(PCB)
+        }
+        union{
+          //Holes(real)/Parts
+          //Holes(real)/Board
+          cylinder{<2.500000,1,33.500000><2.500000,-5,33.500000>1.250000 texture{col_hls}}
+          cylinder{<2.500000,1,2.500000><2.500000,-5,2.500000>1.250000 texture{col_hls}}
+          cylinder{<77.500000,1,33.500000><77.500000,-5,33.500000>1.250000 texture{col_hls}}
+          cylinder{<77.500000,1,2.500000><77.500000,-5,2.500000>1.250000 texture{col_hls}}
+          //Holes(real)/Vias
+          cylinder{<8.000000,0.038000,33.500000><8.000000,-1.538000,33.500000>0.508000}
+          cylinder{<10.540000,0.038000,33.500000><10.540000,-1.538000,33.500000>0.508000}
+          cylinder{<13.080000,0.038000,33.500000><13.080000,-1.538000,33.500000>0.508000}
+          cylinder{<15.620000,0.038000,33.500000><15.620000,-1.538000,33.500000>0.508000}
+          cylinder{<18.160000,0.038000,33.500000><18.160000,-1.538000,33.500000>0.508000}
+          cylinder{<20.700000,0.038000,33.500000><20.700000,-1.538000,33.500000>0.508000}
+          cylinder{<23.240000,0.038000,33.500000><23.240000,-1.538000,33.500000>0.508000}
+          cylinder{<25.780000,0.038000,33.500000><25.780000,-1.538000,33.500000>0.508000}
+          cylinder{<28.320000,0.038000,33.500000><28.320000,-1.538000,33.500000>0.508000}
+          cylinder{<30.860000,0.038000,33.500000><30.860000,-1.538000,33.500000>0.508000}
+          cylinder{<33.400000,0.038000,33.500000><33.400000,-1.538000,33.500000>0.508000}
+          cylinder{<35.940000,0.038000,33.500000><35.940000,-1.538000,33.500000>0.508000}
+          cylinder{<38.480000,0.038000,33.500000><38.480000,-1.538000,33.500000>0.508000}
+          cylinder{<41.020000,0.038000,33.500000><41.020000,-1.538000,33.500000>0.508000}
+          cylinder{<43.560000,0.038000,33.500000><43.560000,-1.538000,33.500000>0.508000}
+          cylinder{<46.100000,0.038000,33.500000><46.100000,-1.538000,33.500000>0.508000}
+          //Holes(fast)/Vias
+          //Holes(fast)/Board
+          cylinder{<10.000000,0.038000,31.150000><10.000000,-1.538000,31.150000>0.500000 }
+          cylinder{<14.000000,0.038000,31.150000><14.000000,-1.538000,31.150000>0.500000 }
+          cylinder{<38.000000,0.038000,31.150000><38.000000,-1.538000,31.150000>0.500000 }
+          cylinder{<42.000000,0.038000,31.150000><42.000000,-1.538000,31.150000>0.500000 }
+          cylinder{<70.000000,0.038000,31.150000><70.000000,-1.538000,31.150000>0.500000 }
+          cylinder{<66.000000,0.038000,31.150000><66.000000,-1.538000,31.150000>0.500000 }
+          cylinder{<70.000000,0.038000,4.850000><70.000000,-1.538000,4.850000>0.500000 }
+          cylinder{<66.000000,0.038000,4.850000><66.000000,-1.538000,4.850000>0.500000 }
+          cylinder{<38.000000,0.038000,4.850000><38.000000,-1.538000,4.850000>0.500000 }
+          cylinder{<42.000000,0.038000,4.850000><42.000000,-1.538000,4.850000>0.500000 }
+          cylinder{<10.000000,0.038000,4.850000><10.000000,-1.538000,4.850000>0.500000 }
+          cylinder{<14.000000,0.038000,4.850000><14.000000,-1.538000,4.850000>0.500000 }
+          texture{col_hls}
+        }
+        union{
+          #local Cutout = box{<0,0.1,0><4,-1.7,1>}
+          object{Cutout translate<10,0, 4.35>}
+          object{Cutout translate<38,0, 4.35>}
+          object{Cutout translate<66,0, 4.35>}
+          object{Cutout translate<10,0,30.65>}
+          object{Cutout translate<38,0,30.65>}
+          object{Cutout translate<66,0,30.65>}
+        }
+      }
+      union{
+        #local Pad = object{
+          union{
+            difference{
+              box{<-1,0,-1><1,0.038,2.25>}
+              cylinder{<0,-1,0><0,1.1,0>0.5}
+            }
+            difference{
+              cylinder{<0,0.01,0><0,-1.637,0>0.6}
+              cylinder{<0,0.02,0><0,-1.638,0>0.5}
+            }
+            difference{
+              box{<-1,-1.6,-1><1,-1.638,2.25>}
+              cylinder{<0,-1.5,0><0,-1.7,0>0.508}
+            }
+          }
+        };
+        object{Pad translate <8.000,0,33.5>} 
+        object{Pad translate <10.54,0,33.5>} 
+        object{Pad translate <13.08,0,33.5>} 
+        object{Pad translate <15.62,0,33.5>} 
+        object{Pad translate <18.16,0,33.5>} 
+        object{Pad translate <20.70,0,33.5>} 
+        object{Pad translate <23.24,0,33.5>} 
+        object{Pad translate <25.78,0,33.5>} 
+        object{Pad translate <28.32,0,33.5>} 
+        object{Pad translate <30.86,0,33.5>} 
+        object{Pad translate <33.40,0,33.5>} 
+        object{Pad translate <35.94,0,33.5>} 
+        object{Pad translate <38.48,0,33.5>} 
+        object{Pad translate <41.02,0,33.5>} 
+        object{Pad translate <43.56,0,33.5>} 
+        object{Pad translate <46.10,0,33.5>} 
+        texture{T_Silver_5A}
+      }
+      translate <0,Height,0>
+    }
+
+    // Main Body of LCD Module
+    box{<0,0,0><64.5,6,16.4> translate<7.75,0,9.8>
+      texture{pigment{Gray80}}
+      translate<0,Height,0>
+    }
+
+    // Display
+    union{
+      // Simulated Glass Screen
+      box{<0,0,0><71.3,3,26.3>
+        texture{pigment{Gray70}}
+        translate<4.35,6,4.85>
+      }
+      // Backlight
+      union{
+        box{<0,0,0><65,0.1,17> texture{C_LCD}}
+        // Text Overlay
+        object{msg_string_1 translate<4.2,0.2,9>}
+        object{msg_string_2 translate<3.5,0.2,2>}
+        translate<7.5,9,9.5>
+      }
+      translate<0,Height,0>
+    }
+
+    // Cover that surrounds LCD Panel
+    union{
+      difference{
+        // Top Cover
+        box{<0,0,0>     <71.3,1,26.3> translate<4.35,8.6,4.85>}
+        // Cutout
+        box{<0,-0.1,0><64.5,1.1,16.4> translate<7.75,8.6,9.8>}
+        // Clip Corners
+        #local Cor = box{<-0.1,-0.1,-0.1><0.51,1.1,0.51>}
+        object{Cor translate< 4.44,8.6,30.66>} // Top Left
+        object{Cor translate<75.15,8.6,30.66>} // Top Right
+        object{Cor translate< 4.44,8.6, 4.94>} // Bottom Left
+        object{Cor translate<75.15,8.6, 4.94>} // Bottom Rigth
+        //texture{pigment{Blue}} // For Testing
+      }
+      // Front and Back Radius
+      #local FB_Cyl = cylinder{<0.5,0,0><70.8,0,0>0.5};
+      object{FB_Cyl translate<4.35,9.1,31.15>} // Front
+      object{FB_Cyl translate<4.35,9.1, 4.85>} // Back
+      // Left and Right Radius
+      #local LR_Cyl = cylinder{<0,0,0.5><0,0,25.8>0.5};
+      object{LR_Cyl translate<4.35,9.1,4.85>} // Left
+      object{LR_Cyl translate<75.65,9.1,4.85>} // Right
+      // Front and Back Panel
+      #local FB_Side = box{<0.5,0,0><70.8,8.6,1>};
+      object{FB_Side translate<4.35,0.5,30.65>} // Front
+      object{FB_Side translate<4.35,0.5, 4.35>} // Back
+      // Left and Right Panel
+      #local LR_Side = box{<0,0,0.5><1,8.6,25.8>};
+      object{LR_Side translate< 3.85,0.5,4.85>} // Left
+      object{LR_Side translate<75.05,0.5,4.85>} // Right
+      texture{pigment{Black} finish{F_MetalA ambient(0.1*global_ambient_mul)}}
+      translate<0,Height,0>
+    }
+  }
+#end
+
