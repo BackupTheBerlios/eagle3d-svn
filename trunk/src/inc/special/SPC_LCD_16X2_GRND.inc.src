@@ -11,20 +11,23 @@
 // BL:        Turn Backlight on
 // Height:    Height of LCD above board.
 //
+//   The H1 - H5 are used to display exploded view of the LCD.  They are 
+// commented out by default.
+//
 //  Standoffs are working, but the screw heads need to be created, and
 // the pin header needs to be added.
 //
 ###############################################################################
-NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_1602(:LCD 16 x 2 Adafruit:
-NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 Sparkfun:
+NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_1602(:LCD 16 x 2 - Adafruit:
+NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - Sparkfun:
 ###############################################################################
 SPC_LCD_16X2_GRND
-(Color,BL,Height)
+(Color,BL,Height,H1,H2,H3,H4,H5)
 ###############################################################################
 SPC_LCD_1602(Color,BL,Height)
-(Color,BL,Height)
+(Color,BL,Height,0,0,0,0,0)  // Adafruit LCD
 SPC_LCD_16X2(Color,BL,Height)
-(Color,BL,Height) translate<-40,0,-18>
+(Color,BL,Height,0,0,0,0,0) translate<-40,0,-18> // Sparkfun LCD
 ###############################################################################
 ###############################################################################
   #local USER_GRID = 2.54;
@@ -35,9 +38,15 @@ SPC_LCD_16X2(Color,BL,Height)
   #local USER_LCD_MESSAGE_3 = "0123456789012345";
   #local USER_LCD_MESSAGE_4 = "0123456789012345";
 
+  //Simulated holes
+  #local col_hls =  texture{
+    pigment{Black}
+    finish{ambient (0.1 * global_ambient_mul)}
+  }
+
   // Amber on Black
   #if(Color = 0)
-    #local C_Text= pigment{OldGold}; // ??? for Amber
+    #local C_Text= pigment{OldGold}; // ??? for Amber ???
     #if(BL =1) // Backlight on
       #local C_LCD = pigment{DarkSlateGray};
     #else // Backlight off
@@ -46,7 +55,7 @@ SPC_LCD_16X2(Color,BL,Height)
   #end
   // Amber on Blue
   #if(Color = 1)
-    #local C_Text= pigment{OldGold};
+    #local C_Text= pigment{OldGold}; // ??? for Amber ???
     #if(BL =1) // Backlight on
       #local C_LCD = pigment{SlateBlue};
     #else // Backlight off
@@ -93,8 +102,8 @@ SPC_LCD_16X2(Color,BL,Height)
     scale < 5, 0.1, 5 >
     texture {C_Text}
   }
-  //#local message_extent_1=max_extent(message_string_1);
-  //#local message_extent_2=max_extent(message_string_2);
+
+  // Raise Board above the components that should be on the back of the board
   #local Height = (Height+2.3)+pcb_height;
 
   union{
@@ -109,7 +118,7 @@ SPC_LCD_16X2(Color,BL,Height)
       object{Stand translate<77.5,-1.6, 2.5>}
       object{Stand translate<77.5,-1.6,33.5>}
       texture{pigment{Silver}}
-      translate<0,Height,0>
+      //translate<0,H1,0>
     }
 
     // Complete Board
@@ -166,13 +175,14 @@ SPC_LCD_16X2(Color,BL,Height)
           texture{col_hls}
         }
         union{
+          // Slot Cutouts
           #local Cutout = box{<0,0.1,0><4,-1.7,1>}
-          object{Cutout translate<10,0, 4.35>}
-          object{Cutout translate<38,0, 4.35>}
-          object{Cutout translate<66,0, 4.35>}
-          object{Cutout translate<10,0,30.65>}
-          object{Cutout translate<38,0,30.65>}
-          object{Cutout translate<66,0,30.65>}
+          object{Cutout translate<10,0, 4.35>} // Bottom Left
+          object{Cutout translate<38,0, 4.35>} // Bottom Center
+          object{Cutout translate<66,0, 4.35>} // Bottom Right
+          object{Cutout translate<10,0,30.65>} // Top Left
+          object{Cutout translate<38,0,30.65>} // Top Center
+          object{Cutout translate<66,0,30.65>} // Top Right
         }
       }
       union{
@@ -208,33 +218,34 @@ SPC_LCD_16X2(Color,BL,Height)
         object{Pad translate <41.02,0,33.5>} 
         object{Pad translate <43.56,0,33.5>} 
         object{Pad translate <46.10,0,33.5>} 
-        texture{T_Silver_5A}
+        texture{F_MetalC}
       }
-      translate <0,Height,0>
-    }
-
-    // Main Body of LCD Module
-    box{<0,0,0><64.5,6,16.4> translate<7.75,0,9.8>
-      texture{pigment{Gray80}}
-      translate<0,Height,0>
+      //translate <0,H2,0>
     }
 
     // Display
     union{
-      // Simulated Glass Screen
-      box{<0,0,0><71.3,3,26.3>
-        texture{pigment{Gray70}}
-        translate<4.35,6,4.85>
+      // Main Body of LCD Module - with Backlight
+      box{<0,0,0><64.5,7.5,16.4>
+        texture{pigment{P_Chrome4}}
+        translate<7.75,0,9.8>
       }
-      // Backlight
+      box{<0,7.5,0><64.5,7.52,16.4>
+        texture{C_LCD}
+        translate<7.75,0,9.8>
+      }
       union{
-        box{<0,0,0><65,0.1,17> texture{C_LCD}}
-        // Text Overlay
-        object{msg_string_1 translate<4.2,0.2,9>}
-        object{msg_string_2 translate<3.5,0.2,2>}
-        translate<7.5,9,9.5>
+        object{msg_string_1 translate<4.2,7.54,9.2>}
+        object{msg_string_2 translate<3.5,7.54,3>}
+        translate<7.75,0,9.8>
       }
-      translate<0,Height,0>
+      //translate<0,H3,0>
+    }
+
+    // Glass Screen - slight green tint, 98% opacity.
+    box{<0,0,0><71.3,1.5,26.3> translate<4.35,8,4.85>
+      texture{pigment {rgbf <0.99, 1, 0.99, 0.98>}}
+      //translate<0,H4,0>
     }
 
     // Cover that surrounds LCD Panel
@@ -246,10 +257,10 @@ SPC_LCD_16X2(Color,BL,Height)
         box{<0,-0.1,0><64.5,1.1,16.4> translate<7.75,8.6,9.8>}
         // Clip Corners
         #local Cor = box{<-0.1,-0.1,-0.1><0.51,1.1,0.51>}
-        object{Cor translate< 4.44,8.6,30.66>} // Top Left
-        object{Cor translate<75.15,8.6,30.66>} // Top Right
-        object{Cor translate< 4.44,8.6, 4.94>} // Bottom Left
-        object{Cor translate<75.15,8.6, 4.94>} // Bottom Rigth
+        object{Cor translate< 4.35,8.6,30.75>} // Top Left
+        object{Cor translate<75.25,8.6,30.75>} // Top Right
+        object{Cor translate< 4.35,8.6, 4.85>} // Bottom Left
+        object{Cor translate<75.25,8.6, 4.85>} // Bottom Rigth
         //texture{pigment{Blue}} // For Testing
       }
       // Front and Back Radius
@@ -268,9 +279,10 @@ SPC_LCD_16X2(Color,BL,Height)
       #local LR_Side = box{<0,0,0.5><1,8.6,25.8>};
       object{LR_Side translate< 3.85,0.5,4.85>} // Left
       object{LR_Side translate<75.05,0.5,4.85>} // Right
-      texture{pigment{Black} finish{F_MetalA ambient(0.1*global_ambient_mul)}}
-      translate<0,Height,0>
+      texture{pigment{P_Chrome1}}
+      translate<0,H5,0>
     }
+    translate<0,Height,0>
   }
 #end
 
