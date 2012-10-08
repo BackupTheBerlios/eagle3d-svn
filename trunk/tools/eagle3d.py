@@ -534,6 +534,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 			self.add_section(section)
 		self.set(section, 'value,col,tra,height',             '"POV",Red,0.7,0')
 		self.set(section, 'col,tra,height',                   'Red,0.7,0')
+		self.set(section, 'col,backlight,height',             '3,1,0')
 		self.set(section, 'col,tra',                          'Red,0.7')
 		self.set(section, 'color_sub',                        'DarkWood')
 		self.set(section, 'value,logo',                       '"POV",""')
@@ -822,6 +823,9 @@ class env:
 	SRCDIR_DATA = None
 	SRCDIR_DOC = None
 	SRCDIR_EXAMPLES = None
+	SRCDIR_LIBRARIES = None
+	SRCDIR_LIBRARIES_EAGLE = None
+	SRCDIR_LIBRARIES_EAGLE_6x = None
 	SRCDIR_INC = None
 	SRCDIR_ULP = None
 
@@ -836,6 +840,9 @@ class env:
 	RELEASEDIR_POVRAY = None
 	RELEASEDIR_ULP = None
 	RELEASEDIR_EXAMPLES = None
+	RELEASEDIR_LIBRARIES = None
+	RELEASEDIR_LIBRARIES_EAGLE = None
+	RELEASEDIR_LIBRARIES_EAGLE_6x = None
 
 	def init():
 		#get the directory we are in currently
@@ -851,6 +858,9 @@ class env:
 			env.SRCDIR_DATA = os.path.join(env.SRCDIR_ROOT,'data')
 			env.SRCDIR_DOC = os.path.join(env.SRCDIR_ROOT,'doc')
 			env.SRCDIR_EXAMPLES = os.path.join(env.SRCDIR_ROOT,'examples')
+			env.SRCDIR_LIBRARIES = os.path.join(env.SRCDIR_ROOT,'libraries')
+			env.SRCDIR_LIBRARIES_EAGLE = os.path.join(env.SRCDIR_ROOT,'libraries/eagle')
+			env.SRCDIR_LIBRARIES_EAGLE_6x = os.path.join(env.SRCDIR_ROOT,'libraries/eagle-6x')
 			env.SRCDIR_INC = os.path.join(env.SRCDIR_ROOT,'inc')
 			env.SRCDIR_ULP = os.path.join(env.SRCDIR_ROOT,'ulp')
 
@@ -865,6 +875,9 @@ class env:
 			env.RELEASEDIR_POVRAY = os.path.join(env.RELEASEDIR,'povray')
 			env.RELEASEDIR_DOC = os.path.join(env.RELEASEDIR,'doc')
 			env.RELEASEDIR_EXAMPLES = os.path.join(env.RELEASEDIR,'examples')
+			env.RELEASEDIR_LIBRARIES = os.path.join(env.RELEASEDIR,'libraries')
+			env.RELEASEDIR_LIBRARIES_EAGLE = os.path.join(env.RELEASEDIR,'libraries/eagle')
+			env.RELEASEDIR_LIBRARIES_EAGLE_6x = os.path.join(env.RELEASEDIR,'libraries/eagle-6x')
 
 		#is the working directory one level up from tools?
 		elif os.path.isdir(os.path.join(env.WORKDIR,'src')) and os.path.isdir(os.path.join(env.WORKDIR,'tools')):
@@ -874,6 +887,9 @@ class env:
 			env.SRCDIR_DATA = os.path.join(env.SRCDIR_ROOT,'data')
 			env.SRCDIR_DOC = os.path.join(env.SRCDIR_ROOT,'doc')
 			env.SRCDIR_EXAMPLES = os.path.join(env.SRCDIR_ROOT,'examples')
+			env.SRCDIR_LIBRARIES = os.path.join(env.SRCDIR_ROOT,'libraries')
+			env.SRCDIR_LIBRARIES_EAGLE = os.path.join(env.SRCDIR_ROOT,'libraries/eagle')
+			env.SRCDIR_LIBRARIES_EAGLE_6x = os.path.join(env.SRCDIR_ROOT,'libraries/eagle-6x')
 			env.SRCDIR_INC = os.path.join(env.SRCDIR_ROOT,'inc')
 			env.SRCDIR_ULP = os.path.join(env.SRCDIR_ROOT,'ulp')
 
@@ -888,6 +904,9 @@ class env:
 			env.RELEASEDIR_POVRAY = os.path.join(env.RELEASEDIR,'povray')
 			env.RELEASEDIR_DOC = os.path.join(env.RELEASEDIR,'doc')
 			env.RELEASEDIR_EXAMPLES = os.path.join(env.RELEASEDIR,'examples')
+			env.RELEASEDIR_LIBRARIES = os.path.join(env.RELEASEDIR,'libraries')
+			env.RELEASEDIR_LIBRARIES_EAGLE = os.path.join(env.RELEASEDIR,'libraries/eagle')
+			env.RELEASEDIR_LIBRARIES_EAGLE_6x = os.path.join(env.RELEASEDIR,'libraries/eagle-6x')
 
 		else:
 			WORKDIR = None
@@ -907,6 +926,9 @@ class env:
 		print "  SRCDIR_DATA: %s"%env.SRCDIR_DATA
 		print "  SRCDIR_DOC: %s"%env.SRCDIR_DOC
 		print "  SRCDIR_EXAMPLES: %s"%env.SRCDIR_EXAMPLES
+		print "  SRCDIR_LIBRARIES: %s"%env.SRCDIR_LIBRARIES
+		print "  SRCDIR_LIBRARIES_EAGLE: %s"%env.SRCDIR_LIBRARIES_EAGLE
+		print "  SRCDIR_LIBRARIES_EAGLE_6x: %s"%env.SRCDIR_LIBRARIES_EAGLE_6x
 		print "  SRCDIR_INC: %s"%env.SRCDIR_INC
 		print "  SRCDIR_ULP: %s"%env.SRCDIR_ULP
 		print "  OUTDIR_ROOT: %s"%env.OUTDIR_ROOT
@@ -919,6 +941,9 @@ class env:
 		print "  RELEASEDIR_POVRAY: %s"%env.RELEASEDIR_POVRAY
 		print "  RELEASEDIR_ULP: %s"%env.RELEASEDIR_ULP
 		print "  RELEASEDIR_EXAMPLES: %s"%env.RELEASEDIR_EXAMPLES
+		print "  RELEASEDIR_LIBRARIES: %s"%env.RELEASEDIR_LIBRARIES
+		print "  RELEASEDIR_LIBRARIES_EAGLE: %s"%env.RELEASEDIR_LIBRARIES_EAGLE
+		print "  RELEASEDIR_LIBRARIES_EAGLE_6x: %s"%env.RELEASEDIR_LIBRARIES_EAGLE_6x
 
 	dump = Callable(dump)
 
@@ -1425,6 +1450,9 @@ class _Worker:
 		os.makedirs(env.RELEASEDIR)
 		os.makedirs(env.RELEASEDIR_DOC)
 		os.makedirs(env.RELEASEDIR_EXAMPLES)
+		os.makedirs(env.RELEASEDIR_LIBRARIES)
+		os.makedirs(env.RELEASEDIR_LIBRARIES_EAGLE)
+		os.makedirs(env.RELEASEDIR_LIBRARIES_EAGLE_6x)
 		os.makedirs(env.RELEASEDIR_POVRAY)
 		os.makedirs(env.RELEASEDIR_ULP)
 
@@ -1437,6 +1465,13 @@ class _Worker:
 		logger.info('copying example files to release directory...')
 		for filepath in glob.glob(os.path.join(env.SRCDIR_EXAMPLES, '*')):
 			shutil.copy2(filepath, env.RELEASEDIR_EXAMPLES)
+
+		logger.info('copying library-eagle files to release directory...')
+		for filepath in glob.glob(os.path.join(env.SRCDIR_LIBRARIES_EAGLE, '*')):
+			shutil.copy2(filepath, env.RELEASEDIR_LIBRARIES_EAGLE)
+		logger.info('copying library-eagle-6x files to release directory...')
+		for filepath in glob.glob(os.path.join(env.SRCDIR_LIBRARIES_EAGLE_6x, '*')):
+			shutil.copy2(filepath, env.RELEASEDIR_LIBRARIES_EAGLE_6x)
 
 		logger.info('copying povray files to release directory...')
 		for filepath in glob.glob(os.path.join(env.OUTDIR_INC, '*.inc')):
@@ -1723,12 +1758,12 @@ class _Worker:
 		template_values['img_extension'] = img_extension
 
 		command_template = string.Template("""${nice_bin} ${render_bin} +L${render_incdir}
-                                                                        +L${render_povdir}
-                                                                        +W${render_size_x} +H${render_size_y} +A${render_aa}
-                                                                        -GW${render_outdir}/warning/${render_file_basename}.warnings.log
-                                                                        -GF${render_outdir}/fatal/${render_file_basename}.fatal.log
-                                                                        +O${render_outdir}/${render_file_basename}${img_extension}
-                                                                        -GS -GR -GD -V -D +I${render_file_fullname}""")
+            +L${render_povdir}
+            +W${render_size_x} +H${render_size_y} +A${render_aa}
+            -GW${render_outdir}/warning/${render_file_basename}.warnings.log
+            -GF${render_outdir}/fatal/${render_file_basename}.fatal.log
+            +O${render_outdir}/${render_file_basename}${img_extension}
+            -GS -GR -GD -V -D +I${render_file_fullname}""")
 
 		if not dryrun:
 			pq = ProcessQueue(max_proc=render_procs, logger=logger)
