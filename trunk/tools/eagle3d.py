@@ -1466,10 +1466,11 @@ class _Worker:
 		for filepath in glob.glob(os.path.join(env.SRCDIR_EXAMPLES, '*')):
 			shutil.copy2(filepath, env.RELEASEDIR_EXAMPLES)
 
-		logger.info('copying library-eagle files to release directory...')
+		logger.info('copying library files to release directory...')
+		for filepath in glob.glob(os.path.join(env.SRCDIR_LIBRARIES, 'README')):
+			shutil.copy2(filepath, env.RELEASEDIR_LIBRARIES)
 		for filepath in glob.glob(os.path.join(env.SRCDIR_LIBRARIES_EAGLE, '*')):
 			shutil.copy2(filepath, env.RELEASEDIR_LIBRARIES_EAGLE)
-		logger.info('copying library-eagle-6x files to release directory...')
 		for filepath in glob.glob(os.path.join(env.SRCDIR_LIBRARIES_EAGLE_6x, '*')):
 			shutil.copy2(filepath, env.RELEASEDIR_LIBRARIES_EAGLE_6x)
 
