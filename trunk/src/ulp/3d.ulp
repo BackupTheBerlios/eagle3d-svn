@@ -1317,6 +1317,7 @@ do{
       dlgTabWidget
       {
 
+
 //*****************************************************************************
 //      Allgemein
 //      Global Tab
@@ -1455,6 +1456,7 @@ do{
           }  // End of Dialog Group - Language
         }  // End of Dialog Tab Page - Global
 
+
 //*****************************************************************************
 //      Platine
 //      Board Tab
@@ -1483,6 +1485,7 @@ do{
           }  // End of Dialog Group - Dimensions
         }  // End of Dialog Tab Page - Board
 
+
 //*****************************************************************************
 //      Kamera
 //      Camera
@@ -1508,6 +1511,7 @@ do{
             }  // End of Dialog Grid Layout
           }  // End of Dialog Group - Position
         }  // End of Dialog Tab Page - Camera
+
 
 //*****************************************************************************
 //      Licht 1+2
@@ -1582,6 +1586,7 @@ do{
           }  // End of Dialog Group - Light 2
         }  // End of Dialog Tab Page - Light 1+2
 
+
 //*****************************************************************************
 //      Licht 3+4
 //      Lights 3+4
@@ -1655,6 +1660,7 @@ do{
           }  // End of Dialog Group - Light 4
         }  //End of Dialog Tab Page - Light 3+4
 
+
 //*****************************************************************************
 //      POVRay
 //*****************************************************************************
@@ -1676,6 +1682,7 @@ do{
 #50            dlgCell(6,0) dlgCheckBox(lang[167], pov_pause);
           }  // End of Dialg Group - POVRay Settings
         }  // End of Dialog Tab Page - POVRay        
+
 
 //*****************************************************************************
 //      Diverses
@@ -1721,6 +1728,7 @@ do{
             }
           }  // End of Dialog Group - Package Creation Layers
         };  // End of Dialog Tab Page - Miscellaneous
+
 
 //*****************************************************************************
 //      Farben
@@ -2202,6 +2210,7 @@ do{
     //Umgebung wird geschrieben
     // Environment is written
     printf("%s",ambient);
+
 
 //*****************************************************************************
 //                             Animation
@@ -2744,6 +2753,7 @@ do{
     }  // End of if statement opt_pcb==1
     printf("#end\n");
 
+
 //*****************************************************************************
 //                                 Parts
 //*****************************************************************************
@@ -2821,6 +2831,11 @@ do{
           // 3dpack.dat in progress
           if((found==1) || (pack_count-i==1))
           {
+
+
+//*****************************************************************************
+//                          Unknown Parts                                        
+//*****************************************************************************
             //Wenn Bauteil nicht gefunden
             //If component is not found
             if(found == 0)
@@ -3019,6 +3034,10 @@ do{
         sprintf(pov_pack,"%s%s,%s,",pov_pack,val2colors(E.value),color_t);
       }
 
+
+//*****************************************************************************
+//                          LED Options                                        
+//*****************************************************************************
       //LED-Optionen
       //LED options
       if(pack_tra[5] == "1")
@@ -3046,6 +3065,10 @@ do{
         sprintf(pov_pack,"%s%f,",pov_pack,led_height);
       }
 
+
+//*****************************************************************************
+//                          LCD Options 1                                       
+//*****************************************************************************
       //LCD-Optionen
       // LCD Options 1
       else if(pack_tra[5] == "2")
@@ -3078,6 +3101,10 @@ do{
         sprintf(pov_pack,"%s%f,",pov_pack,lcd_height);
       }
 
+
+//*****************************************************************************
+//                          LCD Options 2
+//*****************************************************************************
       //LCD-Optionen
       // LCD Options 2
       else if(pack_tra[5] == "3")
@@ -3112,8 +3139,12 @@ do{
         sprintf(pov_pack,"%s%f,",pov_pack,lcd_height);
       }
 
+
+//*****************************************************************************
+//                          Height Option
+//*****************************************************************************
       //Höhe erfragen-Optionen
-      // Call-Options height
+      //Height Call-Options
       if(pack_tra[7] == "1")
       {
         dlgDialog(lang[83])
@@ -3132,14 +3163,20 @@ do{
         };
         sprintf(pov_pack,"%s%d,",pov_pack,height_dlg);
       }
-
+//*****************************************************************************
+//                        SMD Resistors
+//*****************************************************************************
       //SMD-Widerstand Widerstandscode?
-      // SMD-Resistor resistor code?
+      //SMD-Resistor resistor code?
       if(pack_tra[9] == "1")
       {
         sprintf(pov_pack,"%s\"%s\",",pov_pack,rval2rcde(E.value));
       }
 
+
+//*****************************************************************************
+//                          Jumper Options
+//*****************************************************************************
       //Jumper Dialog
       if(pack_tra[19] == "1")
       {
@@ -3183,6 +3220,11 @@ do{
         if(jumper_dlg<3) sprintf(pov_pack,"%s%d,",pov_pack,jumper_dlg);
         else sprintf(pov_pack,"%s%d,",pov_pack,jumper_dlg-3);
       }
+
+
+//*****************************************************************************
+//                          IC Logo Options
+//*****************************************************************************
       //Logo Dialog
       if(pack_tra[20] == "1")
       {
@@ -3210,105 +3252,140 @@ do{
           logo_name = logo_names[logo_selected];
         }                                        
         sprintf(pov_pack,"%s\"%s\",",pov_pack,logo_name);
-        } 
-          //Empty string for logo
-          else if(pack_tra[20] == "2")
-          {
-            sprintf(pov_pack,"%s\"\",",pov_pack);                    
-          }
+      } 
+      //Empty string for logo
+      else if(pack_tra[20] == "2")
+      {
+        sprintf(pov_pack,"%s\"\",",pov_pack);                    
+      }
 
-          //Macro closing brace
-          sprintf(pov_pack,"%s)",pov_pack);
+      //Macro closing brace
+      sprintf(pov_pack,"%s)",pov_pack);
 
-          //Korrekturverschiebung
-          // Shift correction
-          if(E.mirror) sprintf(pack_tra[16],"-%s",pack_tra[16]);
-          sprintf(pov_pack,"%stranslate<%s,%s,%s> ",
-            pov_pack,pack_tra[15],pack_tra[16],pack_tra[17]
-          );
 
+//*****************************************************************************
+//                       Rotation Angle
+//*****************************************************************************
+      //Korrekturverschiebung
+      //shift correction
+      if(E.mirror) sprintf(pack_tra[16],"-%s",pack_tra[16]);
+      sprintf(pov_pack,"%stranslate<%s,%s,%s> ",
+        pov_pack,pack_tra[15],pack_tra[16],pack_tra[17]
+      );
+
+//********************  Begin My Addition  ************************************
+      // If "R", "R"otate parts so that the values all show
+      //   in the same direction (Resisotrs, and Capacitors).
+      if(pack_tra[14] == "R")
+      {
+        if(E.angle==90)
+        {
+          sprintf(pov_pack,"%srotate<0,180,0>",pov_pack);
+        }
+        else if(E.angle==180)
+        {
+          sprintf(pov_pack,"%srotate<0,180,0>",pov_pack);
+        }
+      }
           //Korrekturwinkel vor Positionierung ausgeben
-          // Angle output Correction, before positioning
-          sprintf(pov_pack,"%srotate<0,%f,0>",pov_pack,strtod(pack_tra[14]));
+          // Correction angle output before positioning
+      else
+      {
+        sprintf(pov_pack,"%srotate<0,%f,0>",pov_pack,strtod(pack_tra[14]));
+      }
+//****************************  End  ******************************************
 
-          //Bauteil plazieren
-          // Component placement
-          sprintf(pov_pack,"%srotate<0,%f,0> rotate<0,0,%d> translate<%f,%f,%f>",
-            pov_pack,-E.angle,E.mirror*180,u2mm(E.x),
+
+//*****************************************************************************
+//                        Component Placement
+//*****************************************************************************
+      //Bauteil plazieren
+      // Component placement
+      sprintf(pov_pack,"%srotate<0,%f,0> rotate<0,0,%d> translate<%f,%f,%f>",
+        pov_pack,-E.angle,E.mirror*180,u2mm(E.x),
+        -(pcb_height*E.mirror),u2mm(E.y)
+      );
+
+      //SMD-Höhenoffset
+      // SMD level offset
+      if(pack_tra[4] == "1")
+      {
+        if(E.mirror==0) temp = pcb_cuheight; else temp = -pcb_cuheight;
+        sprintf(pov_pack,"%stranslate<0,%f,0> ",pov_pack,temp);
+      }
+      socket_str="";
+
+
+//*****************************************************************************
+//                          IC Sockets                                        
+//*****************************************************************************
+      //Sockel
+      // IC Sockets
+      if(pack_tra[6] == "1")
+      {
+        if(E.mirror==0) temp = strtod(pack_tra[11]);
+        else temp = -1*strtod(pack_tra[11]);
+        if(socket_dlg<2)
+        {
+          socket_dlg = dlgDialog(lang[90])
+          {
+            dlgGridLayout
+            {
+              dlgCell(0,0) dlgLabel(E.name);
+              dlgCell(0,1) dlgLabel(E.value);
+              dlgCell(0,2) dlgLabel(E.package.name);
+              //sockeln
+              // Socket
+              dlgCell(1,0,1,2) dlgPushButton("+"+lang[91]) dlgAccept(0);
+              //nicht sockeln
+              // non-socketed
+              dlgCell(2,0,2,2) dlgPushButton(lang[92]) dlgAccept(1);
+              //alle sockeln
+              // all socketed
+              dlgCell(3,0,3,2) dlgPushButton(lang[117]) dlgAccept(2);
+              //alle nicht sockeln
+              // all non-socketed
+              dlgCell(4,0,4,2) dlgPushButton(lang[118]) dlgAccept(3);
+            }
+          };
+        }
+        if((socket_dlg==0)||(socket_dlg==2))
+        {
+          //Bauteil Höhenoffset
+          // Component height offset
+          sprintf(pov_pack,"%stranslate<0,%f,0> ",pov_pack,temp/10);
+          sprintf(socket_str,"#ifndef(pack_%s) object{%s)",
+            make_pov_str(E.name),pack_tra[10]
+          );
+          sprintf(socket_str,"%srotate<0,%f,0> rotate<0,0,%d> translate<%f,%f,%f>",
+            socket_str,-E.angle,E.mirror*180,u2mm(E.x),
             -(pcb_height*E.mirror),u2mm(E.y)
           );
-
-          //SMD-Höhenoffset
-          // SMD level offset
-          if(pack_tra[4] == "1")
-          {
-            if(E.mirror==0) temp = pcb_cuheight; else temp = -pcb_cuheight;
-            sprintf(pov_pack,"%stranslate<0,%f,0> ",pov_pack,temp);
-          }
-          socket_str="";
-
-          //Sockel
-          // IC Sockets
-          if(pack_tra[6] == "1")
-          {
-            if(E.mirror==0) temp = strtod(pack_tra[11]);
-            else temp = -1*strtod(pack_tra[11]);
-            if(socket_dlg<2)
-            {
-              socket_dlg = dlgDialog(lang[90])
-              {
-                dlgGridLayout
-                {
-                  dlgCell(0,0) dlgLabel(E.name);
-                  dlgCell(0,1) dlgLabel(E.value);
-                  dlgCell(0,2) dlgLabel(E.package.name);
-                  //sockeln
-                  // Socket
-                  dlgCell(1,0,1,2) dlgPushButton("+"+lang[91]) dlgAccept(0);
-                  //nicht sockeln
-                  // non-socketed
-                  dlgCell(2,0,2,2) dlgPushButton(lang[92]) dlgAccept(1);
-                  //alle sockeln
-                  // all socketed
-                  dlgCell(3,0,3,2) dlgPushButton(lang[117]) dlgAccept(2);
-                  //alle nicht sockeln
-                  // all non-socketed
-                  dlgCell(4,0,4,2) dlgPushButton(lang[118]) dlgAccept(3);
-                }
-              };
-            }
-            if((socket_dlg==0)||(socket_dlg==2))
-            {
-              //Bauteil Höhenoffset
-              // Component height offset
-              sprintf(pov_pack,"%stranslate<0,%f,0> ",pov_pack,temp/10);
-              sprintf(socket_str,"#ifndef(pack_%s) object{%s)",
-                make_pov_str(E.name),pack_tra[10]
-              );
-              sprintf(socket_str,"%srotate<0,%f,0> rotate<0,0,%d> translate<%f,%f,%f>",
-                socket_str,-E.angle,E.mirror*180,u2mm(E.x),
-                -(pcb_height*E.mirror),u2mm(E.y)
-              );
-              //Kommentar zum Sockel
-              // Commentary on the socket
-              sprintf(socket_str,"%s}#end\t\t\t\t\t//%s %s %s\n",
-                socket_str,pack_tra[12],E.name,E.value
-              );
-            }
-          }
-          //Kommentar zum Bauteil
-          // Commentary on the component
-          sprintf(pov_pack,"%s}#end\t\t//%s %s %s %s\n",
-            pov_pack,tmp_comment,E.name,E.value,E.package.name
+          //Kommentar zum Sockel
+          // Commentary on the socket
+          sprintf(socket_str,"%s}#end\t\t\t\t\t//%s %s %s\n",
+            socket_str,pack_tra[12],E.name,E.value
           );
-          sprintf(pov_pack,"%s%s",pov_pack,socket_str);
-          printf("%s",pov_pack);
-          output(mpd_file,"a") printf("%s",pov_pack);
+        }
+      }
 
-          pov_pack = "";
 
-          //Next part. End the search loop
-           break;
+//*****************************************************************************
+//                       ??? Component Value ???                                        
+//*****************************************************************************
+      //Kommentar zum Bauteil
+      // Commentary on the component
+      sprintf(pov_pack,"%s}#end\t\t//%s %s %s %s\n",
+        pov_pack,tmp_comment,E.name,E.value,E.package.name
+      );
+      sprintf(pov_pack,"%s%s",pov_pack,socket_str);
+      printf("%s",pov_pack);
+      output(mpd_file,"a") printf("%s",pov_pack);
+
+      pov_pack = "";
+
+      //Next part. End the search loop
+      break;
         }  // End of if statement - found==1 || pack_count-i
       }  // End of for statement
     }  // End of B.elements(E)
