@@ -1145,7 +1145,7 @@
 <technology name=""/>
 </technologies>
 </device>
-<device name="_TKD-FK18" package="C-2.5P-2.5X4.0X5.5">
+<device name="_TDK-FK18" package="C-2.5P-2.5X4.0X5.5">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
@@ -1234,7 +1234,7 @@
 <technology name=""/>
 </technologies>
 </device>
-<device name="_TKD-FK18" package="C-2.5P-2.5X4.0X5.5">
+<device name="_TDK-FK18" package="C-2.5P-2.5X4.0X5.5">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
