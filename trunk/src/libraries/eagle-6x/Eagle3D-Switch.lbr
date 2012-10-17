@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.0125" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -51,7 +51,7 @@
 <layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
-<layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
@@ -575,7 +575,7 @@
 <wire x1="-3.81" y1="-3.81" x2="3.81" y2="-3.81" width="0.3048" layer="21"/>
 <wire x1="-3.81" y1="3.81" x2="3.81" y2="3.81" width="0.3048" layer="21"/>
 </package>
-<package name="DPDT-RIGHT_ANGLE">
+<package name="CK-PN2XS">
 <description>C&amp;K Components
 &lt;P&gt;
 PN 21S / 22S Series
@@ -586,71 +586,74 @@ DPDT - Right Angle Switch</description>
 <pad name="4" x="-2.5" y="1.25" drill="0.9"/>
 <pad name="6" x="2.5" y="1.25" drill="0.9"/>
 <pad name="3" x="2.5" y="-1.25" drill="0.9"/>
-<wire x1="-5.7" y1="-3.4" x2="5.7" y2="-3.4" width="0.127" layer="21"/>
-<wire x1="5.7" y1="-3.4" x2="5.7" y2="3.4" width="0.127" layer="21"/>
-<wire x1="5.7" y1="3.4" x2="-5.7" y2="3.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="3.4" x2="-5.7" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="2.65" x2="-5.7" y2="1.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="1.4" x2="-5.7" y2="-1.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-1.4" x2="-5.7" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-2.65" x2="-5.7" y2="-3.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-1.4" x2="-18.7" y2="-1.4" width="0.127" layer="21"/>
-<wire x1="-18.7" y1="-1.4" x2="-18.7" y2="1.4" width="0.127" layer="21"/>
-<wire x1="-18.7" y1="1.4" x2="-5.7" y2="1.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-2.65" x2="-5.85" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-13.05" y1="-2.65" x2="-13.2" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-13.2" y1="-2.65" x2="-13.2" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-13.2" y1="2.65" x2="-13.05" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-5.85" y1="2.65" x2="-5.7" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-10.5" y1="-2.65" x2="-9.5" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-9.5" y1="2.65" x2="-8.5" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-8.5" y1="-2.65" x2="-7.5" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-7.5" y1="2.65" x2="-6.5" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-6.5" y1="-2.65" x2="-5.85" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-5.85" y1="2.65" x2="-5.85" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-13.05" y1="2.65" x2="-13.05" y2="-2.65" width="0.127" layer="21"/>
-<text x="-16" y="3" size="1.27" layer="25">&gt;NAME</text>
-<text x="-16" y="-4" size="1.27" layer="27">&gt;VALUE</text>
-<pad name="P$1" x="-5.7" y="-2.1" drill="1.5"/>
-<pad name="P$2" x="5.7" y="2.1" drill="1.5"/>
-<wire x1="-10.5" y1="-2.65" x2="-11.5" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-11.5" y1="2.65" x2="-12.5" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-12.5" y1="-2.65" x2="-13.05" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6" y1="-3.7" x2="6" y2="-3.7" width="0.127" layer="21"/>
+<wire x1="6" y1="-3.7" x2="6" y2="3.7" width="0.127" layer="21"/>
+<wire x1="6" y1="3.7" x2="-6" y2="3.7" width="0.127" layer="21"/>
+<wire x1="-6" y1="3.7" x2="-6" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6" y1="2.65" x2="-6" y2="1.4" width="0.127" layer="21"/>
+<wire x1="-6" y1="1.4" x2="-6" y2="-1.4" width="0.127" layer="21"/>
+<wire x1="-6" y1="-1.4" x2="-6" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-6" y1="-2.65" x2="-6" y2="-3.7" width="0.127" layer="21"/>
+<wire x1="-6" y1="-1.4" x2="-16" y2="-1.4" width="0.127" layer="21"/>
+<wire x1="-16" y1="-1.4" x2="-16" y2="1.4" width="0.127" layer="21"/>
+<wire x1="-16" y1="1.4" x2="-6" y2="1.4" width="0.127" layer="21"/>
+<wire x1="-6" y1="-2.65" x2="-6.15" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-11.7" y1="-2.65" x2="-11.7" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6.15" y1="2.65" x2="-6" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-10.55" y1="-2.65" x2="-9.8" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-9.8" y1="2.65" x2="-8.8" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-8.8" y1="-2.65" x2="-7.8" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-7.8" y1="2.65" x2="-6.8" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-6.8" y1="-2.65" x2="-6.15" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6.15" y1="2.65" x2="-6.15" y2="-2.65" width="0.127" layer="21"/>
+<text x="-15.875" y="2.8575" size="1.27" layer="25">&gt;NAME</text>
+<text x="-15.875" y="-4.1275" size="1.27" layer="27">&gt;VALUE</text>
+<pad name="G1" x="-5.7" y="-2.1" drill="1.5"/>
+<wire x1="-10.55" y1="-2.65" x2="-11.53" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-11.53" y1="2.65" x2="-11.53" y2="-2.65" width="0.127" layer="21"/>
+<pad name="G2" x="5.7" y="2.1" drill="1.5"/>
 </package>
-<package name="PN21L">
-<description>PN 21L / 22L Series Right Angle Switch</description>
+<package name="CK-PN2XL">
+<description>C&amp;K Components
+&lt;P&gt;
+PN 21L / 22L Series
+DPDT - Right Angle Switch</description>
 <pad name="5" x="0" y="1.5" drill="1.4"/>
 <pad name="2" x="0" y="-1.5" drill="1.4"/>
 <pad name="1" x="-3.2" y="-1.5" drill="1.4"/>
 <pad name="4" x="-3.2" y="1.5" drill="1.4"/>
 <pad name="6" x="3.2" y="1.5" drill="1.4"/>
 <pad name="3" x="3.2" y="-1.5" drill="1.4"/>
-<pad name="P$1" x="-5.7" y="-3" drill="1.4"/>
-<pad name="P$2" x="5.7" y="3" drill="1.4"/>
-<wire x1="-5.7" y1="-3.6" x2="5.7" y2="-3.6" width="0.127" layer="21"/>
-<wire x1="5.7" y1="-3.6" x2="5.7" y2="3.6" width="0.127" layer="21"/>
-<wire x1="5.7" y1="3.6" x2="-5.7" y2="3.6" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="3.6" x2="-5.7" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="2.65" x2="-5.7" y2="1.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="1.4" x2="-5.7" y2="-1.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-1.4" x2="-5.7" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-2.65" x2="-5.7" y2="-3.6" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-1.4" x2="-15.7" y2="-1.4" width="0.127" layer="21"/>
-<wire x1="-15.7" y1="-1.4" x2="-15.7" y2="1.4" width="0.127" layer="21"/>
-<wire x1="-15.7" y1="1.4" x2="-5.7" y2="1.4" width="0.127" layer="21"/>
-<wire x1="-5.7" y1="-2.65" x2="-5.85" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-11.25" y1="-2.65" x2="-11.4" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-11.4" y1="-2.65" x2="-11.4" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-11.4" y1="2.65" x2="-11.25" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-5.85" y1="2.65" x2="-5.7" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-11.25" y1="2.65" x2="-10.5" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-10.5" y1="-2.65" x2="-9.5" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-9.5" y1="2.65" x2="-8.5" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-8.5" y1="-2.65" x2="-7.5" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-7.5" y1="2.65" x2="-6.5" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-6.5" y1="-2.65" x2="-5.85" y2="2.65" width="0.127" layer="21"/>
-<wire x1="-5.85" y1="2.65" x2="-5.85" y2="-2.65" width="0.127" layer="21"/>
-<wire x1="-11.25" y1="2.65" x2="-11.25" y2="-2.65" width="0.127" layer="21"/>
+<pad name="G1" x="-5.7" y="-3" drill="1.4"/>
+<pad name="G2" x="5.7" y="3" drill="1.4"/>
+<wire x1="-6" y1="-4" x2="6" y2="-4" width="0.127" layer="21"/>
+<wire x1="6" y1="-4" x2="6" y2="4" width="0.127" layer="21"/>
+<wire x1="6" y1="4" x2="-6" y2="4" width="0.127" layer="21"/>
+<wire x1="-6" y1="4" x2="-6" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6" y1="2.65" x2="-6" y2="1.4" width="0.127" layer="21"/>
+<wire x1="-6" y1="1.4" x2="-6" y2="-1.4" width="0.127" layer="21"/>
+<wire x1="-6" y1="-1.4" x2="-6" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-6" y1="-2.65" x2="-6" y2="-4" width="0.127" layer="21"/>
+<wire x1="-6" y1="-1.4" x2="-19" y2="-1.4" width="0.127" layer="21"/>
+<wire x1="-19" y1="-1.4" x2="-19" y2="1.4" width="0.127" layer="21"/>
+<wire x1="-19" y1="1.4" x2="-6" y2="1.4" width="0.127" layer="21"/>
+<wire x1="-6" y1="-2.65" x2="-6.15" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-13.325" y1="-2.65" x2="-13.5" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-13.5" y1="-2.65" x2="-13.5" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-13.5" y1="2.65" x2="-13.325" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6.15" y1="2.65" x2="-6" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-10.8" y1="-2.65" x2="-9.8" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-9.8" y1="2.65" x2="-8.8" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-8.8" y1="-2.65" x2="-7.8" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-7.8" y1="2.65" x2="-6.8" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-6.8" y1="-2.65" x2="-6.15" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-6.15" y1="2.65" x2="-6.15" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-13.325" y1="2.65" x2="-13.325" y2="-2.65" width="0.127" layer="21"/>
+<text x="-17.78" y="3.81" size="1.27" layer="25">&gt;NAME</text>
+<text x="-17.78" y="-5.08" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="-10.8" y1="-2.65" x2="-11.8" y2="2.65" width="0.127" layer="21"/>
+<wire x1="-11.8" y1="2.65" x2="-12.8" y2="-2.65" width="0.127" layer="21"/>
+<wire x1="-12.8" y1="-2.65" x2="-13.325" y2="2.65" width="0.127" layer="21"/>
 </package>
 </packages>
 <symbols>
@@ -723,6 +726,7 @@ DPDT - Right Angle Switch</description>
 <pin name="P-1" x="-5.08" y="0" visible="pad" length="short" direction="pas"/>
 <pin name="NO-1" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
 <pin name="NC-1" x="5.08" y="2.54" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="SHELL" x="5.08" y="-5.08" length="middle" rot="R180"/>
 </symbol>
 <symbol name="DPDT-2">
 <wire x1="-3.175" y1="0" x2="-2.54" y2="0" width="0.254" layer="94"/>
@@ -910,21 +914,22 @@ DPDT - Right Angle Switch</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="DPDT-PN_SERIES" prefix="SW" uservalue="yes">
+<deviceset name="DPDT-CK_PN_2XS_SERIES" prefix="SW" uservalue="yes">
 <description>C&amp;K Components
 &lt;P&gt;
 PN 21S / 22S Series
 DPDT - Right Angle Switch</description>
 <gates>
-<gate name="G$1" symbol="DPDT-1" x="0" y="2.54"/>
+<gate name="G$1" symbol="DPDT-1" x="0" y="5.08"/>
 <gate name="G$2" symbol="DPDT-2" x="0" y="-5.08"/>
 </gates>
 <devices>
-<device name="_MOMENTARY" package="DPDT-RIGHT_ANGLE">
+<device name="_MOMENTARY" package="CK-PN2XS">
 <connects>
 <connect gate="G$1" pin="NC-1" pad="1"/>
 <connect gate="G$1" pin="NO-1" pad="3"/>
 <connect gate="G$1" pin="P-1" pad="2"/>
+<connect gate="G$1" pin="SHELL" pad="G1 G2"/>
 <connect gate="G$2" pin="NC-2" pad="4"/>
 <connect gate="G$2" pin="NO-2" pad="6"/>
 <connect gate="G$2" pin="P-2" pad="5"/>
@@ -933,11 +938,12 @@ DPDT - Right Angle Switch</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="_ON/ON" package="DPDT-RIGHT_ANGLE">
+<device name="_ON/ON" package="CK-PN2XS">
 <connects>
 <connect gate="G$1" pin="NC-1" pad="1"/>
 <connect gate="G$1" pin="NO-1" pad="3"/>
 <connect gate="G$1" pin="P-1" pad="2"/>
+<connect gate="G$1" pin="SHELL" pad="G1 G2"/>
 <connect gate="G$2" pin="NC-2" pad="4"/>
 <connect gate="G$2" pin="NO-2" pad="6"/>
 <connect gate="G$2" pin="P-2" pad="5"/>
@@ -948,20 +954,22 @@ DPDT - Right Angle Switch</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="DPDT-PN_21L/22L_SERIES" prefix="SW" uservalue="yes">
+<deviceset name="DPDT-CK_PN_2XL_SERIES" prefix="SW" uservalue="yes">
 <description>C&amp;K Components
 &lt;P&gt;
-PN 21L / 22L Series</description>
+PN 21L / 22L Series
+DPDT - Right Angle Switch</description>
 <gates>
-<gate name="G$1" symbol="DPDT-1" x="0" y="2.54"/>
+<gate name="G$1" symbol="DPDT-1" x="0" y="5.08"/>
 <gate name="G$2" symbol="DPDT-2" x="0" y="-5.08"/>
 </gates>
 <devices>
-<device name="_MOMENTARY" package="PN21L">
+<device name="_MOMENTARY" package="CK-PN2XL">
 <connects>
 <connect gate="G$1" pin="NC-1" pad="1"/>
 <connect gate="G$1" pin="NO-1" pad="3"/>
 <connect gate="G$1" pin="P-1" pad="2"/>
+<connect gate="G$1" pin="SHELL" pad="G1 G2"/>
 <connect gate="G$2" pin="NC-2" pad="4"/>
 <connect gate="G$2" pin="NO-2" pad="6"/>
 <connect gate="G$2" pin="P-2" pad="5"/>
@@ -970,11 +978,12 @@ PN 21L / 22L Series</description>
 <technology name=""/>
 </technologies>
 </device>
-<device name="_ON/ON" package="PN21L">
+<device name="_ON/ON" package="CK-PN2XL">
 <connects>
 <connect gate="G$1" pin="NC-1" pad="1"/>
 <connect gate="G$1" pin="NO-1" pad="3"/>
 <connect gate="G$1" pin="P-1" pad="2"/>
+<connect gate="G$1" pin="SHELL" pad="G1 G2"/>
 <connect gate="G$2" pin="NC-2" pad="4"/>
 <connect gate="G$2" pin="NO-2" pad="6"/>
 <connect gate="G$2" pin="P-2" pad="5"/>
