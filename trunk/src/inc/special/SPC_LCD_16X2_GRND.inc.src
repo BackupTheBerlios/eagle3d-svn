@@ -234,7 +234,7 @@ union{
     }
   }
   // Backlight behind LCD Panel
-  light_source {
+/*  light_source {
     <0, 0, 0>
     color White
     area_light <1, 0, 0>, <0, 1, 0>, 2, 2
@@ -246,7 +246,7 @@ union{
         finish {ambient .8 diffuse .6}
       }
     }
-  }
+  }*/
   // Edge banding
   union{
     #local BL_FB = box{<0,0,0><71.3,5.95,1.00> texture{pigment{Gray50}}};
