@@ -153,16 +153,40 @@ global_settings{charset utf8}
 
 #ifdef(col_preset)
     //Verschieden Farb-Presets
+    // Different color presets
     #switch(col_preset)
         #case(1)//Standard PCB LĂśtstop
-            #declare col_brd = texture{pigment{DarkGreen}}                                  //Farbe der Platine
-            #declare col_wrs = texture{pigment{ForestGreen}}                                //Farbe der Leiterbahnen
-            #declare col_pds = texture{T_Silver_5A}                                         //Farbe der Pad's und SMD's
-            #declare col_hls = texture{pigment{Black}}                                      //Farbe der Pseudobohrungen
-            #declare col_bgr = White;                                                          //Hintergrundfarbe wenn keine Umgebung aktiviert
-            #declare col_slk = texture{pigment{White}}                                      //Farbe des Bestďż˝ckungsdruck
-            #declare col_thl = texture{T_Silver_5A}                                         //Farbe der Durchkontaktierungen
-            #declare col_pol = col_wrs                                                      //Farbe der Polygone
+            //Farbe der Platine
+            // Color of the board
+            #declare col_brd = texture{pigment{DarkGreen}}
+
+            //Farbe der Leiterbahnen
+            // Color of the conductors
+            #declare col_wrs = texture{pigment{ForestGreen}}
+
+            //Farbe der Pad's und SMD's
+            // Color of the Pads, and SMDs
+            #declare col_pds = texture{T_Silver_5A}
+
+            //Farbe der Pseudobohrungen
+            // Color of the pseudo Wells
+            #declare col_hls = texture{pigment{Black}}
+
+            //Hintergrundfarbe wenn keine Umgebung aktiviert
+            // Background color when no active environment
+            #declare col_bgr = White;
+
+            //Farbe des Bestďż˝ckungsdruck??  //Farbe der Siebdruck
+            // Color of the silkscreen
+            #declare col_slk = texture{pigment{White}}
+
+            //Farbe der Durchkontaktierungen
+            // Color of the vias
+            #declare col_thl = texture{T_Silver_5A}
+
+            //Farbe der Polygone
+            // Color of the Polygons
+            #declare col_pol = col_wrs
         #break
         #case(2)//PCB LĂśtstop MĂźcke
             //PCB material
@@ -201,64 +225,177 @@ global_settings{charset utf8}
             #declare col_pol = col_wrs
         #break
         #case(3)//PCB LĂśtstop MĂźcke 2
+            //Farbe der Platine
+            // Color of the Board
             #declare col_brd = texture{     pigment{rgb<0.117647,0.243137,0.015686>}
                                             normal {bumps 0.2 scale 0.00015}
-                                            finish {ambient 0.2 diffuse 0.5 phong 0.1}}     //Farbe der Platine
+                                            finish {ambient 0.2 diffuse 0.5 phong 0.1}}
+            //Farbe der Leiterbahnen
+            // Color of the Conductors
             #declare col_wrs = texture{     pigment{rgb<0.368627,0.352941,0.054902>}
                                             normal{bumps 0.1 scale 0.0001}
-                                            finish{ambient 0.2 diffuse 0.5 phong 0.1}}      //Farbe der Leiterbahnen
-            #declare col_pds = texture{pigment{Gray70} finish{F_MetalB}}                    //Farbe der Pad's und SMD's
-            #declare col_hls = texture{pigment{Black}}                                      //Farbe der Pseudobohrungen
-            #declare col_bgr = Gray50;                                                      //Hintergrundfarbe wenn keine Umgebung aktiviert
-            #declare col_slk = texture{pigment{White}}                                      //Farbe des BestĂźckungsdruck
-            #declare col_thl = texture{pigment{Gray70} finish{F_MetalB}}                    //Farbe der Durchkontaktierungen
-            #declare col_pol = col_wrs                                                      //Farbe der Polygone
+                                            finish{ambient 0.2 diffuse 0.5 phong 0.1}}
+            //Farbe der Pad's und SMD's
+            // Color of the Pads, and SMDs
+            #declare col_pds = texture{pigment{Gray70} finish{F_MetalB}}
+
+            //Farbe der Pseudobohrungen
+            // Color of the Pseudo Wells
+            #declare col_hls = texture{pigment{Black}}
+
+            //Hintergrundfarbe wenn keine Umgebung aktiviert
+            // Background color when no active environment
+            #declare col_bgr = Gray50;
+
+            //Farbe des BestĂźckungsdruck
+            // Color of the Silkscreen
+            #declare col_slk = texture{pigment{White}}
+
+            //Farbe der Durchkontaktierungen
+            // Color of the Vias
+            #declare col_thl = texture{pigment{Gray70} finish{F_MetalB}}
+
+            //Farbe der Polygone
+            // Color of the Polygon
+            #declare col_pol = col_wrs
         #break
         #case(4)//Homemade PCB (with black silkscreen)
-            #declare col_brd = texture{pigment{rgb< 0.470588,0.313725,0.000000>}}           //Farbe der Platine
-            #declare col_wrs = texture{col_gold}                                            //Farbe der Leiterbahnen
-            #declare col_pds = texture{col_gold}                                            //Farbe der Pad's und SMD's
-            #declare col_hls = texture{pigment{Black}}                                      //Farbe der Pseudobohrungen
-            #declare col_bgr = White;                                                       //Hintergrundfarbe wenn keine Umgebung aktiviert
-            #declare col_slk = texture{pigment{Black}}                                      //Farbe des BestĂźckungsdruck
-            #declare col_thl = texture{col_silver}                                          //Farbe der Durchkontaktierungen
-            #declare col_pol = texture{T_Stone1}                                            //Farbe der Polygone
+            //Farbe der Platine
+            // Color of the Board
+            #declare col_brd = texture{pigment{rgb< 0.470588,0.313725,0.000000>}}
+
+            //Farbe der Leiterbahnen
+            // Color of the Wires
+            #declare col_wrs = texture{col_gold}
+
+            //Farbe der Pad's und SMD's
+            // Color of the Pads, and SMDs
+            #declare col_pds = texture{col_gold}
+
+            //Farbe der Pseudobohrungen
+            // Color of the Pseudo Wells
+            #declare col_hls = texture{pigment{Black}}
+
+            //Hintergrundfarbe wenn keine Umgebung aktiviert
+            // Background color when no active environment
+            #declare col_bgr = White;
+
+            //Farbe des BestĂźckungsdruck
+            // Color of the Silkscreen
+            #declare col_slk = texture{pigment{Black}}
+
+            //Farbe der Durchkontaktierungen
+            // Color of the Vias
+            #declare col_thl = texture{col_silver}
+
+            //Farbe der Polygone
+            // Color of the Polygon
+            #declare col_pol = texture{T_Stone1}
         #break
         #case(5)//Bunt
-            #declare col_brd = texture{pigment{Red}}                                        //Farbe der Platine
-            #declare col_wrs = texture{pigment{Blue}}                                       //Farbe der Leiterbahnen
-            #declare col_pds = texture{T_Silver_5A}                                         //Farbe der Pad's und SMD's
-            #declare col_hls = texture{pigment{Black}}                                      //Farbe der Pseudobohrungen
-            #declare col_bgr = White;                                                       //Hintergrundfarbe wenn keine Umgebung aktiviert
-            #declare col_slk = texture{pigment{Green}}                                      //Farbe des BestĂźckungsdruck
-            #declare col_thl = texture{pigment{White}}                                      //Farbe der Durchkontaktierungen
-            #declare col_pol = texture{T_Stone1}                                            //Farbe der Polygone
+            //Farbe der Platine
+            // Color of the Board
+            #declare col_brd = texture{pigment{Red}}
+
+            //Farbe der Leiterbahnen
+            // Color of the Conductors
+            #declare col_wrs = texture{pigment{Blue}}
+
+            //Farbe der Pad's und SMD's
+            // Color of the Pads, and SMDs
+            #declare col_pds = texture{T_Silver_5A}
+
+            //Farbe der Pseudobohrungen
+            // Color of the Pseudo Wells
+            #declare col_hls = texture{pigment{Black}}
+
+            //Hintergrundfarbe wenn keine Umgebung aktiviert
+            // Background color when no active environment
+            #declare col_bgr = White;
+
+            //Farbe des BestĂźckungsdruck
+            // Color of the Silkscreen
+            #declare col_slk = texture{pigment{Green}}
+
+            //Farbe der Durchkontaktierungen
+            // Color of the Vias
+            #declare col_thl = texture{pigment{White}}
+
+            //Farbe der Polygone
+            // Color of the Polygon
+            #declare col_pol = texture{T_Stone1}
         #break
         #case(6)//Glass
-            #declare col_brd = texture{T_Dark_Green_Glass  }                                //Farbe der Platine
-            #declare col_wrs = texture{pigment{rgb<0.368627,0.352941,0.054902>}}            //Farbe der Leiterbahnen
-            #declare col_pds = texture{pigment{Gray70} finish{F_MetalB}}                    //Farbe der Pad's und SMD's
-            #declare col_hls = texture{pigment{Black}}                                      //Farbe der Pseudobohrungen
-            #declare col_bgr = White;                                                       //Hintergrundfarbe wenn keine Umgebung aktiviert
-            #declare col_slk = texture{pigment{White}}                                      //Farbe des BestĂźckungsdruck
-            #declare col_thl = texture{pigment{Gray70} finish{F_MetalB}}                    //Farbe der Durchkontaktierungen
-            #declare col_pol = col_wrs                                                      //Farbe der Polygone
+            //Farbe der Platine
+            // Color of the Board
+            #declare col_brd = texture{T_Dark_Green_Glass  }
+
+            //Farbe der Leiterbahnen
+            // Color of the Conductors
+            #declare col_wrs = texture{pigment{rgb<0.368627,0.352941,0.054902>}}
+
+            //Farbe der Pad's und SMD's
+            // Color of the Pads, and SMDs
+            #declare col_pds = texture{pigment{Gray70} finish{F_MetalB}}
+
+            //Farbe der Pseudobohrungen
+            // Color of the Pseudo Wells
+            #declare col_hls = texture{pigment{Black}}
+
+            //Hintergrundfarbe wenn keine Umgebung aktiviert
+            // Background color when no active environment
+            #declare col_bgr = White;
+
+            //Farbe des BestĂźckungsdruck
+            // Color of the Silkscreen
+            #declare col_slk = texture{pigment{White}}
+
+            //Farbe der Durchkontaktierungen
+            // Color of the Vias
+            #declare col_thl = texture{pigment{Gray70} finish{F_MetalB}}
+
+            //Farbe der Polygone
+            // Color of the Polygon
+            #declare col_pol = col_wrs
         #break
         #range(7,2000)//Standard wenn Auswahlfehler
-            #declare col_brd = texture{pigment{DarkGreen}}                                  //Farbe der Platine
-            #declare col_wrs = texture{pigment{ForestGreen}}                                //Farbe der Leiterbahnen
-            #declare col_pds = texture{T_Silver_5A}                                         //Farbe der Pad's und SMD's
-            #declare col_hls = texture{pigment{Black}}                                      //Farbe der Pseudobohrungen
-            #declare col_bgr = White;                                                       //Hintergrundfarbe wenn keine Umgebung aktiviert
-            #declare col_slk = texture{pigment{White}}                                      //Farbe des BestĂźckungsdruck
-            #declare col_thl = texture{T_Silver_5A}                                         //Farbe der Durchkontaktierungen
-            #declare col_pol = col_wrs                                                      //Farbe der Polygone
+            //Farbe der Platine
+            // Color of the Board
+            #declare col_brd = texture{pigment{DarkGreen}}
+
+            //Farbe der Leiterbahnen
+            // Color of the Conductors
+            #declare col_wrs = texture{pigment{ForestGreen}}
+
+            //Farbe der Pad's und SMD's
+            // Color of the Pads, and SMDs
+            #declare col_pds = texture{T_Silver_5A}
+
+            //Farbe der Pseudobohrungen
+            // Color of the Pseudo Wells
+            #declare col_hls = texture{pigment{Black}}
+
+            //Hintergrundfarbe wenn keine Umgebung aktiviert
+            // Background color when no active environment
+            #declare col_bgr = White;
+
+            //Farbe des BestĂźckungsdruck
+            // Color of the Silkscreen
+            #declare col_slk = texture{pigment{White}}
+
+            //Farbe der Durchkontaktierungen
+            // Color of the Vias
+            #declare col_thl = texture{T_Silver_5A}
+
+            //Farbe der Polygone
+            // Color of the Polygon
+            #declare col_pol = col_wrs
         #break
     #end
 #end
 
 
-//Zeichnet einen Bogen
+//Zeichnet einen Bogen  // Draw an arc
 //rad = radius
 //wid = width of the "line"
 //st_wi = start angle
@@ -285,11 +422,13 @@ global_settings{charset utf8}
 #macro TOOLS_WIRE_LEADS (Length, Width, Wirelength, Wirewidth,  Raster,  BendRadius, Seperation, H_V)
 
     //Erzeugt DrahtbĂźgel passend fĂźr ein Bauteil
-    //Length:   LĂ¤nge des Bauteils (length of body part)
-    //Width:    Durchmesser des Bauteils (diameter of body part)
+    // ??? Generated DrahtbĂźgel match fĂźr a component ???
+
+    //Length:       LĂ¤nge des Bauteils (length of body part)
+    //Width:        Durchmesser des Bauteils (diameter of body part)
     //Wirelength:   LĂ¤nge des eines Drahtes (length of one wire lead)
     //Wirewidth:    Durchmesser des Drahtes (diameter of the wire)
-    //Raster:   Raster
+    //Raster:       Raster
     //BendRadius:   Biegeradius (bending radius)
     //Seperation:   Distance between component bottom and pcb for heat dissipation
     //H_V:          Part Orientation - "H" for horizontal; "V" for vertical (quotes required)
@@ -394,27 +533,31 @@ global_settings{charset utf8}
 
             // Otherwise, Wires for "HORIZONTAL" Component:
 
-            difference{                                                                          //LEFT (wire elbow bend)
+            //LEFT (wire elbow bend)
+            difference{
                 torus{BendRadius, Wirewidth/2 rotate<90,0,0>}
                 box{<-2*BendRadius, 0, BendRadius>  <2*BendRadius, -2*BendRadius, -BendRadius>}
                 box{<2*BendRadius, -BendRadius, BendRadius> <0, 2*BendRadius, -BendRadius>}
                 translate <-(Raster/2-BendRadius), -BendRadius, 0>
             }
 
-            difference{                                                                          //RIGHT (second wire elbow bend)
+            //RIGHT (second wire elbow bend)
+            difference{
                 torus{BendRadius, Wirewidth/2 rotate<90,0,0>}
                 box{<-2*BendRadius, 0, BendRadius>  <2*BendRadius, -2*BendRadius, -BendRadius>}
                 box{<2*BendRadius, -BendRadius, BendRadius> <0, 2*BendRadius, -BendRadius>} rotate<0,180,0>
                 translate <(Raster/2-BendRadius), -BendRadius, 0>
             }
 
-            cylinder{<-(Raster/2-BendRadius), 0, 0> <(Raster/2-BendRadius), 0, 0> Wirewidth/2}   //Horizontal WIRE end-to-end, between elbows
+            //Horizontal WIRE end-to-end, between elbows
+            cylinder{<-(Raster/2-BendRadius), 0, 0> <(Raster/2-BendRadius), 0, 0> Wirewidth/2}
 
             #if(pin_short = on)
             difference{union{
             #end
 
-            // If lead wire is somehow specified too short, then "solder-on an extension wire", to reach the PCB cutoff position, anyway
+            // If lead wire is somehow specified too short, then "solder-on an
+            // extension wire", to reach the PCB cutoff position, anyway
             #local cutoff = (pin_length+pcb_height) + (W + Seperation) ;
 
             //RIGHT vertical wire
@@ -441,6 +584,15 @@ global_settings{charset utf8}
 //der Innenradius muss >= 0 sein,
 //der Winkel zwischen den Schenkeln 0 > Winkel <180,
 //mittlerer Biegeradius = i_radius + dicke/2
+//
+/ / Designed by Frederick lead Kamp, Lenord, Bauer & Co. GmbH <fbleikamp@lenord.de>
+/ / Private: <fbleikamp@web.de>
+/ / Macro for curved rectangular sections with opening angle of 1-179 degrees
+/ / The leg with the length 1 is centered on the x-axis
+/ / at an angle of 90 degrees and the other on the y-axis
+/ / the inner radius must be> = 0,
+/ / is the angle between the limbs 0> angle <180,
+/ / medium bending radius = i_radius + thick / 2
 **********************************************************************/
 #macro TOOLS_RECT_BOGEN(i_radius,winkel,dicke,breite,laenge1,laenge2)
 union{
@@ -918,9 +1070,9 @@ union{
                 #range(0,1) // PAN HEAD & PHILIPS ROUND-PAN
                     union
                     {
-                        torus {R+r-r1,r1 translate (ep-r1)*y}        // round edge
-                        cylinder {<0,0,0>, <0,ep,0>, R+r-r1}       // base
-                        cylinder {<0,0.1,0>, <0,ep-r1,0>, R+r}   // top
+                        torus {R+r-r1,r1 translate (ep-r1)*y}     // round edge
+                        cylinder {<0,0,0>, <0,ep,0>, R+r-r1}      // base
+                        cylinder {<0,0.1,0>, <0,ep-r1,0>, R+r}    // top
                     }
                     #if(Hd=0)
                         box {<-r,ep*.5,-R-2*r>, <+r,+10,R+2*r>  } // Grove
@@ -949,7 +1101,7 @@ union{
 
                 #case(20) // CHEESE
                     #local R=0.8*R;
-                    cylinder {<0,0,0>, <0,ep,0>, R+r}       // base
+                    cylinder {<0,0,0>, <0,ep,0>, R+r}         // base
                     box {<-r,ep*.5,-R-2*r>, <+r,+10,R+2*r>  } // Grove
                 #break
 
@@ -957,7 +1109,7 @@ union{
                     #local R=0.8*R;
                     intersection{
                         sphere{<0,-R/2,0> 1.7*R}
-                        cylinder {<0,0,0>, <0,2*ep,0>, R+r}       // base
+                        cylinder {<0,0,0>, <0,2*ep,0>, R+r}   // base
                     }
                     box {<-r,ep*.4,-R-2*r>, <+r,+10,R+2*r>  } // Grove
                 #break
