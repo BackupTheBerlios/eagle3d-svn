@@ -4303,6 +4303,7 @@ do{
     {
       printf("@echo off\n\n");
       printf("\"%s\" ", pov_path);
+#50      if(anim_nframes>2) printf(filesetext(out_file,".ini "));
       if(1 == pov_pause) printf("+P ");
       if(0 == pov_res_selected) printf("+W320 +H240 ");
       else if(1 == pov_res_selected) printf("+W640 +H480 ");
@@ -4335,6 +4336,7 @@ do{
     {
       printf("#!/bin/sh\n\n");
       printf("\"%s\" ", pov_path);
+#50      if(anim_nframes>2) printf(filesetext(out_file,".ini "));
       if(1 == pov_pause) printf("+P ");
       if(0 == pov_res_selected) printf("+W320 +H240 ");
       else if(1 == pov_res_selected) printf("+W640 +H480 ");
