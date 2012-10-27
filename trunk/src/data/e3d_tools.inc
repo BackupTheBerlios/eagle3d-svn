@@ -406,14 +406,16 @@ global_settings{charset utf8}
         #local i=st_wi;
         #local l=((rad*pi)/360) * 1.1;
         
-        cylinder{<0,0,-rad> <0,height,-rad> wid/2 pigment{Red} rotate<0,-i-90,0> }
+        //cylinder{<0,0,-rad> <0,height,-rad> wid/2 pigment{Red} rotate<0,-i-90,0> }
+        cylinder{<0,0,-rad> <0,height,-rad> wid/2 pigment{White} rotate<0,-i-90,0> }
         
         #while(i<=en_wi)
             box{<-l,0,-rad-wid/2><l,height,-rad+wid/2> rotate<0,-i-90,0>}
             #declare i=i+1;
         #end
         
-        cylinder{<0,0,-rad> <0,height,-rad> wid/2 pigment{Red} rotate<0,-i+1-90,0> }
+        //cylinder{<0,0,-rad> <0,height,-rad> wid/2 pigment{Red} rotate<0,-i+1-90,0> }
+        cylinder{<0,0,-rad> <0,height,-rad> wid/2 pigment{White} rotate<0,-i+1-90,0> }
     }    
 #end  
 
