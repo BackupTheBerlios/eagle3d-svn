@@ -23,24 +23,24 @@ Diskreter Widerstand
 //w:        Power is used to raise at> = 1W resistor to 1.5 mm
 //*****************************************************************************
 ###############################################################################
-0204V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_025MMV(:Diskreter Widerstand 0,15W stehend 100mil:Discrete Resistor 0,15W Vertical 100mil
+0204V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_025MMV(:Diskreter Widerstand 0,15W stehend 100mil:Discrete Resistor 0,15W Vertical 100mil
 0204/5:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_054MM(:Diskreter Widerstand 0,15W 5,4MM Raster:Discrete Resistor 0,15W 5,4MM Grid
 0204/7:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_075MM(:Diskreter Widerstand 0,15W 7,5MM Raster:Discrete Resistor 0,15W 7,5MM Grid
-0207/2V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_025MMV(:Diskreter Widerstand 0,25W stehend 100mil:Discrete Resistor 0,25W Vertical 100mil
-0207/5V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_050MMV(:Diskreter Widerstand 0,25W stehend 200mil:Discrete Resistor 0,25W Vertical 200mil
+0207/2V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_025MMV(:Diskreter Widerstand 0,25W stehend 100mil:Discrete Resistor 0,25W Vertical 100mil
+0207/5V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_050MMV(:Diskreter Widerstand 0,25W stehend 200mil:Discrete Resistor 0,25W Vertical 200mil
 0207/7:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_075MM(:Diskreter Widerstand 0,3W 7,5MM Raster:Discrete Resistor 0,3W 7,5MM Grid
 0207/10:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_10MM(:Diskreter Widerstand 0,3W 10MM Raster:Discrete Resistor 0,3W 10MM Grid
 0207/12:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_12MM(:Diskreter Widerstand 0,3W 12MM Raster:Discrete Resistor 0,3W 12MM Grid
 0207/15:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_15MM(:Diskreter Widerstand 0,3W 15MM Raster:Discrete Resistor 0,3W 15MM Grid
-0309V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0309_025MMV(:Diskreter Widerstand 0,35W stehend 100mil:Discrete Resistor 0,35W 100mil vertical
+0309V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0309_025MMV(:Diskreter Widerstand 0,35W stehend 100mil:Discrete Resistor 0,35W 100mil vertical
 0309/10:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0309_10MM(:Diskreter Widerstand 0,35W 400mil:Discrete Resistor 0,35W 400mil
 0309/12:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0309_12MM(:Diskreter Widerstand 0,35W 500mil:Discrete Resistor 0,35W 500mil
-0414V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0414_050MMV(:Diskreter Widerstand 0,5W stehend 200mil:Discrete Resistor 0,5W 200mil vertical
+0414V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0414_050MMV(:Diskreter Widerstand 0,5W stehend 200mil:Discrete Resistor 0,5W 200mil vertical
 0414/15:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0414_15MM(:Diskreter Widerstand 0,5W 600mil:Discrete Resistor 0,5W 600mil
-0617V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0617_050MMV(:Diskreter Widerstand 1W stehend 200mil:Discrete Resistor 1W 200mil vertical
+0617V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0617_050MMV(:Diskreter Widerstand 1W stehend 200mil:Discrete Resistor 1W 200mil vertical
 0617/17:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0617_17MM(:Diskreter Widerstand 1W 700mil:Discrete Resistor 1W 700mil
 0617/22:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0617_22MM(:Diskreter Widerstand 1W 900mil:Discrete Resistor 1W 900mil
-0922V:0:0:1:0:0:0:0:0:0:0:0:0:0:R:-1.27:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0922_075MMV(:Diskreter Widerstand 1,3W stehend 300mil:Discrete Resistor 1,3W vertical 300mil
+0922V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:-1.27:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0922_075MMV(:Diskreter Widerstand 1,3W stehend 300mil:Discrete Resistor 1,3W vertical 300mil
 0922/22:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0922_22MM(:Diskreter Widerstand 1,3W 900mil:Discrete Resistor 1,3W 900mil
 ###############################################################################
 RES_DIS_GRND
