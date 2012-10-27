@@ -42,8 +42,8 @@
         "<p>"
         "See developer.berlios.de/projects/eagle3d/"
         "<p>"
-#40        "Use only for Eagle v4.08 to v4.09r2"
-#41        "Use only for Eagle v4.10 and later"
+#40     "Use only for Eagle v4.08 to v4.09r2"
+#41     "Use only for Eagle v4.10 and later"
         "<p>"
         "<author>Author: Matthias Weißer matthias@matwei.de</author>"
 
@@ -51,8 +51,9 @@
 #41#include "3dfunc41.ulp"
 #41#include "eagle2svg.ulp"
 
-//Number of config options
-int config_count = 15;
+// Number of config options, plus 1 (IE: 0 - 15 = 16)
+// This is the total # of options in 3dconf.dat.
+int config_count = 16;
 
 //Includes und Standardeinstellungen
 // User Include String
@@ -271,6 +272,9 @@ string mpd_search[];
 // The name of the macro platinum
 string macro_name;
 
+// base_name of file
+string base_name;
+
 //Der Sockelaufruf wird hier zusammengebaut
 // The socket call is here assembled
 string socket_str;
@@ -484,6 +488,12 @@ int opt_umpd = 0;
 
 #50 //Flip boards upside down
 #50 int opt_pcb_flip = 0;
+#50 string opt_pcb_flip_sel[] =
+#50 {
+#50  "x",
+#50  "z"
+#50 };
+#50 int opt_pcb_flip_dir = 1;
 
 //Sprachauswahl
 // Language preset
@@ -533,6 +543,7 @@ int lgt4_inf[];
 // Changed Background to White
 // Changed Through Holes to Silver by default. They were ForestGreen
 // Through holes needs to be combined with Pads VIAs.
+// Board, Wires, Pads and SMD, Holes, Background, Silkscreen, Through Holes
 int col_inf[] =
 {
   15,14,11,10,0,1,1,5,0,11
@@ -833,19 +844,19 @@ if(pack_con[8]!=""){config[8] = pack_con[8]; packgen_layers = pack_con[8];}
 
 // POVRay options
 if(pack_con[9]!=""){config[9] = pack_con[9]; pov_path = pack_con[9];}
- else {config[9] = pov_path;}
+  else {config[9] = pov_path;}
 if(pack_con[10]!=""){config[10] = pack_con[10]; pov_font_path = pack_con[10];}
- else {config[10] = pov_font_path;}
+  else {config[10] = pov_font_path;}
 if(pack_con[11]!=""){config[11] = pack_con[11]; pov_system_selected = strtol(pack_con[11]);}
- else {config[11] = "0";}
+  else {config[11] = "0";}
 if(pack_con[12]!=""){config[12] = pack_con[12]; pov_res_selected = strtol(pack_con[12]);}
- else {config[12] = "3";}
+  else {config[12] = "3";}
 if(pack_con[13]!=""){config[13] = pack_con[13]; pov_use_aa = strtol(pack_con[13]);}
- else {config[13] = "1";}
+  else {config[13] = "1";}
 if(pack_con[14]!=""){config[14] = pack_con[14]; pov_render = strtol(pack_con[14]);}
- else {config[14] = "1";}
-#50//if(pack_con[15]!=""){config[15] = pack_con[15]; pov_pause = strtol(pack_con[15]);}
-#50// else {config[15] = "0";}
+  else {config[14] = "1";}
+#50 if(pack_con[15]!=""){config[15] = pack_con[15]; opt_pcb_flip_dir = strtol(pack_con[15]);}
+#50   else {config[15] = "1";}
 
 
 //*****************************************************************************
@@ -906,15 +917,16 @@ if(board)
     //Macroname setzen und Sonderzeichen entfernen
     // Macro name is set and special characters removed
     macro_name = make_pov_str(strupr(filesetext(filename(B.name), "")));
+    base_name  = make_pov_str(filesetext(filename(B.name), ""));
 
     //Kopfzeilen erzeugen
     // Create headers
-#40    sprintf(depp,"//%s 3d40.ulp v###VERSIONDUMMY###\n//%s\n//%s\n\n",
-#40      lang[66],B.name,t2string(time())
-#40    );
-#41    sprintf(depp,"//%s 3d41.ulp v###VERSIONDUMMY###\n//%s\n//%s\n\n",
-#41      lang[66],B.name,t2string(time())
-#41    );
+#40 sprintf(depp,"//%s 3d40.ulp v###VERSIONDUMMY###\n//%s\n//%s\n\n",
+#40   lang[66],B.name,t2string(time())
+#40 );
+#41 sprintf(depp,"//%s 3d41.ulp v###VERSIONDUMMY###\n//%s\n//%s\n\n",
+#41   lang[66],B.name,t2string(time())
+#41 );
     usrinc = depp + usrinc;
 
     mpd_file = filesetext(B.name,".mpd");
@@ -941,32 +953,32 @@ if(board)
         y_min = min(y_min,u2mm(W.y1));
         y_min = min(y_min,u2mm(W.y2));
 
-#41        if(W.arc)
-#41        {
-#41          // Difference angle
-#41          real da = deg2rad((W.arc.angle1 - W.arc.angle2)/2);
-#41          int x1i,y1i;
-#41          if(da>0)
-#41          {
-#41            x1i = W.arc.x1;
-#41            y1i = W.arc.y1;
-#41          }
-#41          else
-#41          {
-#41            x1i = W.arc.x2;
-#41            y1i = W.arc.y2;
-#41          }                        
+#41     if(W.arc)
+#41     {
+#41       // Difference angle
+#41       real da = deg2rad((W.arc.angle1 - W.arc.angle2)/2);
+#41       int x1i,y1i;
+#41       if(da>0)
+#41       {
+#41         x1i = W.arc.x1;
+#41         y1i = W.arc.y1;
+#41       }
+#41       else
+#41       {
+#41         x1i = W.arc.x2;
+#41         y1i = W.arc.y2;
+#41       }                        
 #41
-#41          // Rotate point 
-#41          real x_rot = (u2mm(x1i-W.arc.xc) * cos(da) - u2mm(y1i-W.arc.yc) * sin(da)) + u2mm(W.arc.xc);
-#41          real y_rot = (u2mm(x1i-W.arc.xc) * sin(da) + u2mm(y1i-W.arc.yc) * cos(da)) + u2mm(W.arc.yc);                    
+#41       // Rotate point 
+#41       real x_rot = (u2mm(x1i-W.arc.xc) * cos(da) - u2mm(y1i-W.arc.yc) * sin(da)) + u2mm(W.arc.xc);
+#41       real y_rot = (u2mm(x1i-W.arc.xc) * sin(da) + u2mm(y1i-W.arc.yc) * cos(da)) + u2mm(W.arc.yc);                    
 #41
-#41          x_max = max(x_max,x_rot);
-#41          x_min = min(x_min,x_rot);
+#41       x_max = max(x_max,x_rot);
+#41       x_min = min(x_min,x_rot);
 #41
-#41          y_max = max(y_max,y_rot);
-#41          y_min = min(y_min,y_rot);
-#41        }                
+#41       y_max = max(y_max,y_rot);
+#41       y_min = min(y_min,y_rot);
+#41     }                
       }
     }
 
@@ -986,32 +998,32 @@ if(board)
           y_min = min(y_min,u2mm(W.y1));
           y_min = min(y_min,u2mm(W.y2));
 
-#41          if(W.arc)
-#41          {
-#41            // Difference angle
-#41            real da = deg2rad((W.arc.angle1 - W.arc.angle2)/2);
-#41            int x1i,y1i;
-#41            if(da>0)
-#41            {
-#41              x1i = W.arc.x1;
-#41              y1i = W.arc.y1;
-#41            }
-#41            else
-#41            {
-#41              x1i = W.arc.x2;
-#41              y1i = W.arc.y2;
-#41            }                        
+#41       if(W.arc)
+#41       {
+#41         // Difference angle
+#41         real da = deg2rad((W.arc.angle1 - W.arc.angle2)/2);
+#41         int x1i,y1i;
+#41         if(da>0)
+#41         {
+#41           x1i = W.arc.x1;
+#41           y1i = W.arc.y1;
+#41         }
+#41         else
+#41         {
+#41           x1i = W.arc.x2;
+#41           y1i = W.arc.y2;
+#41         }                        
 #41
-#41            // Rotate point 
-#41            real x_rot = (u2mm(x1i-W.arc.xc) * cos(da) - u2mm(y1i-W.arc.yc) * sin(da)) + u2mm(W.arc.xc);
-#41            real y_rot = (u2mm(x1i-W.arc.xc) * sin(da) + u2mm(y1i-W.arc.yc) * cos(da)) + u2mm(W.arc.yc);                    
+#41         // Rotate point 
+#41         real x_rot = (u2mm(x1i-W.arc.xc) * cos(da) - u2mm(y1i-W.arc.yc) * sin(da)) + u2mm(W.arc.xc);
+#41         real y_rot = (u2mm(x1i-W.arc.xc) * sin(da) + u2mm(y1i-W.arc.yc) * cos(da)) + u2mm(W.arc.yc);                    
 #41
-#41            x_max = max(x_max,x_rot);
-#41            x_min = min(x_min,x_rot);
+#41         x_max = max(x_max,x_rot);
+#41         x_min = min(x_min,x_rot);
 #41
-#41            y_max = max(y_max,y_rot);
-#41            y_min = min(y_min,y_rot);
-#41          }                
+#41         y_max = max(y_max,y_rot);
+#41         y_min = min(y_min,y_rot);
+#41       }                
         }
       }
     }
@@ -1333,7 +1345,7 @@ do{
               dlgCell(2,1) dlgCheckBox(lang[13], opt_bohf) if(opt_bohf==1) opt_boh = 0;
               dlgCell(3,0) dlgCheckBox(lang[161], opt_pad_bottom);                    
               dlgCell(4,0) dlgCheckBox(lang[15], opt_mup){if(opt_man==1) opt_man=0; if(opt_umpd==1) {opt_mup=0; opt_man=0;}}
-#41              dlgCell(4,1) dlgCheckBox(lang[160], opt_svg);
+#41           dlgCell(4,1) dlgCheckBox(lang[160], opt_svg);
               dlgCell(5,0) dlgCheckBox(lang[16], opt_man){if(opt_mup==0) opt_mup=1; if(opt_umpd==1) {opt_man=0; opt_mup=0;}}
               dlgCell(5,1) dlgCheckBox(lang[17], opt_pcb);
               dlgCell(6,0) dlgCheckBox(lang[18], opt_spn);
@@ -1342,16 +1354,23 @@ do{
               dlgCell(7,1) dlgCheckBox(lang[21], opt_amb);
               dlgCell(8,0) dlgCheckBox(lang[97], opt_umpd) if(opt_umpd==1) {opt_bau=0; opt_man=0; opt_mup=0;}
               dlgCell(8,1) dlgCheckBox(lang[121], opt_dur) if(opt_dur==1);
-#50              dlgCell(9,0) dlgCheckBox(lang[168],opt_pcb_flip);
-
+#50           dlgCell(9,0) dlgLabel(" "); // Dummy statement for spacing
+#50           //Pause after rendering
+#50           dlgCell(10,1) dlgCheckBox(lang[167], pov_pause);
+#50           // Flip PCB upside down
+#50           dlgCell(10,0) dlgCheckBox(lang[168],opt_pcb_flip);
+#50           dlgCell(11,0)
+#50           {
+#50             dlgLabel(" Rotation Axis: ");
+#50             dlgComboBox(opt_pcb_flip_sel, opt_pcb_flip_dir);
+#50             dlgLabel(" "); // Dummy statement for spacing
+#50             dlgLabel(" "); // Dummy statement for spacing
+#50           }
               //Sorgt für gleichbleibende Breite des ULP-Fenster
               //Provides uniform width of the ULP window
-              //dlgCell(9,0) dlgSpacing(220);
-#40           //   dlgCell(9,1) dlgSpacing(230);
-#41           //   dlgCell(9,1) dlgSpacing(240);
-              dlgCell(10,0) dlgSpacing(220);
-#40              dlgCell(10,1) dlgSpacing(230);
-#41              dlgCell(10,1) dlgSpacing(240);
+              dlgCell(12,0) dlgSpacing(220);
+#40           dlgCell(12,1) dlgSpacing(230);
+#41           dlgCell(12,1) dlgSpacing(240);
             }  // End of Dialog Grid Layout
           }  // End of Dialog Group - Render
 
@@ -1412,6 +1431,9 @@ do{
                   color_file = main_path + "/3dcol_pt.dat";
                   lang_file = main_path + "/3dlang_pt.dat";
                 }
+
+                //=========================================
+                // ??? what is this section doing here ???
                 config[1] = color_file;
                 config[2] = lang_file;
                 config[3] = slk_layers[0];
@@ -1426,6 +1448,8 @@ do{
                 sprintf(config[12],"%d",pov_res_selected);
                 sprintf(config[13],"%d",pov_use_aa);
                 sprintf(config[14],"%d",pov_render);
+                sprintf(config[15],"%d",opt_pcb_flip_dir);
+                //=========================================
 
                 //Einlesen der Sprachdatei
                 // Reading the language file
@@ -1673,9 +1697,7 @@ do{
             dlgCell(3,0) dlgLabel(lang[164]);
             dlgCell(3,1) dlgComboBox(pov_res, pov_res_selected);
             dlgCell(4,0) dlgCheckBox(lang[165], pov_use_aa);
-#50            dlgCell(5,0) dlgCheckBox(lang[166], pov_render);
-#50            //Pause after rendering
-#50            dlgCell(6,0) dlgCheckBox(lang[167], pov_pause);
+            dlgCell(5,0) dlgCheckBox(lang[166], pov_render);
           }  // End of Dialg Group - POVRay Settings
         }  // End of Dialog Tab Page - POVRay        
 
@@ -1818,8 +1840,7 @@ do{
           sprintf(config[12],"%d",pov_res_selected);
           sprintf(config[13],"%d",pov_use_aa);
           sprintf(config[14],"%d",pov_render);
-#50       // Pause after rendering
-#50       //sprintf(config[15],"%d",pov_pause);
+#50       sprintf(config[15],"%d",opt_pcb_flip_dir);
 
           output(conf_file,"w")
           {           
@@ -1856,6 +1877,8 @@ do{
           sprintf(config[12],"%d",pov_res_selected);
           sprintf(config[13],"%d",pov_use_aa);
           sprintf(config[14],"%d",pov_render);
+#50       sprintf(config[15],"%d",opt_pcb_flip_dir);
+
           output(conf_file,"w")
           {           
             for(i = 0; i < config_count; i++)
@@ -1917,10 +1940,10 @@ do{
     }
   }
 
-#41  if(opt_svg==1)
-#41  {
-#41    eagle2svg(filesetext(out_file,".svg"));
-#41  }
+#41 if(opt_svg==1)
+#41 {
+#41   eagle2svg(filesetext(out_file,".svg"));
+#41 }
 
   output(out_file,"a"){
 
@@ -1930,9 +1953,10 @@ do{
 #50  printf("//Set to on if you want to render the PCB upside-down\n");
 #50  if(opt_pcb_flip) printf("#declare pcb_upsidedown = on;\n");
 #50  else printf("#declare pcb_upsidedown = off;\n");
-#50  printf("//Set to x or z to rotate around the corresponding axis (referring to pcb_upsidedown)\n");
-#50  printf("#declare pcb_rotdir = z;\n");
-#50  printf("//****************************************************\n");
+#50  printf("//Set to x or z to rotate around the corresponding axis\n");
+#50  if(opt_pcb_flip_dir==0) printf("#declare pcb_rotdir = x;\n");
+#50  else printf("#declare pcb_rotdir = z;\n");
+#50  printf("//****************************************************\n\n");
 
   //Animationseinstellungen
   // Animation Settings
@@ -2077,14 +2101,14 @@ do{
     {
       S.vias(V)
       {
-#41        if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
+#41     if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
         if(u2mm(V.drill)>=real_boh)
         {
           via_pos_x[via_cnt]=V.x;
           via_pos_y[via_cnt]=V.y;
           via_pos_d[via_cnt]=V.drill;
-#41          via_ls[via_cnt]=V.start;
-#41          via_le[via_cnt]=V.end;
+#41       via_ls[via_cnt]=V.start;
+#41       via_le[via_cnt]=V.end;
           via_cnt++;
         }
       }
@@ -2100,8 +2124,8 @@ do{
             via_pos_x[via_cnt]=C.pad.x;
             via_pos_y[via_cnt]=C.pad.y;
             via_pos_d[via_cnt]=C.pad.drill;
-#41            via_ls[via_cnt]=1;
-#41            via_le[via_cnt]=16;
+#41         via_ls[via_cnt]=1;
+#41         via_le[via_cnt]=16;
             via_cnt++;
           }
         }
@@ -2109,8 +2133,8 @@ do{
     }
     //sortieren der VIA's in x-Richtung
     // VIA's Sorted in the x direction
-#40    sort(via_cnt, via_sort_i, via_pos_x, via_pos_y, via_pos_d);
-#41    sort(via_cnt, via_sort_i, via_pos_x, via_pos_y, via_pos_d, via_ls, via_le);
+#40 sort(via_cnt, via_sort_i, via_pos_x, via_pos_y, via_pos_d);
+#41 sort(via_cnt, via_sort_i, via_pos_x, via_pos_y, via_pos_d, via_ls, via_le);
 
     if(opt_lei==1)
     {
@@ -2125,7 +2149,7 @@ do{
             ( ((W.layer<17)&&(opt_pcb==0)) || (W.layer==1) || (W.layer==16) )&&
             is_in_range(W.x1,W.x2,x_min,x_max)&&
             is_in_range(W.y1,W.y2,y_min,y_max)
-#41            &&(!W.arc)
+#41         &&(!W.arc)
           )
           {
             if(W.x1<=W.x2)
@@ -2564,13 +2588,13 @@ do{
         {
           //prismplatinen
           //prism electronic boards
-#41          printf(make_prism_from_board_elements_package_layer(B, 20, pcb_arc_prc, -pcb_height, 0, "texture{col_brd}"));
-#40          printf(make_prism_from_board_elements_package_layer(B, 20,           0, -pcb_height, 0, "texture{col_brd}"));
+#41       printf(make_prism_from_board_elements_package_layer(B, 20, pcb_arc_prc, -pcb_height, 0, "texture{col_brd}"));
+#40       printf(make_prism_from_board_elements_package_layer(B, 20,           0, -pcb_height, 0, "texture{col_brd}"));
         }
         else if(pcb_shape==2)
         {
-#41         printf(make_prism_from_board_layer(B, 20, pcb_arc_prc, -pcb_height, 0, "texture{col_brd}"));
-#40         printf(make_prism_from_board_layer(B, 20,           0, -pcb_height, 0, "texture{col_brd}"));
+#41       printf(make_prism_from_board_layer(B, 20, pcb_arc_prc, -pcb_height, 0, "texture{col_brd}"));
+#40       printf(make_prism_from_board_layer(B, 20,           0, -pcb_height, 0, "texture{col_brd}"));
         }  // End of if/else statement pcb_shape==0
         else
         {
@@ -2626,23 +2650,23 @@ do{
         printf("//"+lang[73]+"\n");
         for(i=0;i<via_cnt;i++)
         {
-#40          printf("cylinder{<%f,1,%f><%f,%f,%f>%f texture{col_hls}}\n",
-#40            u2mm(via_pos_x[via_sort_i[i]]),
-#40            u2mm(via_pos_y[via_sort_i[i]]),
-#40            u2mm(via_pos_x[via_sort_i[i]]),
-#40            -pcb_height-1,
-#40            u2mm(via_pos_y[via_sort_i[i]]),
-#40            u2mm(via_pos_d[via_sort_i[i]])/2
-#40          );
-#41          printf("cylinder{<%f,%f,%f><%f,%f,%f>%f texture{col_hls}}\n",
-#41            u2mm(via_pos_x[via_sort_i[i]]),
-#41            pcb_cuheight+0.06-ar_layerdis[via_ls[via_sort_i[i]]-1],
-#41            u2mm(via_pos_y[via_sort_i[i]]),
-#41            u2mm(via_pos_x[via_sort_i[i]]),
-#41            -(ar_layerdis[via_le[via_sort_i[i]]-1]+0.06),
-#41            u2mm(via_pos_y[via_sort_i[i]]),
-#41            u2mm(via_pos_d[via_sort_i[i]])/2
-#41          );
+#40       printf("cylinder{<%f,1,%f><%f,%f,%f>%f texture{col_hls}}\n",
+#40         u2mm(via_pos_x[via_sort_i[i]]),
+#40         u2mm(via_pos_y[via_sort_i[i]]),
+#40         u2mm(via_pos_x[via_sort_i[i]]),
+#40         -pcb_height-1,
+#40         u2mm(via_pos_y[via_sort_i[i]]),
+#40         u2mm(via_pos_d[via_sort_i[i]])/2
+#40       );
+#41       printf("cylinder{<%f,%f,%f><%f,%f,%f>%f texture{col_hls}}\n",
+#41         u2mm(via_pos_x[via_sort_i[i]]),
+#41         pcb_cuheight+0.06-ar_layerdis[via_ls[via_sort_i[i]]-1],
+#41         u2mm(via_pos_y[via_sort_i[i]]),
+#41         u2mm(via_pos_x[via_sort_i[i]]),
+#41         -(ar_layerdis[via_le[via_sort_i[i]]-1]+0.06),
+#41         u2mm(via_pos_y[via_sort_i[i]]),
+#41         u2mm(via_pos_d[via_sort_i[i]])/2
+#41       );
         }
       }//Ende reale Bohrungen  //End if statement - opt_boh==1
 
@@ -3416,76 +3440,76 @@ do{
             make_pov_str(E.name)
           );
 
-#41          if(opt_pad_top==1 && opt_pad_bottom==1)
-#41          {
-#41            printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d+global_tmp,%d) ",
-#41              u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#41              C.pad.shape[LAYER_TOP],C.pad.elongation
-#41            );
-#41          }
-#41          else if(opt_pad_top==1 && opt_pad_bottom==0)
-#41          {
-#41            printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d+global_tmp,%d) ",
-#41              u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#41              C.pad.shape[LAYER_TOP],C.pad.elongation
-#41            );
-#41          }
-#41          else if(opt_pad_top==0 && opt_pad_bottom==1)
-#41          {
-#41            printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d+global_tmp,%d) ",
-#41              u2mm(C.pad.diameter[LAYER_BOTTOM]),u2mm(C.pad.drill),
-#41              C.pad.shape[LAYER_BOTTOM],C.pad.elongation
-#41            );
-#41          }
+#41       if(opt_pad_top==1 && opt_pad_bottom==1)
+#41       {
+#41         printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d+global_tmp,%d) ",
+#41           u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#41           C.pad.shape[LAYER_TOP],C.pad.elongation
+#41         );
+#41       }
+#41       else if(opt_pad_top==1 && opt_pad_bottom==0)
+#41       {
+#41         printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d+global_tmp,%d) ",
+#41           u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#41           C.pad.shape[LAYER_TOP],C.pad.elongation
+#41         );
+#41       }
+#41       else if(opt_pad_top==0 && opt_pad_bottom==1)
+#41       {
+#41         printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d+global_tmp,%d) ",
+#41           u2mm(C.pad.diameter[LAYER_BOTTOM]),u2mm(C.pad.drill),
+#41           C.pad.shape[LAYER_BOTTOM],C.pad.elongation
+#41         );
+#41       }
 
-#40          if(C.pad.shape[LAYER_TOP]==PAD_SHAPE_YLONGOCT)
-#40          {
-#40            if(opt_pad_top==1 && opt_pad_bottom==1)
-#40            {
-#40              printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d+global_tmp,100) rotate<0,90,0>",
-#40                u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#40                PAD_SHAPE_XLONGOCT
-#40              );
-#40            }
-#40            else if(opt_pad_top==1 && opt_pad_bottom==0)
-#40            {
-#40              printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d+global_tmp,100) rotate<0,90,0>",
-#40                u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#40                PAD_SHAPE_XLONGOCT
-#40              );
-#40            }
-#40            else if(opt_pad_top==0 && opt_pad_bottom==1)
-#40            {
-#40              printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d+global_tmp,100) rotate<0,90,0>",
-#40                u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#40                PAD_SHAPE_XLONGOCT
-#40              );
-#40            }
-#40          }                                                                                                                                                                     
-#40          else
-#40          {   
-#40            if(opt_pad_top==1 && opt_pad_bottom==1)
-#40            {
-#40              printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d+global_tmp,100) ",
-#40                u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#40                C.pad.shape[LAYER_TOP]
-#40              );       
-#40            }
-#40            else if(opt_pad_top==1 && opt_pad_bottom==0)
-#40            {
-#40              printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d+global_tmp,100) ",
-#40                u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#40                C.pad.shape[LAYER_TOP]
-#40              );       
-#40            }                                                                                                                                                                
-#40            else if(opt_pad_top==0 && opt_pad_bottom==1)                                                                                                
-#40            {                                                                                 
-#40              printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d+global_tmp,100) ",
-#40                u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
-#40                C.pad.shape[LAYER_TOP]
-#40              );       
-#40            }
-#40          }   
+#40       if(C.pad.shape[LAYER_TOP]==PAD_SHAPE_YLONGOCT)
+#40       {
+#40         if(opt_pad_top==1 && opt_pad_bottom==1)
+#40         {
+#40           printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d+global_tmp,100) rotate<0,90,0>",
+#40             u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#40             PAD_SHAPE_XLONGOCT
+#40           );
+#40         }
+#40         else if(opt_pad_top==1 && opt_pad_bottom==0)
+#40         {
+#40           printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d+global_tmp,100) rotate<0,90,0>",
+#40             u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#40             PAD_SHAPE_XLONGOCT
+#40           );
+#40         }
+#40         else if(opt_pad_top==0 && opt_pad_bottom==1)
+#40         {
+#40           printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d+global_tmp,100) rotate<0,90,0>",
+#40             u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#40             PAD_SHAPE_XLONGOCT
+#40           );
+#40         }
+#40       }                                                                                                                                                                     
+#40       else
+#40       {   
+#40         if(opt_pad_top==1 && opt_pad_bottom==1)
+#40         {
+#40           printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d+global_tmp,100) ",
+#40             u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#40             C.pad.shape[LAYER_TOP]
+#40           );       
+#40         }
+#40         else if(opt_pad_top==1 && opt_pad_bottom==0)
+#40         {
+#40           printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d+global_tmp,100) ",
+#40             u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#40             C.pad.shape[LAYER_TOP]
+#40           );       
+#40         }                                                                                                                                                                
+#40         else if(opt_pad_top==0 && opt_pad_bottom==1)                                                                                                
+#40         {                                                                                 
+#40           printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d+global_tmp,100) ",
+#40             u2mm(C.pad.diameter[LAYER_TOP]),u2mm(C.pad.drill),
+#40             C.pad.shape[LAYER_TOP]
+#40           );       
+#40         }
+#40       }   
                     
           printf("rotate<0,-%f,0>",C.pad.angle);
           printf("translate<%f,0,%f> texture{col_thl}}\n",
@@ -3496,15 +3520,15 @@ do{
         {
           if (C.smd.layer == 1) layer_dis = 0; else if(C.smd.layer == 16) layer_dis = -(pcb_cuheight + pcb_height + pad_dis);
 
-#40          printf("object{TOOLS_PCB_SMD(%f,%f,%f,%d) texture{col_pds} translate<%f,%f,%f>}\n",
-#40            u2mm(C.smd.dx),u2mm(C.smd.dy),pcb_cuheight+pad_dis,
-#40            C.smd.roundness,u2mm(C.smd.x),layer_dis,u2mm(C.smd.y)
-#40          );
-#41          printf("object{TOOLS_PCB_SMD(%f,%f,%f,%d) rotate<0,-%f,0> texture{col_pds} translate<%f,%f,%f>}\n",
-#41            u2mm(C.smd.dx),u2mm(C.smd.dy),pcb_cuheight+pad_dis,
-#41            C.smd.roundness,C.smd.angle,u2mm(C.smd.x),
-#41            layer_dis,u2mm(C.smd.y)
-#41          );
+#40       printf("object{TOOLS_PCB_SMD(%f,%f,%f,%d) texture{col_pds} translate<%f,%f,%f>}\n",
+#40         u2mm(C.smd.dx),u2mm(C.smd.dy),pcb_cuheight+pad_dis,
+#40         C.smd.roundness,u2mm(C.smd.x),layer_dis,u2mm(C.smd.y)
+#40       );
+#41       printf("object{TOOLS_PCB_SMD(%f,%f,%f,%d) rotate<0,-%f,0> texture{col_pds} translate<%f,%f,%f>}\n",
+#41         u2mm(C.smd.dx),u2mm(C.smd.dy),pcb_cuheight+pad_dis,
+#41         C.smd.roundness,C.smd.angle,u2mm(C.smd.x),
+#41         layer_dis,u2mm(C.smd.y)
+#41       );
         }
       }
     }
@@ -3515,52 +3539,52 @@ do{
     {
       S.vias(V)
       {
-#41        if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
+#41     if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
 
-#41        if(opt_pad_top==1 && opt_pad_bottom==1)
-#41        {
-#41          printf("object{TOOLS_PCB_VIA(%f,%f,%d,%d,%d,0) translate<%f,0,%f>",
-#41            u2mm(V.diameter[V.start]),u2mm(V.drill),V.start,V.end,
-#41            V.shape[V.start],u2mm(V.x),u2mm(V.y)
-#41          );
-#41        }
-#41        else if(opt_pad_top==1 && opt_pad_bottom==0)
-#41        {
-#41          printf("object{TOOLS_PCB_VIA(%f,%f,%d,%d,%d,0) translate<%f,0,%f>",
-#41            u2mm(V.diameter[V.start]),u2mm(V.drill),V.start,V.start,
-#41            V.shape[V.start],u2mm(V.x),u2mm(V.y)
-#41          );
-#41        }
-#41        else if(opt_pad_top==0 && opt_pad_bottom==1)
-#41        {
-#41          printf("object{TOOLS_PCB_VIA(%f,%f,%d,%d,%d,0) translate<%f,0,%f>",
-#41            u2mm(V.diameter[V.start]),u2mm(V.drill),V.end,V.end,
-#41            V.shape[V.start],u2mm(V.x),u2mm(V.y)
-#41          );
-#41        }
+#41     if(opt_pad_top==1 && opt_pad_bottom==1)
+#41     {
+#41       printf("object{TOOLS_PCB_VIA(%f,%f,%d,%d,%d,0) translate<%f,0,%f>",
+#41         u2mm(V.diameter[V.start]),u2mm(V.drill),V.start,V.end,
+#41         V.shape[V.start],u2mm(V.x),u2mm(V.y)
+#41       );
+#41     }
+#41     else if(opt_pad_top==1 && opt_pad_bottom==0)
+#41     {
+#41       printf("object{TOOLS_PCB_VIA(%f,%f,%d,%d,%d,0) translate<%f,0,%f>",
+#41         u2mm(V.diameter[V.start]),u2mm(V.drill),V.start,V.start,
+#41         V.shape[V.start],u2mm(V.x),u2mm(V.y)
+#41       );
+#41     }
+#41     else if(opt_pad_top==0 && opt_pad_bottom==1)
+#41     {
+#41       printf("object{TOOLS_PCB_VIA(%f,%f,%d,%d,%d,0) translate<%f,0,%f>",
+#41         u2mm(V.diameter[V.start]),u2mm(V.drill),V.end,V.end,
+#41         V.shape[V.start],u2mm(V.x),u2mm(V.y)
+#41       );
+#41     }
 
 
-#40        if(opt_pad_top==1 && opt_pad_bottom==1)
-#40        {
-#40          printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d,0) translate<%f,0,%f>",
-#40            u2mm(V.diameter[LAYER_TOP]),u2mm(V.drill),
-#40            V.shape[LAYER_TOP],u2mm(V.x),u2mm(V.y)
-#40          );
-#40        }
-#40        else if(opt_pad_top==1 && opt_pad_bottom==0)
-#40        {
-#40          printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d,0) translate<%f,0,%f>",
-#40            u2mm(V.diameter[LAYER_TOP]),u2mm(V.drill),
-#40            V.shape[LAYER_TOP],u2mm(V.x),u2mm(V.y)
-#40          );
-#40        }
-#40        else if(opt_pad_top==0 && opt_pad_bottom==1)
-#40        {
-#40          printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d,0) translate<%f,0,%f>",
-#40            u2mm(V.diameter[LAYER_TOP]),u2mm(V.drill),
-#40            V.shape[LAYER_TOP],u2mm(V.x),u2mm(V.y)
-#40          );
-#40        }
+#40     if(opt_pad_top==1 && opt_pad_bottom==1)
+#40     {
+#40       printf("object{TOOLS_PCB_VIA(%f,%f,1,16,%d,0) translate<%f,0,%f>",
+#40         u2mm(V.diameter[LAYER_TOP]),u2mm(V.drill),
+#40         V.shape[LAYER_TOP],u2mm(V.x),u2mm(V.y)
+#40       );
+#40     }
+#40     else if(opt_pad_top==1 && opt_pad_bottom==0)
+#40     {
+#40       printf("object{TOOLS_PCB_VIA(%f,%f,1,1,%d,0) translate<%f,0,%f>",
+#40         u2mm(V.diameter[LAYER_TOP]),u2mm(V.drill),
+#40         V.shape[LAYER_TOP],u2mm(V.x),u2mm(V.y)
+#40       );
+#40     }
+#40     else if(opt_pad_top==0 && opt_pad_bottom==1)
+#40     {
+#40       printf("object{TOOLS_PCB_VIA(%f,%f,16,16,%d,0) translate<%f,0,%f>",
+#40         u2mm(V.diameter[LAYER_TOP]),u2mm(V.drill),
+#40         V.shape[LAYER_TOP],u2mm(V.x),u2mm(V.y)
+#40       );
+#40     }
                 
         if((u2mm(V.drill))>via_silk) printf(" texture{col_thl}}\n");
         else printf(" texture{col_wrs}}\n");
@@ -3662,20 +3686,20 @@ do{
       }
     }
 
-#41    B.signals(S)
-#41    {
-#41      S.wires(W)
-#41      {
-#41        if(W.arc)
-#41        {
-#41          layer_dis = -ar_layerdis[W.arc.layer-1];
-#41          printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
-#41            u2mm(W.arc.radius),u2mm(W.arc.width),W.arc.angle1,W.arc.angle2,
-#41            pcb_cuheight+bedruck_dis,u2mm(W.arc.xc),layer_dis,u2mm(W.arc.yc)
-#41          );
-#41        }
-#41      }
-#41    }
+#41 B.signals(S)
+#41 {
+#41   S.wires(W)
+#41   {
+#41     if(W.arc)
+#41     {
+#41       layer_dis = -ar_layerdis[W.arc.layer-1];
+#41       printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
+#41         u2mm(W.arc.radius),u2mm(W.arc.width),W.arc.angle1,W.arc.angle2,
+#41         pcb_cuheight+bedruck_dis,u2mm(W.arc.xc),layer_dis,u2mm(W.arc.yc)
+#41       );
+#41     }
+#41   }
+#41 }
 
     //Wenn Leiterbahnen ausgegeben werden wird auch gleich Text auf Layer 1 bis 16 bearbeitet.
     // If conductors are also output the same text is processed at Layer 1 to 16.
@@ -3705,15 +3729,15 @@ do{
       {
         layer_dis = -ar_layerdis[R.layer-1];
         if(R.layer==16) layer_dis = layer_dis - pad_dis;
-#40        printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
-#40          u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
-#40          pcb_cuheight+pad_dis,u2mm(R.y2),layer_dis
-#40        );
-#41        printf("box{<%f,0,%f><%f,%f,%f> rotate<0,%f,0> translate<%f,%f,%f>}\n",
-#41          -u2mm(R.x2-R.x1)/2,-u2mm(R.y2-R.y1)/2,u2mm(R.x2-R.x1)/2,
-#41          pcb_cuheight+pad_dis,u2mm(R.y2-R.y1)/2,R.angle,
-#41          u2mm(R.x2+R.x1)/2,layer_dis,u2mm(R.y2+R.y1)/2
-#41        );
+#40     printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
+#40       u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
+#40       pcb_cuheight+pad_dis,u2mm(R.y2),layer_dis
+#40     );
+#41     printf("box{<%f,0,%f><%f,%f,%f> rotate<0,%f,0> translate<%f,%f,%f>}\n",
+#41       -u2mm(R.x2-R.x1)/2,-u2mm(R.y2-R.y1)/2,u2mm(R.x2-R.x1)/2,
+#41       pcb_cuheight+pad_dis,u2mm(R.y2-R.y1)/2,R.angle,
+#41       u2mm(R.x2+R.x1)/2,layer_dis,u2mm(R.y2+R.y1)/2
+#41     );
       }
     }
     //Kupfer in Elements
@@ -3743,15 +3767,15 @@ do{
         {
           layer_dis = -ar_layerdis[R.layer-1];
           if(R.layer==16) layer_dis = layer_dis - pad_dis;
-#40          printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
-#40            u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
-#40            pcb_cuheight+pad_dis,u2mm(R.y2),layer_dis
-#40          );
-#41          printf("box{<%f,0,%f><%f,%f,%f> rotate<0,%f,0> translate<%f,%f,%f>}\n",
-#41            -u2mm(R.x2-R.x1)/2,-u2mm(R.y2-R.y1)/2,u2mm(R.x2-R.x1)/2,
-#41            pcb_cuheight+pad_dis,u2mm(R.y2-R.y1)/2,-R.angle,
-#41            u2mm(R.x2+R.x1)/2,layer_dis,u2mm(R.y2+R.y1)/2
-#41          );
+#40       printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
+#40         u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
+#40         pcb_cuheight+pad_dis,u2mm(R.y2),layer_dis
+#40       );
+#41       printf("box{<%f,0,%f><%f,%f,%f> rotate<0,%f,0> translate<%f,%f,%f>}\n",
+#41         -u2mm(R.x2-R.x1)/2,-u2mm(R.y2-R.y1)/2,u2mm(R.x2-R.x1)/2,
+#41         pcb_cuheight+pad_dis,u2mm(R.y2-R.y1)/2,-R.angle,
+#41         u2mm(R.x2+R.x1)/2,layer_dis,u2mm(R.y2+R.y1)/2
+#41       );
         }
       }
     }
@@ -3828,22 +3852,22 @@ do{
     {
       S.vias(V)
       {
-#41        if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
-#41        if(u2mm(V.drill)<real_boh)
-#41        {
-#41          printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
-#41            u2mm(V.x),pcb_cuheight+boh_dis-ar_layerdis[V.start-1],
-#41            u2mm(V.y),u2mm(V.x),-(ar_layerdis[V.end-1]+boh_dis),
-#41            u2mm(V.y),u2mm(V.drill)/2
-#41          );
-#41        }
-#40        if(u2mm(V.drill)<real_boh)
-#40        {
-#40          printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
-#40            u2mm(V.x),pcb_cuheight+boh_dis,u2mm(V.y),u2mm(V.x),
-#40            -(pcb_cuheight+pcb_height+boh_dis),u2mm(V.y),u2mm(V.drill)/2
-#40          );
-#40        }
+#41     if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
+#41     if(u2mm(V.drill)<real_boh)
+#41     {
+#41       printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
+#41         u2mm(V.x),pcb_cuheight+boh_dis-ar_layerdis[V.start-1],
+#41         u2mm(V.y),u2mm(V.x),-(ar_layerdis[V.end-1]+boh_dis),
+#41         u2mm(V.y),u2mm(V.drill)/2
+#41       );
+#41     }
+#40     if(u2mm(V.drill)<real_boh)
+#40     {
+#40       printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
+#40         u2mm(V.x),pcb_cuheight+boh_dis,u2mm(V.y),u2mm(V.x),
+#40         -(pcb_cuheight+pcb_height+boh_dis),u2mm(V.y),u2mm(V.drill)/2
+#40       );
+#40     }
       }
     }
     printf("//"+lang[77]+"\n");
@@ -3888,17 +3912,17 @@ do{
     {
       S.vias(V)
       {
-#41        //Burried-Vias nicht darstellen wenn Platine eingeschaltet.
-#41        // Buried vias not represented on board when turned on.
-#41        if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
-#40        printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
-#40          u2mm(V.x),pcb_cuheight+0.011,u2mm(V.y),u2mm(V.x),
-#40          -(pcb_cuheight+pcb_height+0.011),u2mm(V.y),u2mm(V.drill)/2
-#40        );
-#41        printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
-#41          u2mm(V.x),pcb_cuheight+0.011-ar_layerdis[V.start-1],u2mm(V.y),
-#41          u2mm(V.x),-(ar_layerdis[V.end-1]+0.011),u2mm(V.y),u2mm(V.drill)/2
-#41        );
+#41     //Burried-Vias nicht darstellen wenn Platine eingeschaltet.
+#41     // Buried vias not represented on board when turned on.
+#41     if((opt_pcb==1)&&(V.start>1)&&(V.end<16)) continue;
+#40     printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
+#40       u2mm(V.x),pcb_cuheight+0.011,u2mm(V.y),u2mm(V.x),
+#40       -(pcb_cuheight+pcb_height+0.011),u2mm(V.y),u2mm(V.drill)/2
+#40     );
+#41     printf("cylinder{<%f,%f,%f><%f,%f,%f>%f }\n",
+#41       u2mm(V.x),pcb_cuheight+0.011-ar_layerdis[V.start-1],u2mm(V.y),
+#41       u2mm(V.x),-(ar_layerdis[V.end-1]+0.011),u2mm(V.y),u2mm(V.drill)/2
+#41     );
       }
     }
     printf("//"+lang[77]+"\n");
@@ -3979,8 +4003,8 @@ do{
       {
         if(W.layer%2) layer_dis = 0;
         else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
-#41        if(!W.arc)
-#41        {
+#41     if(!W.arc)
+#41     {
           if((u2mm(W.x1)>x_max)||(u2mm(W.x2)>x_max)||(u2mm(W.x1)<x_min)||
             (u2mm(W.x2)<x_min)||(u2mm(W.y1)>y_max)||(u2mm(W.y2)>y_max)||
             (u2mm(W.y1)<y_min)||(u2mm(W.y2)<y_min)
@@ -3988,18 +4012,18 @@ do{
           printf("%s",create_line(W.x1, W.y1, W.x2, W.y2, W.width,
             pcb_cuheight+bedruck_dis,layer_dis,1,1)
           );
-#41        }
-#41        else
-#41        {
-#41          if((u2mm(W.x1)>x_max)||(u2mm(W.x2)>x_max)||(u2mm(W.x1)<x_min)||
-#41            (u2mm(W.x2)<x_min)||(u2mm(W.y1)>y_max)||(u2mm(W.y2)>y_max)||
-#41            (u2mm(W.y1)<y_min)||(u2mm(W.y2)<y_min)
-#41          ) continue;
-#41          printf("%s",create_arc(W.arc.xc,W.arc.yc,W.arc.radius,
-#41            W.arc.width,W.arc.angle1,W.arc.angle2,
-#41            pcb_cuheight+bedruck_dis, layer_dis,1,1)
-#41          );
-#41        }
+#41     }
+#41     else
+#41     {
+#41       if((u2mm(W.x1)>x_max)||(u2mm(W.x2)>x_max)||(u2mm(W.x1)<x_min)||
+#41         (u2mm(W.x2)<x_min)||(u2mm(W.y1)>y_max)||(u2mm(W.y2)>y_max)||
+#41         (u2mm(W.y1)<y_min)||(u2mm(W.y2)<y_min)
+#41       ) continue;
+#41       printf("%s",create_arc(W.arc.xc,W.arc.yc,W.arc.radius,
+#41         W.arc.width,W.arc.angle1,W.arc.angle2,
+#41         pcb_cuheight+bedruck_dis, layer_dis,1,1)
+#41       );
+#41     }
       }
     }
     B.circles(C)
@@ -4030,38 +4054,38 @@ do{
       {
         if(R.layer%2) layer_dis = 0;
         else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
-#40        printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
-#40          u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
-#40          pcb_cuheight+bedruck_dis,u2mm(R.y2),layer_dis
-#40        );
-#41        printf("box{<-%f,0,-%f><%f,%f,%f> rotate<0,-%f,0> translate<%f,%f,%f>}\n",
-#41          u2mm((R.x2-R.x1)/2),u2mm((R.y2-R.y1)/2),u2mm((R.x2-R.x1)/2),
-#41          pcb_cuheight+bedruck_dis,u2mm((R.y2-R.y1)/2),R.angle,
-#41          u2mm((R.x2+R.x1)/2),layer_dis,u2mm((R.y2+R.y1)/2)
-#41        );
+#40     printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
+#40       u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
+#40       pcb_cuheight+bedruck_dis,u2mm(R.y2),layer_dis
+#40     );
+#41     printf("box{<-%f,0,-%f><%f,%f,%f> rotate<0,-%f,0> translate<%f,%f,%f>}\n",
+#41       u2mm((R.x2-R.x1)/2),u2mm((R.y2-R.y1)/2),u2mm((R.x2-R.x1)/2),
+#41       pcb_cuheight+bedruck_dis,u2mm((R.y2-R.y1)/2),R.angle,
+#41       u2mm((R.x2+R.x1)/2),layer_dis,u2mm((R.y2+R.y1)/2)
+#41     );
       }
     }
-#40    B.arcs(A)
-#40    {
-#40      if(is_num_in_str(slk_layers[1],A.layer))
-#40      {
-#40        x1 = u2mm(A.xc);
-#40        y1 = u2mm(A.yc);
-#40        x2 = u2mm(A.radius+A.xc);
-#40        y2 = u2mm(A.radius+A.yc);
-#40        if((x1>x_max)||(x2>x_max)||(x1<x_min)||(x2<x_min)||(y1>y_max)||
-#40           (y2>y_max)||(y1<y_min)||(y2<y_min)
-#40        ) continue;
+#40 B.arcs(A)
+#40 {
+#40   if(is_num_in_str(slk_layers[1],A.layer))
+#40   {
+#40     x1 = u2mm(A.xc);
+#40     y1 = u2mm(A.yc);
+#40     x2 = u2mm(A.radius+A.xc);
+#40     y2 = u2mm(A.radius+A.yc);
+#40     if((x1>x_max)||(x2>x_max)||(x1<x_min)||(x2<x_min)||(y1>y_max)||
+#40        (y2>y_max)||(y1<y_min)||(y2<y_min)
+#40     ) continue;
 #40
-#40        if(A.layer%2) layer_dis = 0;
-#40        else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
+#40     if(A.layer%2) layer_dis = 0;
+#40     else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
 #40
-#40        printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
-#40          u2mm(A.radius),u2mm(A.width),A.angle1,A.angle2,
-#40          pcb_cuheight+bedruck_dis,u2mm(A.xc),layer_dis,u2mm(A.yc)
-#40        );
-#40      }
-#40    }
+#40     printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
+#40       u2mm(A.radius),u2mm(A.width),A.angle1,A.angle2,
+#40       pcb_cuheight+bedruck_dis,u2mm(A.xc),layer_dis,u2mm(A.yc)
+#40     );
+#40   }
+#40 }
     //BD aus Packages  // BD from Packages ???
     B.elements(E)
     {
@@ -4109,8 +4133,8 @@ do{
           if(W.layer%2) layer_dis = 0;
           else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
 
-#41          if(!W.arc)
-#41          {
+#41       if(!W.arc)
+#41       {
           if((u2mm(W.x1)>x_max)||(u2mm(W.x2)>x_max)||(u2mm(W.x1)<x_min)||
              (u2mm(W.x2)<x_min)||(u2mm(W.y1)>y_max)||(u2mm(W.y2)>y_max)||
              (u2mm(W.y1)<y_min)||(u2mm(W.y2)<y_min)
@@ -4118,19 +4142,19 @@ do{
           printf("%s",create_line(W.x1, W.y1, W.x2, W.y2, W.width,
             pcb_cuheight+bedruck_dis, layer_dis,1,1)
           );
-#41          }
-#41          else
-#41          {
-#41            if((u2mm(W.x1)>x_max)||(u2mm(W.x2)>x_max)||(u2mm(W.x1)<x_min)||
-#41               (u2mm(W.x2)<x_min)||(u2mm(W.y1)>y_max)||(u2mm(W.y2)>y_max)||
-#41               (u2mm(W.y1)<y_min)||(u2mm(W.y2)<y_min)
-#41            ) continue;
-#41            printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
-#41              u2mm(W.arc.radius),u2mm(W.arc.width),W.arc.angle1,
-#41              W.arc.angle2,pcb_cuheight+bedruck_dis,u2mm(W.arc.xc),
-#41              layer_dis,u2mm(W.arc.yc)
-#41            );
-#41          }
+#41       }
+#41       else
+#41       {
+#41         if((u2mm(W.x1)>x_max)||(u2mm(W.x2)>x_max)||(u2mm(W.x1)<x_min)||
+#41            (u2mm(W.x2)<x_min)||(u2mm(W.y1)>y_max)||(u2mm(W.y2)>y_max)||
+#41            (u2mm(W.y1)<y_min)||(u2mm(W.y2)<y_min)
+#41         ) continue;
+#41         printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
+#41           u2mm(W.arc.radius),u2mm(W.arc.width),W.arc.angle1,
+#41           W.arc.angle2,pcb_cuheight+bedruck_dis,u2mm(W.arc.xc),
+#41           layer_dis,u2mm(W.arc.yc)
+#41         );
+#41       }
         }
       }
       E.package.circles(C)
@@ -4155,27 +4179,27 @@ do{
           );
         }
       }
-#40      E.package.arcs(A)
-#40      {
-#40        if(is_num_in_str(slk_layers[0],A.layer))
-#40        {
-#40          x1 = u2mm(A.xc);
-#40          y1 = u2mm(A.yc);
-#40          x2 = u2mm(A.radius+A.xc);
-#40          y2 = u2mm(A.radius+A.yc);
-#40          if((x1>x_max)||(x2>x_max)||(x1<x_min)||(x2<x_min)||(y1>y_max)||
-#40             (y2>y_max)||(y1<y_min)||(y2<y_min)
-#40          ) continue;
+#40   E.package.arcs(A)
+#40   {
+#40     if(is_num_in_str(slk_layers[0],A.layer))
+#40     {
+#40       x1 = u2mm(A.xc);
+#40       y1 = u2mm(A.yc);
+#40       x2 = u2mm(A.radius+A.xc);
+#40       y2 = u2mm(A.radius+A.yc);
+#40       if((x1>x_max)||(x2>x_max)||(x1<x_min)||(x2<x_min)||(y1>y_max)||
+#40          (y2>y_max)||(y1<y_min)||(y2<y_min)
+#40       ) continue;
 #40
-#40          if(A.layer%2) layer_dis = 0;
-#40          else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
+#40       if(A.layer%2) layer_dis = 0;
+#40       else layer_dis = -(pcb_cuheight + pcb_height + bedruck_dis);
 #40
-#40          printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
-#40            u2mm(A.radius),u2mm(A.width),A.angle1,A.angle2,
-#40            pcb_cuheight+bedruck_dis,u2mm(A.xc),layer_dis,u2mm(A.yc)
-#40          );
-#40        }
-#40      }
+#40       printf("object{ARC(%f,%f,%f,%f,%f) translate<%f,%f,%f>}\n",
+#40         u2mm(A.radius),u2mm(A.width),A.angle1,A.angle2,
+#40         pcb_cuheight+bedruck_dis,u2mm(A.xc),layer_dis,u2mm(A.yc)
+#40       );
+#40     }
+#40   }
       E.package.rectangles(R)
       {
         if(is_num_in_str(slk_layers[0],R.layer))
@@ -4188,15 +4212,15 @@ do{
              (u2mm(R.y1)<y_min)||(u2mm(R.y2)<y_min)
           ) continue;
 
-#40            printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
-#40              u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
-#40              pcb_cuheight+bedruck_dis,u2mm(R.y2),layer_dis
-#40            );
-#41            printf("box{<-%f,0,-%f><%f,%f,%f> rotate<0,-%f,0> translate<%f,%f,%f>}\n",
-#41              u2mm((R.x2-R.x1)/2),u2mm((R.y2-R.y1)/2),u2mm((R.x2-R.x1)/2),
-#41              pcb_cuheight+bedruck_dis,u2mm((R.y2-R.y1)/2),R.angle,
-#41              u2mm((R.x2+R.x1)/2),layer_dis,u2mm((R.y2+R.y1)/2)
-#41            );
+#40         printf("box{<%f,0,%f><%f,%f,%f> translate<0,%f,0>}\n",
+#40           u2mm(R.x1),u2mm(R.y1),u2mm(R.x2),
+#40           pcb_cuheight+bedruck_dis,u2mm(R.y2),layer_dis
+#40         );
+#41         printf("box{<-%f,0,-%f><%f,%f,%f> rotate<0,-%f,0> translate<%f,%f,%f>}\n",
+#41           u2mm((R.x2-R.x1)/2),u2mm((R.y2-R.y1)/2),u2mm((R.x2-R.x1)/2),
+#41           pcb_cuheight+bedruck_dis,u2mm((R.y2-R.y1)/2),R.angle,
+#41           u2mm((R.x2+R.x1)/2),layer_dis,u2mm((R.y2+R.y1)/2)
+#41         );
           }
         }
         E.package.texts(T)
@@ -4284,14 +4308,24 @@ do{
     if((!fileglob(a, filesetext(out_file,".ini"))||
        (dlgMessageBox(lang[113] + " " + filesetext(out_file,".ini") + " " + lang[114], lang[115],lang[116]) == 0))
     )
+
     {
       output(filesetext(out_file,".ini"),"w")
       {
+        printf("; The POV-Ray developers recommend that Initial_Clock stay at 0\n");
+        printf("; and Final_Clock stay at 1\n");
+        printf("; UNLESS you have a specific reason to change it\n");
         printf("Initial_Frame = 1\n");
         printf("Final_Frame = %d\n",anim_nframes);
         printf("Initial_Clock = 0\n");
-        printf("Final_Clock = 0.9\n");
+        printf("Final_Clock = 1.0\n");
         printf("Cyclic_Animation=off\n");
+        printf(";\n");
+        printf("; An example of how to create a animated gif in Linux\n");
+        printf(";    convert -delay 20 -loop 0 %s %s\n",
+          filesetext(base_name,"*.png"),
+          filesetext(base_name,".gif")
+        );
       }
     }
   }
@@ -4303,14 +4337,14 @@ do{
     {
       printf("@echo off\n\n");
       printf("\"%s\" ", pov_path);
-#50      if(anim_nframes>2) printf(filesetext(out_file,".ini "));
-      if(1 == pov_pause) printf("+P ");
-      if(0 == pov_res_selected) printf("+W320 +H240 ");
-      else if(1 == pov_res_selected) printf("+W640 +H480 ");
-      else if(2 == pov_res_selected) printf("+W800 +H600 ");
-      else if(3 == pov_res_selected) printf("+W1024 +H768 ");
-      else if(4 == pov_res_selected) printf("+W1280 +H960 ");
-      else if(5 == pov_res_selected) printf("+W1600 +H1200 ");
+#50   if(anim_nframes>2) printf(filesetext(out_file,".ini"));
+      if(1 == pov_pause) printf(" +P ");
+      if(0 == pov_res_selected) printf(" +W320 +H240 ");
+      else if(1 == pov_res_selected) printf(" +W640 +H480 ");
+      else if(2 == pov_res_selected) printf(" +W800 +H600 ");
+      else if(3 == pov_res_selected) printf(" +W1024 +H768 ");
+      else if(4 == pov_res_selected) printf(" +W1280 +H960 ");
+      else if(5 == pov_res_selected) printf(" +W1600 +H1200 ");
       if(pov_use_aa)
       {
         printf("+A0.3 ");            
@@ -4323,11 +4357,11 @@ do{
       printf("\n");
     }
     
-#50    if(1 == pov_render)
-#50    {
-#50      sprintf(depp, "%s", filesetext(out_file,".bat"));
-#50      system(depp);
-#50    }
+#50 if(1 == pov_render)
+#50 {
+#50   sprintf(depp, "%s", filesetext(out_file,".bat"));
+#50   system(depp);
+#50 }
   }  // End of first half of if statement - pov_system_selected
   else if((1 == pov_system_selected) ||  //Linux
            (2 == pov_system_selected))    //OSX
@@ -4336,14 +4370,14 @@ do{
     {
       printf("#!/bin/sh\n\n");
       printf("\"%s\" ", pov_path);
-#50      if(anim_nframes>2) printf(filesetext(out_file,".ini "));
-      if(1 == pov_pause) printf("+P ");
-      if(0 == pov_res_selected) printf("+W320 +H240 ");
-      else if(1 == pov_res_selected) printf("+W640 +H480 ");
-      else if(2 == pov_res_selected) printf("+W800 +H600 ");
-      else if(3 == pov_res_selected) printf("+W1024 +H768 ");
-      else if(4 == pov_res_selected) printf("+W1280 +H960 ");
-      else if(5 == pov_res_selected) printf("+W1600 +H1200 ");
+#50   if(anim_nframes>2) printf(filesetext(out_file,".ini"));
+      if(1 == pov_pause) printf(" +P ");
+      if(0 == pov_res_selected) printf(" +W320 +H240 ");
+      else if(1 == pov_res_selected) printf(" +W640 +H480 ");
+      else if(2 == pov_res_selected) printf(" +W800 +H600 ");
+      else if(3 == pov_res_selected) printf(" +W1024 +H768 ");
+      else if(4 == pov_res_selected) printf(" +W1280 +H960 ");
+      else if(5 == pov_res_selected) printf(" +W1600 +H1200 ");
       if(pov_use_aa)
       {
         printf("+A0.3 ");            
@@ -4356,15 +4390,15 @@ do{
       printf("\n");    
     }
     
-#50    //Set executable rights for the created script file    
-#50    sprintf(depp,"chmod a+x %s", filesetext(out_file,".sh"));
-#50    system(depp);
+#50 //Set executable rights for the created script file    
+#50 sprintf(depp,"chmod a+x %s", filesetext(out_file,".sh"));
+#50 system(depp);
 
-#50    if(1 == pov_render)
-#50    {
-#50      sprintf(depp, "%s", filesetext(out_file,".sh"));
-#50      system(depp);
-#50    }
+#50 if(1 == pov_render)
+#50 {
+#50   sprintf(depp, "%s", filesetext(out_file,".sh"));
+#50   system(depp);
+#50 }
   }  // End of if/else statement - pov_system_selected
 
 
