@@ -486,14 +486,26 @@ int opt_amb = 0;
 // Use mpd-File
 int opt_umpd = 0;
 
-#50 //Flip boards upside down
-#50 int opt_pcb_flip = 0;
-#50 string opt_pcb_flip_sel[] =
-#50 {
-#50  "x",
-#50  "z"
-#50 };
-#50 int opt_pcb_flip_dir = 1;
+#41 //Flip boards upside down
+#41 int opt_pcb_flip = 0;
+#41 string opt_pcb_flip_sel[] =
+#41 {
+#41   "x",
+#41   "z"
+#41 };
+#41 int opt_pcb_flip_dir = 1;
+
+//=============================================================================
+// For Testing
+#40 //Flip boards upside down
+#40 int opt_pcb_flip = 0;
+#40 string opt_pcb_flip_sel[] =
+#40 {
+#40   "x",
+#40   "z"
+#40 };
+#40 int opt_pcb_flip_dir = 1;
+//=============================================================================
 
 //Sprachauswahl
 // Language preset
@@ -722,8 +734,14 @@ int pov_use_aa;
 // Call POVRay after completion of script?
 int pov_render;
 
-#50 //Pause POV-Ray after rendering
-#50 int pov_pause;
+#41 //Pause POV-Ray after rendering
+#41 int pov_pause;
+
+//=============================================================================
+// For testing
+#40 //Pause POV-Ray after rendering
+#40 int pov_pause;
+//=============================================================================
 
 //Ermittlung von Standardpfad und Dateinamen
 // Determination of standard path and file name
@@ -855,9 +873,15 @@ if(pack_con[13]!=""){config[13] = pack_con[13]; pov_use_aa = strtol(pack_con[13]
   else {config[13] = "1";}
 if(pack_con[14]!=""){config[14] = pack_con[14]; pov_render = strtol(pack_con[14]);}
   else {config[14] = "1";}
-#50 if(pack_con[15]!=""){config[15] = pack_con[15]; opt_pcb_flip_dir = strtol(pack_con[15]);}
-#50   else {config[15] = "1";}
+#41 if(pack_con[15]!=""){config[15] = pack_con[15]; opt_pcb_flip_dir = strtol(pack_con[15]);}
+#41   else {config[15] = "1";}
 
+
+//=============================================================================
+// For Testing
+#40 if(pack_con[15]!=""){config[15] = pack_con[15]; opt_pcb_flip_dir = strtol(pack_con[15]);}
+#40   else {config[15] = "1";}
+//=============================================================================
 
 //*****************************************************************************
 //                           Read the color file
@@ -1354,18 +1378,34 @@ do{
               dlgCell(7,1) dlgCheckBox(lang[21], opt_amb);
               dlgCell(8,0) dlgCheckBox(lang[97], opt_umpd) if(opt_umpd==1) {opt_bau=0; opt_man=0; opt_mup=0;}
               dlgCell(8,1) dlgCheckBox(lang[121], opt_dur) if(opt_dur==1);
-#50           dlgCell(9,0) dlgLabel(" "); // Dummy statement for spacing
-#50           //Pause after rendering
-#50           dlgCell(10,1) dlgCheckBox(lang[167], pov_pause);
-#50           // Flip PCB upside down
-#50           dlgCell(10,0) dlgCheckBox(lang[168],opt_pcb_flip);
-#50           dlgCell(11,0)
-#50           {
-#50             dlgLabel(" Rotation Axis: ");
-#50             dlgComboBox(opt_pcb_flip_sel, opt_pcb_flip_dir);
-#50             dlgLabel(" "); // Dummy statement for spacing
-#50             dlgLabel(" "); // Dummy statement for spacing
-#50           }
+#41           dlgCell(9,0) dlgLabel(" "); // Dummy statement for spacing
+#41           //Pause after rendering
+#41           dlgCell(10,1) dlgCheckBox(lang[167], pov_pause);
+#41           // Flip PCB upside down
+#41           dlgCell(10,0) dlgCheckBox(lang[168],opt_pcb_flip);
+#41           dlgCell(11,0)
+#41           {
+#41             dlgLabel(" Rotation Axis: ");
+#41             dlgComboBox(opt_pcb_flip_sel, opt_pcb_flip_dir);
+#41             dlgLabel(" "); // Dummy statement for spacing
+#41             dlgLabel(" "); // Dummy statement for spacing
+#41           }
+
+//=============================================================================
+// For Testing
+#40           dlgCell(9,0) dlgLabel(" "); // Dummy statement for spacing
+#40           //Pause after rendering
+#40           dlgCell(10,1) dlgCheckBox(lang[167], pov_pause);
+#40           // Flip PCB upside down
+#40           dlgCell(10,0) dlgCheckBox(lang[168],opt_pcb_flip);
+#40           dlgCell(11,0)
+#40           {
+#40             dlgLabel(" Rotation Axis: ");
+#40             dlgComboBox(opt_pcb_flip_sel, opt_pcb_flip_dir);
+#40             dlgLabel(" "); // Dummy statement for spacing
+#40             dlgLabel(" "); // Dummy statement for spacing
+#40           }
+//=============================================================================
               //Sorgt für gleichbleibende Breite des ULP-Fenster
               //Provides uniform width of the ULP window
               dlgCell(12,0) dlgSpacing(220);
@@ -1448,7 +1488,8 @@ do{
                 sprintf(config[12],"%d",pov_res_selected);
                 sprintf(config[13],"%d",pov_use_aa);
                 sprintf(config[14],"%d",pov_render);
-                sprintf(config[15],"%d",opt_pcb_flip_dir);
+#41             sprintf(config[15],"%d",opt_pcb_flip_dir);
+#40             sprintf(config[15],"%d",opt_pcb_flip_dir); // For Testing
                 //=========================================
 
                 //Einlesen der Sprachdatei
@@ -1840,7 +1881,8 @@ do{
           sprintf(config[12],"%d",pov_res_selected);
           sprintf(config[13],"%d",pov_use_aa);
           sprintf(config[14],"%d",pov_render);
-#50       sprintf(config[15],"%d",opt_pcb_flip_dir);
+#41       sprintf(config[15],"%d",opt_pcb_flip_dir);
+#40       sprintf(config[15],"%d",opt_pcb_flip_dir); // For Testing
 
           output(conf_file,"w")
           {           
@@ -1877,7 +1919,8 @@ do{
           sprintf(config[12],"%d",pov_res_selected);
           sprintf(config[13],"%d",pov_use_aa);
           sprintf(config[14],"%d",pov_render);
-#50       sprintf(config[15],"%d",opt_pcb_flip_dir);
+#41       sprintf(config[15],"%d",opt_pcb_flip_dir);
+#40       sprintf(config[15],"%d",opt_pcb_flip_dir); // For Testing
 
           output(conf_file,"w")
           {           
@@ -1947,16 +1990,27 @@ do{
 
   output(out_file,"a"){
 
-#50  //Select flip board upside down
-#50  printf("//****************************************************\n");
-#50  printf("//Flip PCB upside down off/on\n");
-#50  printf("//Set to on if you want to render the PCB upside-down\n");
-#50  if(opt_pcb_flip) printf("#declare pcb_upsidedown = on;\n");
-#50  else printf("#declare pcb_upsidedown = off;\n");
-#50  printf("//Set to x or z to rotate around the corresponding axis\n");
-#50  if(opt_pcb_flip_dir==0) printf("#declare pcb_rotdir = x;\n");
-#50  else printf("#declare pcb_rotdir = z;\n");
-#50  printf("//****************************************************\n\n");
+  //Select flip board upside down
+  printf("//****************************************************\n");
+  printf("//Flip PCB upside down off/on\n");
+  printf("//Set to on if you want to render the PCB upside-down\n");
+//#40  printf("#declare pcb_upsidedown = off;\n");
+//#40  printf("#declare pcb_rotdir = z;\n");
+#41  if(opt_pcb_flip) printf("#declare pcb_upsidedown = on;\n");
+#41  else printf("#declare pcb_upsidedown = off;\n");
+#41  printf("//Set to x or z to rotate around the corresponding axis\n");
+#41  if(opt_pcb_flip_dir==0) printf("#declare pcb_rotdir = x;\n");
+#41  else printf("#declare pcb_rotdir = z;\n");
+
+//=============================================================================
+// For Testing
+#40  if(opt_pcb_flip) printf("#declare pcb_upsidedown = on;\n");
+#40  else printf("#declare pcb_upsidedown = off;\n");
+#40  printf("//Set to x or z to rotate around the corresponding axis\n");
+#40  if(opt_pcb_flip_dir==0) printf("#declare pcb_rotdir = x;\n");
+#40  else printf("#declare pcb_rotdir = z;\n");
+//=============================================================================
+  printf("//****************************************************\n\n");
 
   //Animationseinstellungen
   // Animation Settings
@@ -3183,6 +3237,8 @@ do{
         };
         sprintf(pov_pack,"%s%d,",pov_pack,height_dlg);
       }
+
+
 //*****************************************************************************
 //                        SMD Resistors
 //*****************************************************************************
@@ -3191,6 +3247,17 @@ do{
       if(pack_tra[9] == "1")
       {
         sprintf(pov_pack,"%s\"%s\",",pov_pack,rval2rcde(E.value));
+      }
+
+
+//*****************************************************************************
+//                     Capacitor Numerical values
+//*****************************************************************************
+      //SMD-Widerstand Widerstandscode?
+      //SMD-Resistor resistor code?
+      if(pack_tra[9] == "2")
+      {
+        sprintf(pov_pack,"%s\"%s\",",pov_pack,cval2ccde(E.value));
       }
 
 
@@ -4337,7 +4404,8 @@ do{
     {
       printf("@echo off\n\n");
       printf("\"%s\" ", pov_path);
-#50   if(anim_nframes>2) printf(filesetext(out_file,".ini"));
+#41   if(anim_nframes>2) printf(filesetext(out_file,".ini"));
+#40   if(anim_nframes>2) printf(filesetext(out_file,".ini")); // For Testing
       if(1 == pov_pause) printf(" +P ");
       if(0 == pov_res_selected) printf(" +W320 +H240 ");
       else if(1 == pov_res_selected) printf(" +W640 +H480 ");
@@ -4370,7 +4438,8 @@ do{
     {
       printf("#!/bin/sh\n\n");
       printf("\"%s\" ", pov_path);
-#50   if(anim_nframes>2) printf(filesetext(out_file,".ini"));
+#41   if(anim_nframes>2) printf(filesetext(out_file,".ini"));
+#40   if(anim_nframes>2) printf(filesetext(out_file,".ini")); // For Testing
       if(1 == pov_pause) printf(" +P ");
       if(0 == pov_res_selected) printf(" +W320 +H240 ");
       else if(1 == pov_res_selected) printf(" +W640 +H480 ");

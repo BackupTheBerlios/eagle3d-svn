@@ -428,6 +428,66 @@ string rval2rcde(string val)
   return out;
 }
 
+
+// By MC Cason farmerboy1967(replace with at)gmail.com
+// Partially copied from the rval2rcde string
+// This string does for capacitors, what the rval2rcode does for resistors
+//
+// A: First significant character
+// B: Second significant character
+// C: Number of zeros
+// out: output value
+string cval2ccde(string val)
+{
+  string out;
+  string A;
+  real i;
+  int k;
+  int B;
+
+  // capitalize text
+  val = strupr(val);
+
+  // If the second, or third characters is a 'P', without a F, write out
+  if(val[1]=='P' && val[2] != 'F') sprintf(out,"%s",val);
+  else if(val[2]=='P' && val[3] != 'F') sprintf(out,"%s",val);
+
+  // If not, calculate numerical value
+  else
+  {
+    // Check to see if ','(comma) is being used as a decimal seperator
+    // If so, change to '.'(decimal)
+    k = strchr(val, ',');
+    if(k != -1) val[k] = '.';
+
+    // Find the capacitor value, and set multiplier
+    if(strchr(val,'P') != -1) k=1;
+    if(strchr(val,'N') != -1) k=1e3;
+    if(strchr(val,'U') != -1) k=1e6;
+
+    // Strip off text, and convert to picofarads
+    i = strtod(val) * k;
+
+    // If less than 10pF, append P0 (Pzero), and return
+    if(i < 10)
+    {
+      sprintf(out,"%.0fP0",i);
+      return out;
+    }
+    // Convert integer back into a string
+    sprintf(A,"%.0f",i);
+
+    // Count the number of digits in the string, and
+    // Subtract 2, for the first 2 digits (A[0],A[1])
+    B = strlen(A) - 2;
+  
+    // Output value
+    sprintf(out,"%c%c%d",A[0],A[1],B);
+  }
+  return out;
+}
+
+
 //Gibt einen formatierten String zurück der eine Linie zeichnen kann
 //erwartet Angaben in units
 //c_x1 und c_x2 erzeugen Abschlußzylinder wenn 1
@@ -528,13 +588,16 @@ string make_pov_str(string in)
 {
   int i,j;
 
-  while((i = strchr(in,'Ü'))!=-1) in[i] = 'U';
-  while((i = strchr(in,'Ä'))!=-1) in[i] = 'A';
-  while((i = strchr(in,'Ö'))!=-1) in[i] = 'O';
-  while((i = strchr(in,'ü'))!=-1) in[i] = 'U';
-  while((i = strchr(in,'ä'))!=-1) in[i] = 'A';
-  while((i = strchr(in,'ö'))!=-1) in[i] = 'O';
-  while((i = strchr(in,'ß'))!=-1) in[i] = 'S';
+//=============================================================================
+// Temporary fix, until a permanent fix can be found  ??? Missing font ???
+#50  while((i = strchr(in,'Ü'))!=-1) in[i] = 'U';
+#50  while((i = strchr(in,'Ä'))!=-1) in[i] = 'A';
+#50  while((i = strchr(in,'Ö'))!=-1) in[i] = 'O';
+#50  while((i = strchr(in,'ü'))!=-1) in[i] = 'U';
+#50  while((i = strchr(in,'ä'))!=-1) in[i] = 'A';
+#50  while((i = strchr(in,'ö'))!=-1) in[i] = 'O';
+#50  while((i = strchr(in,'ß'))!=-1) in[i] = 'S';
+//=============================================================================
 
   in = strreplace(in,". -&$+:;,!\"\"§%/()=#*~'<>ľ[]",'_');
 
