@@ -10,8 +10,8 @@
 //  ***** Almost there, it still needs a little bit more Work *****
 //  Standoffs are working, but the screw heads still need to be created.
 //
-// Color:     Color of LCD
-// BL:        Turn Backlight on
+// col:     Color of LCD
+// bl:        Turn Backlight on
 // Height:    Height of LCD above board.
 //
 ###############################################################################
@@ -19,10 +19,10 @@ NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_GLCD_
 128X64_GLCD:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_GLCD_128X64(:LCD 128 x 64 Eagle3D:
 ###############################################################################
 SPC_GLCD_128X64_GRND
-(Color,BL,Height)
+(col,bl,Height)
 ###############################################################################
-SPC_GLCD_128X64(col,backlight,height)
-(col,backlight,height)  // Sparkfun GLCD
+SPC_GLCD_128X64(col,bl,height)
+(col,bl,height)  // Eagle3D GLCD
 ###############################################################################
 ###############################################################################
 union{
@@ -61,45 +61,45 @@ union{
   }
 
   // Amber on Black
-  #if(Color = 0)
+  #if(col = 0)
     #local C_Text= pigment{OldGold}; // ??? for Amber ???
-    #if(BL =1) // Backlight on
+    #if(bl =1) // Backlight on
       #local C_LCD = pigment{Gray30};
     #else // Backlight off
       #local C_LCD = pigment{Black}; 
     #end
   #end
   // Amber on Blue
-  #if(Color = 1)
+  #if(col = 1)
     #local C_Text= pigment{OldGold}; // ??? for Amber ???
-    #if(BL =1) // Backlight on
+    #if(bl =1) // Backlight on
       #local C_LCD = pigment{SlateBlue};
     #else // Backlight off
       #local C_LCD = pigment{DarkSlateBlue}; 
     #end
   #end
   // Black on Grey
-  #if(Color = 2)
+  #if(col = 2)
     #local C_Text= pigment{Black};
-    #if(BL =1) // Backlight on
+    #if(bl =1) // Backlight on
       #local C_LCD = pigment{Gray50};
     #else // Backlight off
       #local C_LCD = pigment{Gray20}; 
     #end
   #end
   // Black on Yellow/Green
-  #if(Color = 3)
+  #if(col = 3)
     #local C_Text= pigment{Black};
-    #if(BL =1) // Backlight on
+    #if(bl =1) // Backlight on
       #local C_LCD = pigment{YellowGreen};
     #else // Backlight off
       #local C_LCD = pigment{DarkGreen}; 
     #end
   #end
   // White on Blue
-  #if(Color = 4)
+  #if(col = 4)
     #local C_Text= pigment{White};
-    #if(BL =1) // Backlight on
+    #if(bl =1) // Backlight on
       #local C_LCD = pigment{SlateBlue};
     #else // Backlight off
       #local C_LCD = pigment{DarkSlateBlue}; 
