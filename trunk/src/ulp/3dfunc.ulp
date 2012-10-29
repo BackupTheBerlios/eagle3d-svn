@@ -433,10 +433,17 @@ string rval2rcde(string val)
 // Partially copied from the rval2rcde string
 // This string does for capacitors, what the rval2rcode does for resistors
 //
-// A: First significant character
-// B: Second significant character
-// C: Number of zeros
+// A:   First, and Second significant characters
+// B:   Count of number of zeros. (Third significant character)
+// k:   Math variables
+// i:   numeric version of val
 // out: output value
+// 1pF                    = 1P0
+// 10pF                   = 100
+// 100pF                  = 101
+// 1nF      = 100pF       = 101
+// 0.001uF  = 1000pF      = 102
+// 100uF    = 100000000pF = 107
 string cval2ccde(string val)
 {
   string out;
@@ -475,10 +482,12 @@ string cval2ccde(string val)
       return out;
     }
     // Convert integer back into a string
+    // This becomes the first, and second significant characters
     sprintf(A,"%.0f",i);
 
     // Count the number of digits in the string, and
     // Subtract 2, for the first 2 digits (A[0],A[1])
+    // This becomes the third significant character
     B = strlen(A) - 2;
   
     // Output value

@@ -3251,10 +3251,9 @@ do{
 
 
 //*****************************************************************************
-//                     Capacitor Numerical values
+//                     Capacitor numerical code
 //*****************************************************************************
-      //SMD-Widerstand Widerstandscode?
-      //SMD-Resistor resistor code?
+      // IF the 9th value in 3dpack.dat, or 3dusrpac.dat is a 2, run cval2ccde
       if(pack_tra[9] == "2")
       {
         sprintf(pov_pack,"%s\"%s\",",pov_pack,cval2ccde(E.value));
