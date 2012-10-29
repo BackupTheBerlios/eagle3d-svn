@@ -1,28 +1,31 @@
 128 x 64 GLCD
 //
-//   LCD Macro 16 x 2
+//  128 x 64 GLCD Macro
 //
 //  By MC Cason <farmerboy1967(replace with at)gmail.com>
 //
-//   The idea for this LCD macro, came from Jeremy's website.  I tried making
-// this as realistic as possible.
+//  The idea for this LCD macro, came from Jeremy Blum's website.
+//    http://www.jeremyblum.com/
+// 
+//  I tried making this as realistic looking as possible.
 //
 //  ***** Almost there, it still needs a little bit more Work *****
 //  Standoffs are working, but the screw heads still need to be created.
 //
-// col:     Color of LCD
-// bl:        Turn Backlight on
-// Height:    Height of LCD above board.
+//  col:         Color of LCD
+//  bl:          Turn Backlight on
+//  height:      Height of LCD above board.
+//  height_add:  Additional height necessary to clear components on back of board.
 //
 ###############################################################################
-NOEAGLEPAC:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_GLCD_128X64(:LCD 128 x 64 Sparkfun:
-128X64_GLCD:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_GLCD_128X64(:LCD 128 x 64 Eagle3D:
+LCD-G12864:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_GLCD_128X64(:LCD 128 x 64:
+128X64_GLCD:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_GLCD_128X64(:LCD 128 x 64:
 ###############################################################################
 SPC_GLCD_128X64_GRND
-(col,bl,Height)
+(col,bl,height)
 ###############################################################################
 SPC_GLCD_128X64(col,bl,height)
-(col,bl,height)  // Eagle3D GLCD
+(col,bl,height)
 ###############################################################################
 ###############################################################################
 union{
@@ -106,13 +109,13 @@ union{
     #end
   #end
   // Raise Board above the components that should be on the back of the board
-  #local Height = (Height+2.3)+pcb_height;
+  #local height_add = (height+2.3)+pcb_height;
 
   // Standoffs
   union{
     #local Stand = difference{
-      cylinder{<0,0,0> <0,-(Height-pcb_height),0>2.50}
-      cylinder{<0,2,0> <0,-(Height-pcb_height)-1>1.35}
+      cylinder{<0,0,0> <0,-(height_add-pcb_height),0>2.50}
+      cylinder{<0,2,0> <0,-(height_add-pcb_height)-1>1.35}
     };
     object{Stand translate< 2.5,-1.6, 2.5>}
     object{Stand translate< 2.5,-1.6,52.7>}
@@ -212,7 +215,7 @@ union{
             torus{ dia,dia translate<0,-dia,0> scale<1,2,1> translate<0,llower,0>}
           }
           box{<-1,-1.538,-2.25><1,0.038,1>}
-          box{<-0.25,-Height,-0.25><0.25,pcb_height+2.5,0.25>
+          box{<-0.25,-height_add,-0.25><0.25,pcb_height+2.5,0.25>
             translate<0,-(pcb_height+1.25),0>
             texture{T_Gold_5E}
           }
@@ -324,7 +327,7 @@ union{
     //texture{pigment{Blue}} // For Testing
     texture{pigment{P_Chrome1}}
   }
-  translate<0,Height,0>
+  translate<0,height_add,0>
 }
 #end
 
