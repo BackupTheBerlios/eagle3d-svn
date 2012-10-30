@@ -596,18 +596,13 @@ string strreplace(string str, string rpl, char chr)
 string make_pov_str(string in)
 {
   int i,j;
-
-//=============================================================================
-// Temporary fix, until a permanent fix can be found  ??? Missing font ???
-#50  while((i = strchr(in,'Ü'))!=-1) in[i] = 'U';
-#50  while((i = strchr(in,'Ä'))!=-1) in[i] = 'A';
-#50  while((i = strchr(in,'Ö'))!=-1) in[i] = 'O';
-#50  while((i = strchr(in,'ü'))!=-1) in[i] = 'U';
-#50  while((i = strchr(in,'ä'))!=-1) in[i] = 'A';
-#50  while((i = strchr(in,'ö'))!=-1) in[i] = 'O';
-#50  while((i = strchr(in,'ß'))!=-1) in[i] = 'S';
-//=============================================================================
-
+  while((i = strchr(in,'Ü'))!=-1) in[i] = 'U';
+  while((i = strchr(in,'Ä'))!=-1) in[i] = 'A';
+  while((i = strchr(in,'Ö'))!=-1) in[i] = 'O';
+  while((i = strchr(in,'ü'))!=-1) in[i] = 'U';
+  while((i = strchr(in,'ä'))!=-1) in[i] = 'A';
+  while((i = strchr(in,'ö'))!=-1) in[i] = 'O';
+  while((i = strchr(in,'ß'))!=-1) in[i] = 'S';
   in = strreplace(in,". -&$+:;,!\"\"§%/()=#*~'<>ľ[]",'_');
 
   if((in[0]>='1')&&(in[0]<='9')) in[0] = 'Z';
