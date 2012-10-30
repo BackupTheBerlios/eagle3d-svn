@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1.27" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="2.54" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -102,80 +102,88 @@
 </layers>
 <library>
 <packages>
-<package name="16X2_LCD">
+<package name="LCD-16X2">
 <description>16 x 2 Display module</description>
-<wire x1="0" y1="36" x2="80" y2="36" width="0.2032" layer="21"/>
-<wire x1="80" y1="36" x2="80" y2="0" width="0.2032" layer="21"/>
-<wire x1="80" y1="0" x2="0" y2="0" width="0.2032" layer="21"/>
-<wire x1="0" y1="0" x2="0" y2="36" width="0.2032" layer="21"/>
-<wire x1="4.35" y1="31.15" x2="75.65" y2="31.15" width="0.2032" layer="21"/>
-<wire x1="75.65" y1="31.15" x2="75.65" y2="4.85" width="0.2032" layer="21"/>
-<wire x1="75.65" y1="4.85" x2="4.35" y2="4.85" width="0.2032" layer="21"/>
-<wire x1="4.35" y1="4.85" x2="4.35" y2="31.15" width="0.2032" layer="21"/>
-<pad name="VSS" x="8" y="33.5" drill="1.016" diameter="1.8796" shape="square"/>
-<pad name="VDD" x="10.54" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="V0" x="13.08" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="RS" x="15.62" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="R/W" x="18.16" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="E" x="20.7" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB0" x="23.24" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB1" x="25.78" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB2" x="28.32" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB3" x="30.86" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB4" x="33.4" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB5" x="35.94" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB6" x="38.48" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="DB7" x="41.02" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="LED+" x="43.56" y="33.5" drill="1.016" diameter="1.8796" shape="octagon"/>
-<pad name="LED-" x="46.1" y="33.5" drill="1.016" diameter="1.8796"/>
-<text x="5.71" y="33.24" size="1.016" layer="51" ratio="15">1</text>
-<text x="47.71" y="33.24" size="1.016" layer="51" ratio="15">16</text>
-<text x="20.5" y="17" size="2.54" layer="21">16 x 2 LCD Module</text>
+<wire x1="-41.02" y1="17.74" x2="38.98" y2="17.74" width="0.2032" layer="21"/>
+<wire x1="38.98" y1="17.74" x2="38.98" y2="-18.26" width="0.2032" layer="21"/>
+<wire x1="38.98" y1="-18.26" x2="-41.02" y2="-18.26" width="0.2032" layer="21"/>
+<wire x1="-41.02" y1="-18.26" x2="-41.02" y2="17.74" width="0.2032" layer="21"/>
+<wire x1="-36.67" y1="12.89" x2="34.63" y2="12.89" width="0.2032" layer="21"/>
+<wire x1="34.63" y1="12.89" x2="34.63" y2="-13.41" width="0.2032" layer="21"/>
+<wire x1="34.63" y1="-13.41" x2="-36.67" y2="-13.41" width="0.2032" layer="21"/>
+<wire x1="-36.67" y1="-13.41" x2="-36.67" y2="12.89" width="0.2032" layer="21"/>
+<pad name="VSS" x="-33.02" y="15.24" drill="1.016" diameter="1.8796" shape="square"/>
+<pad name="VDD" x="-30.48" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="V0" x="-27.94" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="RS" x="-25.4" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="R/W" x="-22.86" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="E" x="-20.32" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB0" x="-17.78" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB1" x="-15.24" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB2" x="-12.7" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB3" x="-10.16" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB4" x="-7.62" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB5" x="-5.08" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB6" x="-2.54" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="DB7" x="0" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="LED+" x="2.54" y="15.24" drill="1.016" diameter="1.8796" shape="octagon"/>
+<pad name="LED-" x="5.08" y="15.24" drill="1.016" diameter="1.8796"/>
+<text x="-35.56" y="14.605" size="1.016" layer="51" ratio="15">1</text>
+<text x="6.985" y="14.605" size="1.016" layer="51" ratio="15">16</text>
+<text x="-20.32" y="2.54" size="2.54" layer="21">16 x 2 LCD Module</text>
+<hole x="-38.52" y="-15.76" drill="2.5"/>
+<hole x="36.48" y="-15.76" drill="2.5"/>
+<hole x="36.48" y="15.24" drill="2.5"/>
+<hole x="-38.52" y="15.24" drill="2.5"/>
+<circle x="-38.52" y="-15.76" radius="1.3" width="0.127" layer="21"/>
+<circle x="-38.52" y="15.24" radius="1.3" width="0.127" layer="21"/>
+<circle x="36.48" y="15.24" radius="1.3" width="0.127" layer="21"/>
+<circle x="36.48" y="-15.76" radius="1.3" width="0.127" layer="21"/>
 </package>
-<package name="128X64_GLCD">
-<wire x1="0" y1="0" x2="0" y2="52.7" width="0.2032" layer="21"/>
-<wire x1="0" y1="52.7" x2="75" y2="52.7" width="0.2032" layer="21"/>
-<wire x1="75" y1="52.7" x2="75" y2="0" width="0.2032" layer="21"/>
-<wire x1="75" y1="0" x2="0" y2="0" width="0.2032" layer="21"/>
-<wire x1="7.5" y1="11.1" x2="7.5" y2="43.7" width="0.2032" layer="21"/>
-<wire x1="7.5" y1="43.7" x2="67.5" y2="43.7" width="0.2032" layer="21"/>
-<wire x1="67.5" y1="43.7" x2="67.5" y2="11.1" width="0.2032" layer="21"/>
-<wire x1="67.5" y1="11.1" x2="7.5" y2="11.1" width="0.2032" layer="21"/>
-<pad name="VDD" x="13.4" y="2.5" drill="1.016" shape="square" rot="R90"/>
-<pad name="VSS" x="15.94" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="V0" x="18.48" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB0" x="21.02" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB1" x="23.56" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB2" x="26.1" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB3" x="28.64" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB4" x="31.18" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB5" x="33.72" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB6" x="36.26" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="DB7" x="38.8" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="CS2" x="41.34" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="CS1" x="43.88" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="/RES" x="46.42" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="R/W" x="48.96" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="D/I" x="51.5" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="E" x="54.04" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="VEE" x="56.58" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="A" x="59.12" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<pad name="K" x="61.66" y="2.5" drill="1.016" shape="octagon" rot="R90"/>
-<text x="10.16" y="1.27" size="1.778" layer="21">1</text>
-<text x="63.5" y="1.27" size="1.778" layer="21">20</text>
-<text x="15.24" y="26.67" size="1.778" layer="21">128 x 64 Graphical LCD (GLCD)</text>
-<hole x="2.5" y="2.5" drill="2.5"/>
-<hole x="2.5" y="52.2" drill="2.5"/>
-<hole x="72.5" y="52.2" drill="2.5"/>
-<hole x="72.5" y="2.5" drill="2.5"/>
-<circle x="2.5" y="2.5" radius="1.27" width="0.127" layer="21"/>
-<circle x="72.5" y="2.5" radius="1.27" width="0.127" layer="21"/>
-<circle x="72.5" y="52.2" radius="1.27" width="0.127" layer="21"/>
-<circle x="2.5" y="52.2" radius="1.27" width="0.127" layer="21"/>
+<package name="GLCD-128X64">
+<wire x1="-38.8" y1="-27.9" x2="-38.8" y2="24.8" width="0.2032" layer="21"/>
+<wire x1="-38.8" y1="24.8" x2="36.2" y2="24.8" width="0.2032" layer="21"/>
+<wire x1="36.2" y1="24.8" x2="36.2" y2="-27.9" width="0.2032" layer="21"/>
+<wire x1="36.2" y1="-27.9" x2="-38.8" y2="-27.9" width="0.2032" layer="21"/>
+<wire x1="-31.3" y1="-17.8" x2="-31.3" y2="14.7" width="0.2032" layer="21"/>
+<wire x1="-31.3" y1="14.7" x2="28.7" y2="14.7" width="0.2032" layer="21"/>
+<wire x1="28.7" y1="14.7" x2="28.7" y2="-17.8" width="0.2032" layer="21"/>
+<wire x1="28.7" y1="-17.8" x2="-31.3" y2="-17.8" width="0.2032" layer="21"/>
+<pad name="VDD" x="-25.4" y="-25.4" drill="1.016" shape="square" rot="R90"/>
+<pad name="VSS" x="-22.86" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="V0" x="-20.32" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB0" x="-17.78" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB1" x="-15.24" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB2" x="-12.7" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB3" x="-10.16" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB4" x="-7.62" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB5" x="-5.08" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB6" x="-2.54" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="DB7" x="0" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="CS2" x="2.54" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="CS1" x="5.08" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="/RES" x="7.62" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="R/W" x="10.16" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="D/I" x="12.7" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="E" x="15.24" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="VEE" x="17.78" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="A" x="20.32" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<pad name="K" x="22.86" y="-25.4" drill="1.016" shape="octagon" rot="R90"/>
+<text x="-27.94" y="-26.67" size="1.778" layer="21">1</text>
+<text x="25.4" y="-26.67" size="1.778" layer="21">20</text>
+<text x="-22.86" y="2.54" size="1.778" layer="21">128 x 64 Graphical LCD (GLCD)</text>
+<hole x="-36.3" y="-25.4" drill="2.5"/>
+<hole x="-36.3" y="24.3" drill="2.5"/>
+<hole x="33.7" y="24.3" drill="2.5"/>
+<hole x="33.7" y="-25.4" drill="2.5"/>
+<circle x="-36.3" y="-25.4" radius="1.3" width="0.127" layer="21"/>
+<circle x="33.7" y="-25.4" radius="1.3" width="0.127" layer="21"/>
+<circle x="33.7" y="24.3" radius="1.3" width="0.127" layer="21"/>
+<circle x="-36.3" y="24.3" radius="1.3" width="0.127" layer="21"/>
 </package>
 </packages>
 <symbols>
-<symbol name="16X2LCD">
+<symbol name="16X2-LCD">
 <description>XIAMEN - ADM1602K - 16 x 2 LCD Module</description>
 <wire x1="-10.16" y1="22.86" x2="-10.16" y2="-20.32" width="0.254" layer="94"/>
 <wire x1="-10.16" y1="-20.32" x2="10.16" y2="-20.32" width="0.254" layer="94"/>
@@ -201,7 +209,7 @@
 <pin name="V0" x="-12.7" y="15.24" visible="pin" length="short"/>
 <pin name="VSS" x="-12.7" y="20.32" visible="pin" length="short" direction="pwr"/>
 </symbol>
-<symbol name="GLCD-128X64">
+<symbol name="128X64-GLCD">
 <description>XIAMEN - GDM12864HLCM - 128 x 64 Graphical LCD Module (GLCD)</description>
 <wire x1="-10.16" y1="-25.4" x2="10.16" y2="-25.4" width="0.254" layer="94"/>
 <wire x1="10.16" y1="-25.4" x2="10.16" y2="27.94" width="0.254" layer="94"/>
@@ -233,13 +241,13 @@
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="16X2_LCD_" prefix="LCD" uservalue="yes">
+<deviceset name="LCD_16X2" prefix="LCD" uservalue="yes">
 <description>XIAMEN - ADM1602K - 16 x 2 LCD Module</description>
 <gates>
-<gate name="G$1" symbol="16X2LCD" x="0" y="0"/>
+<gate name="G$1" symbol="16X2-LCD" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="16X2_LCD">
+<device name="" package="LCD-16X2">
 <connects>
 <connect gate="G$1" pin="DB0" pad="DB0"/>
 <connect gate="G$1" pin="DB1" pad="DB1"/>
@@ -264,13 +272,13 @@
 </device>
 </devices>
 </deviceset>
-<deviceset name="128X64_GLCD_" prefix="LCD" uservalue="yes">
+<deviceset name="GLCD_128X64" prefix="LCD" uservalue="yes">
 <description>XIAMEN - GDM12864HLCM - 128 x 64 Graphical LCD Module (GLCD)</description>
 <gates>
-<gate name="G$1" symbol="GLCD-128X64" x="0" y="0"/>
+<gate name="G$1" symbol="128X64-GLCD" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="128X64_GLCD">
+<device name="" package="GLCD-128X64">
 <connects>
 <connect gate="G$1" pin="/RES" pad="/RES"/>
 <connect gate="G$1" pin="A" pad="A"/>
