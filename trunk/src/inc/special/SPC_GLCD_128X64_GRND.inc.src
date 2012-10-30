@@ -48,24 +48,19 @@ union{
     0.000,
     1.535,
   }
+  // PCB
   #local pcb_height   = 1.6;
   #local pcb_cuheight = 0.035;
-  #local dia_max      = 1.524;
-  #local dia_min      = 1.016;
-  #local upper        = 1;
-  #local lower        = 16;
-  #local lupper = -global_pcb_layer_dis[upper-1]+pcb_cuheight+0.002;
-  #local llower = -global_pcb_layer_dis[lower-1]-0.002;
 
-  // Raise the board above the components that are SUPPOSED
-  //  to be on the back of the board
+  // Solder blob
+  #local solder_dia = 2;  // Diameter of solder blob
+  #local solder_rad = solder_dia*0.5; // Radius of solder blob
+  #local sol_up =              pcb_cuheight+solder_dia;
+  #local sol_dn = -(pcb_height+pcb_cuheight+solder_dia);
+
+  // Raise Board above the components that are SUPPOSED to be
+  //  on the back of the board
   #local height_add = (height+2.3)+pcb_height;
-
-  //Simulated holes
-  #local col_hls =  texture{
-    pigment{Black}
-    finish{ambient (0.1 * global_ambient_mul)}
-  }
 
   // Amber on Black
   #if(col = 0)
@@ -119,12 +114,13 @@ union{
       cylinder{<0,0,0> <0,-(height_add-pcb_height),0>2.50}
       cylinder{<0,2,0> <0,-(height_add-pcb_height)-1>1.35}
     };
-    object{Stand translate< 2.5,-1.6, 2.5>}
-    object{Stand translate< 2.5,-1.6,52.7>}
-    object{Stand translate<72.5,-1.6, 2.5>}
-    object{Stand translate<72.5,-1.6,52.7>}
+    object{Stand translate< 2.5,-1.6, 2.5>} // Bottom Left
+    object{Stand translate<72.5,-1.6, 2.5>} // Bottom Right
+    object{Stand translate< 2.5,-1.6,52.7>} // Top Left
+    object{Stand translate<72.5,-1.6,52.7>} // Top Right
     texture{pigment{Silver}}
   }
+
   // Complete Board
   union{
     difference{
@@ -146,7 +142,7 @@ union{
         cylinder{<72.50,1, 2.50><72.50,-5, 2.50>1.40 texture{col_hls}}
         cylinder{< 2.50,1, 2.50>< 2.50,-5, 2.50>1.40 texture{col_hls}}
         // Pad Holes
-        cylinder{<13.40,0.038, 2.50><13.40,-1.538, 2.50>0.50}
+/*        cylinder{<13.40,0.038, 2.50><13.40,-1.538, 2.50>0.50}
         cylinder{<15.94,0.038, 2.50><15.94,-1.538, 2.50>0.50}
         cylinder{<18.48,0.038, 2.50><18.48,-1.538, 2.50>0.50}
         cylinder{<21.02,0.038, 2.50><21.02,-1.538, 2.50>0.50}
@@ -166,8 +162,8 @@ union{
         cylinder{<56.58,0.038, 2.50><56.58,-1.538, 2.50>0.50}
         cylinder{<59.12,0.038, 2.50><59.12,-1.538, 2.50>0.50}
         cylinder{<61.66,0.038, 2.50><61.66,-1.538, 2.50>0.50}
-        // Cutout holes
-        cylinder{< 5.00,0.038, 5.00>< 5.00,-1.538, 5.00>0.50}
+*/        // Cutout holes
+/*        cylinder{< 5.00,0.038, 5.00>< 5.00,-1.538, 5.00>0.50}
         cylinder{< 9.00,0.038, 5.00>< 9.00,-1.538, 5.00>0.50}
         cylinder{<35.50,0.038, 5.00><35.50,-1.538, 5.00>0.50}
         cylinder{<39.50,0.038, 5.00><39.50,-1.538, 5.00>0.50}
@@ -178,11 +174,11 @@ union{
         cylinder{<35.50,0.038,49.70><35.50,-1.538,49.70>0.50}
         cylinder{<39.50,0.038,49.70><39.50,-1.538,49.70>0.50}
         cylinder{<70.00,0.038,49.70><70.00,-1.538,49.70>0.50}
-        cylinder{<66.00,0.038,49.70><66.00,-1.538,49.70>0.50}
+        cylinder{<66.00,0.038,49.70><66.00,-1.538,49.70>0.50} */
         texture{col_hls}
       }
       // Slot Cutouts
-      union{
+/*      union{
         #local Cutout = box{<0,0.1,0><4,-1.7,1>}
         object{Cutout translate< 5.00,0, 4.50>} // Bottom Left
         object{Cutout translate<35.50,0, 4.50>} // Bottom Center
@@ -190,55 +186,48 @@ union{
         object{Cutout translate< 5.00,0,49.20>} // Top Left
         object{Cutout translate<35.50,0,49.20>} // Top Center
         object{Cutout translate<66.00,0,49.20>} // Top Right
-      }
+      }*/
     }
+
     // Solder Pads
     union{
       #local Pad = object{
         union{
+          // Pad
+          box{<-1,-(pcb_height+pcb_cuheight),-2.25><1,pcb_cuheight,1>}
+          // Solder blob 
           difference{
-            #local dia_max = 2;
-            #local dia = dia_max*0.5;
-            cylinder{<0,lupper,0>, <0,lupper+dia,0>dia}
-            torus{ dia,dia translate<0,dia,0> scale<1,2,1> translate<0,lupper,0>}
+            cylinder{<0,sol_dn>, <0,sol_up,0>solder_rad}
+            torus{ solder_rad,solder_rad scale<1,2,1> translate<0,sol_up,0>}
+            torus{ solder_rad,solder_rad scale<1,2,1> translate<0,sol_dn,0>}
           }
-          difference{
-            #local dia_max = 2;
-            #local dia = dia_max*0.5;
-            cylinder{<0,llower,0>, <0,llower-dia,0>dia}
-            torus{ dia,dia translate<0,-dia,0> scale<1,2,1> translate<0,llower,0>}
-          }
-          box{<-1,-1.538,-2.25><1,0.038,1>}
-          box{<-0.25,-height_add,-0.25><0.25,pcb_height+2.5,0.25>
-            translate<0,-(pcb_height+1.25),0>
+          // Pins from GLCD, to main board 
+          box{<-0.25,-(height_add+3),-0.25><0.25,pcb_height+0.5,0.25>
             texture{T_Gold_5E}
           }
-          cylinder{<0,-(pcb_height-0.1),0><0,-(pcb_height+1.5),0>,1.75
-            texture{pigment{Black}}
-          }
+          texture{col_thl} // Color of solder pads
         }
       };
-      object{Pad translate <13.40,0,2.5>} 
-      object{Pad translate <15.94,0,2.5>} 
-      object{Pad translate <18.45,0,2.5>} 
-      object{Pad translate <21.02,0,2.5>} 
-      object{Pad translate <23.56,0,2.5>} 
-      object{Pad translate <26.10,0,2.5>} 
-      object{Pad translate <28.64,0,2.5>} 
-      object{Pad translate <31.18,0,2.5>} 
-      object{Pad translate <33.72,0,2.5>} 
-      object{Pad translate <36.26,0,2.5>} 
-      object{Pad translate <38.80,0,2.5>} 
-      object{Pad translate <41.34,0,2.5>} 
-      object{Pad translate <43.88,0,2.5>} 
-      object{Pad translate <46.42,0,2.5>} 
-      object{Pad translate <48.96,0,2.5>} 
-      object{Pad translate <51.50,0,2.5>} 
-      object{Pad translate <54.04,0,2.5>} 
-      object{Pad translate <56.58,0,2.5>} 
-      object{Pad translate <59.12,0,2.5>} 
-      object{Pad translate <61.66,0,2.5>} 
-      texture{F_MetalC}
+      object{Pad translate <13.40,0,2.5>} // Pad 1
+      object{Pad translate <15.94,0,2.5>}
+      object{Pad translate <18.45,0,2.5>}
+      object{Pad translate <21.02,0,2.5>}
+      object{Pad translate <23.56,0,2.5>}
+      object{Pad translate <26.10,0,2.5>}
+      object{Pad translate <28.64,0,2.5>}
+      object{Pad translate <31.18,0,2.5>}
+      object{Pad translate <33.72,0,2.5>}
+      object{Pad translate <36.26,0,2.5>}
+      object{Pad translate <38.80,0,2.5>}
+      object{Pad translate <41.34,0,2.5>}
+      object{Pad translate <43.88,0,2.5>}
+      object{Pad translate <46.42,0,2.5>}
+      object{Pad translate <48.96,0,2.5>}
+      object{Pad translate <51.50,0,2.5>}
+      object{Pad translate <54.04,0,2.5>}
+      object{Pad translate <56.58,0,2.5>}
+      object{Pad translate <59.12,0,2.5>}
+      object{Pad translate <61.66,0,2.5>} // Pad 16
     }
   }
   // Backlight behind LCD Panel
@@ -257,10 +246,10 @@ union{
   }*/
   // Edge banding
   union{
-    #local BL_FB = box{<0,0,0><72.40,5.95,1.00> texture{pigment{Gray50}}};
+    #local BL_FB = box{<0,0,0><72.40,5.95,1.00> texture{pigment{Gray70}}};
     object{BL_FB translate< 1.30,0, 6.00>}
     object{BL_FB translate< 1.30,0,47.70>}
-    #local BL_LR = box{<0,0,0><1.00,5.95,42.70> texture{pigment{Gray50}}};
+    #local BL_LR = box{<0,0,0><1.00,5.95,42.70> texture{pigment{Gray70}}};
     object{BL_LR translate< 1.30,0, 6.00>}
     object{BL_LR translate<72.70,0, 6.00>}
   }
@@ -291,16 +280,15 @@ union{
   union{
     difference{
       // Top Cover
-      box{<0,0,0>   <73.4,1.0,44.7> translate<0.8,7.6, 5.0>}
+      box{<0,0,0>   <73.4,1.0,44.7> translate<0.80,7.6, 5.0>}
       // Cutout
-      box{<0,-0.1,0><60.0,1.1,32.5> translate<7.5,7.6,11.1>}
+      box{<0,-0.1,0><60.0,1.1,32.5> translate<7.50,7.6,11.1>}
       // Clip Corners
       #local Cor = box{<-0.1,-0.1,-0.1><0.51,1.1,0.51>}
       object{Cor translate< 0.85,7.6,49.20>} // Top Left
       object{Cor translate<73.70,7.6,49.20>} // Top Right
       object{Cor translate< 0.85,7.6, 5.05>} // Bottom Left
       object{Cor translate<73.70,7.6, 5.05>} // Bottom Rigth
-      //texture{pigment{Blue}} // For Testing
     }
     // Front and Back Radius
     #local FB_Cyl = cylinder{<0.5,0,0><72.9,0,0>0.5};
@@ -320,7 +308,6 @@ union{
     object{LR_Side translate<73.80,0.5,5.00>} // Right
     texture{pigment{P_Chrome1}}
   }
-  //translate<0,height_add,0>
   translate<-37.5,height_add,-26.35>
 }
 #end
