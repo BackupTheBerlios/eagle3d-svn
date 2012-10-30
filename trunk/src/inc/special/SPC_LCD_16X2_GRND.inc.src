@@ -12,10 +12,18 @@
 //  ***** Almost there, it still needs a little bit more Work *****
 //  Standoffs are working, but the screw heads still need to be created.
 //
-//  col:         Color of LCD
-//  bl:          Turn Backlight on
-//  height:      Height of LCD above board.
-//  height_add:  Additional height necessary to clear components on back of board.
+//  col:        Color of LCD
+//  bl:         Turn Backlight on
+//  height:     Height of LCD above board.
+//  height_add: Additional height necessary to clear pcb
+//  stand:      Add standoffs
+//  pinh:       Add pin headers
+//  b_height:   Board thickness
+//  b_cuheight: Board copper thickness
+//  s_dia:      Diameter of solder blob
+//  s_radius:   Radius of solder blob
+//  sol_up:     Board Copper Height + Diameter of solder blob
+//  sol_dn:     -(Board Height + Board Copper Height + Diameter of solder blob
 //
 ###############################################################################
 LCD1602:0:0:0:0:3:0:0:0:0:0:0:0:0:0:40:0:18:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - Adafruit:
@@ -25,45 +33,26 @@ LCD-16X2_NOSILK:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_
 LCD_16X2:0:0:0:0:3:0:0:0:0:0:0:0:0:0:-1.02:0:-0.26:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - Eagle3D:
 ###############################################################################
 SPC_LCD_16X2_GRND
-(col,bl,height)
+(col,bl,height,stand,pinh)
 ###############################################################################
-SPC_LCD_16X2(col,bl,height)
-(col,bl,height)
+SPC_LCD_16X2(col,bl,height,stand,pinh)
+(col,bl,height,stand,pinh)
 ###############################################################################
 ###############################################################################
 union{
-  #local global_pcb_layer_dis = array[16]
-  {
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    0.000,
-    1.535,
-  }
   // PCB
-  #local pcb_height   = 1.6;
-  #local pcb_cuheight = 0.035;
+  #local b_height   = 1.6;
+  #local b_cuheight = 0.035;
 
   // Solder blob
-  #local solder_dia = 2;  // Diameter of solder blob
-  #local solder_rad = solder_dia*0.5; // Radius of solder blob
-  #local sol_up =              pcb_cuheight+solder_dia;
-  #local sol_dn = -(pcb_height+pcb_cuheight+solder_dia);
+  #local s_dia = 2;
+  #local s_radius = s_dia*0.5;
+  #local sol_up =            b_cuheight+s_dia ;
+  #local sol_dn = -(b_height+b_cuheight+s_dia);
 
   // Raise Board above the components that are SUPPOSED to be
   //  on the back of the board
-  #local height_add = (height+2.3)+pcb_height;
+  #local height_add = height+pcb_height;
 
   // Amber on Black
   #if(col = 0)
@@ -112,17 +101,19 @@ union{
   #end
 
   // Standoffs
-  union{
-    #local Stand = difference{
-      cylinder{<0,0,0> <0,-(height_add-pcb_height),0>2.50}
-      cylinder{<0,2,0> <0,-(height_add-pcb_height)-1>1.35}
-    };
-    object{Stand translate< 2.5,-1.6, 2.5>} // Bottom Left
-    object{Stand translate<77.5,-1.6, 2.5>} // Bottom Right
-    object{Stand translate< 2.5,-1.6,33.5>} // Top Left
-    object{Stand translate<77.5,-1.6,33.5>} // Top Right
-    texture{pigment{Silver}}
-  }
+  #if(stand=1)
+    union{
+      #local Stand = difference{
+        cylinder{<0,0,0> <0,-(height_add-b_height),0>2.50}
+        cylinder{<0,2,0> <0,-(height_add-b_height)-1>1.35}
+      };
+      object{Stand translate< 2.5,-1.6, 2.5>} // Bottom Left
+      object{Stand translate<77.5,-1.6, 2.5>} // Bottom Right
+      object{Stand translate< 2.5,-1.6,33.5>} // Top Left
+      object{Stand translate<77.5,-1.6,33.5>} // Top Right
+      texture{pigment{Silver}}
+    }
+  #end
 
   // Complete Board
   union{
@@ -145,68 +136,85 @@ union{
         cylinder{<77.50,1,33.50><77.50,-5,33.50>1.25 texture{col_hls}}
         cylinder{<77.50,1, 2.50><77.50,-5, 2.50>1.25 texture{col_hls}}
         // Pad Holes
-/*        cylinder{< 8.00,0.038,33.50>< 8.00,-1.538,33.50>0.508}
-        cylinder{<10.54,0.038,33.50><10.54,-1.538,33.50>0.508}
-        cylinder{<13.08,0.038,33.50><13.08,-1.538,33.50>0.508}
-        cylinder{<15.62,0.038,33.50><15.62,-1.538,33.50>0.508}
-        cylinder{<18.16,0.038,33.50><18.16,-1.538,33.50>0.508}
-        cylinder{<20.70,0.038,33.50><20.70,-1.538,33.50>0.508}
-        cylinder{<23.24,0.038,33.50><23.24,-1.538,33.50>0.508}
-        cylinder{<25.78,0.038,33.50><25.78,-1.538,33.50>0.508}
-        cylinder{<28.32,0.038,33.50><28.32,-1.538,33.50>0.508}
-        cylinder{<30.86,0.038,33.50><30.86,-1.538,33.50>0.508}
-        cylinder{<33.40,0.038,33.50><33.40,-1.538,33.50>0.508}
-        cylinder{<35.94,0.038,33.50><35.94,-1.538,33.50>0.508}
-        cylinder{<38.48,0.038,33.50><38.48,-1.538,33.50>0.508}
-        cylinder{<41.02,0.038,33.50><41.02,-1.538,33.50>0.508}
-        cylinder{<43.56,0.038,33.50><43.56,-1.538,33.50>0.508}
-        cylinder{<46.10,0.038,33.50><46.10,-1.538,33.50>0.508}
-        // Hole Cutouts
-        cylinder{<10.00,0.038,31.15><10.00,-1.538,31.15>0.500}
-        cylinder{<14.00,0.038,31.15><14.00,-1.538,31.15>0.500}
-        cylinder{<38.00,0.038,31.15><38.00,-1.538,31.15>0.500}
-        cylinder{<42.00,0.038,31.15><42.00,-1.538,31.15>0.500}
-        cylinder{<70.00,0.038,31.15><70.00,-1.538,31.15>0.500}
-        cylinder{<66.00,0.038,31.15><66.00,-1.538,31.15>0.500}
-        cylinder{<70.00,0.038, 4.85><70.00,-1.538, 4.85>0.500}
-        cylinder{<66.00,0.038, 4.85><66.00,-1.538, 4.85>0.500}
-        cylinder{<38.00,0.038, 4.85><38.00,-1.538, 4.85>0.500}
-        cylinder{<42.00,0.038, 4.85><42.00,-1.538, 4.85>0.500}
-        cylinder{<10.00,0.038, 4.85><10.00,-1.538, 4.85>0.500}
-        cylinder{<14.00,0.038, 4.85><14.00,-1.538, 4.85>0.500}
-*/        texture{col_hls}
+        #if(pinh=0)
+          cylinder{< 8.00,0.038,33.50>< 8.00,-1.538,33.50>0.508}
+          cylinder{<10.54,0.038,33.50><10.54,-1.538,33.50>0.508}
+          cylinder{<13.08,0.038,33.50><13.08,-1.538,33.50>0.508}
+          cylinder{<15.62,0.038,33.50><15.62,-1.538,33.50>0.508}
+          cylinder{<18.16,0.038,33.50><18.16,-1.538,33.50>0.508}
+          cylinder{<20.70,0.038,33.50><20.70,-1.538,33.50>0.508}
+          cylinder{<23.24,0.038,33.50><23.24,-1.538,33.50>0.508}
+          cylinder{<25.78,0.038,33.50><25.78,-1.538,33.50>0.508}
+          cylinder{<28.32,0.038,33.50><28.32,-1.538,33.50>0.508}
+          cylinder{<30.86,0.038,33.50><30.86,-1.538,33.50>0.508}
+          cylinder{<33.40,0.038,33.50><33.40,-1.538,33.50>0.508}
+          cylinder{<35.94,0.038,33.50><35.94,-1.538,33.50>0.508}
+          cylinder{<38.48,0.038,33.50><38.48,-1.538,33.50>0.508}
+          cylinder{<41.02,0.038,33.50><41.02,-1.538,33.50>0.508}
+          cylinder{<43.56,0.038,33.50><43.56,-1.538,33.50>0.508}
+          cylinder{<46.10,0.038,33.50><46.10,-1.538,33.50>0.508}
+        #end
+/*        // Hole Cutouts
+        cylinder{<10.00,0.038,31.15><10.00,-1.538,31.15>0.50}
+        cylinder{<14.00,0.038,31.15><14.00,-1.538,31.15>0.50}
+        cylinder{<38.00,0.038,31.15><38.00,-1.538,31.15>0.50}
+        cylinder{<42.00,0.038,31.15><42.00,-1.538,31.15>0.50}
+        cylinder{<70.00,0.038,31.15><70.00,-1.538,31.15>0.50}
+        cylinder{<66.00,0.038,31.15><66.00,-1.538,31.15>0.50}
+        cylinder{<70.00,0.038, 4.85><70.00,-1.538, 4.85>0.50}
+        cylinder{<66.00,0.038, 4.85><66.00,-1.538, 4.85>0.50}
+        cylinder{<38.00,0.038, 4.85><38.00,-1.538, 4.85>0.50}
+        cylinder{<42.00,0.038, 4.85><42.00,-1.538, 4.85>0.50}
+        cylinder{<10.00,0.038, 4.85><10.00,-1.538, 4.85>0.50}
+        cylinder{<14.00,0.038, 4.85><14.00,-1.538, 4.85>0.50} */
+        texture{col_hls}
       }
       // Slot Cutouts
 /*      union{
         #local Cutout = box{<0,0.1,0><4,-1.7,1>}
-        object{Cutout translate<10,0, 4.35>} // Bottom Left
-        object{Cutout translate<38,0, 4.35>} // Bottom Center
-        object{Cutout translate<66,0, 4.35>} // Bottom Right
-        object{Cutout translate<10,0,30.65>} // Top Left
-        object{Cutout translate<38,0,30.65>} // Top Center
-        object{Cutout translate<66,0,30.65>} // Top Right
+        object{Cutout translate< 10,0, 4.35>} // Bottom Left
+        object{Cutout translate< 38,0, 4.35>} // Bottom Center
+        object{Cutout translate< 66,0, 4.35>} // Bottom Right
+        object{Cutout translate< 10,0,30.65>} // Top Left
+        object{Cutout translate< 38,0,30.65>} // Top Center
+        object{Cutout translate< 66,0,30.65>} // Top Right
       }*/
     }
+
     // Solder Pads
     union{
       #local Pad = object{
-        union{
-          // Pad
-          box{<-1,-(pcb_height+pcb_cuheight),2.25><1,pcb_cuheight,-1>}
-          // Solder blob 
+        #if(pinh=1)
+          union{
+            // Pad
+            box{<-1,-(b_height+b_cuheight),2.25><1,b_cuheight,-1>}
+            // Solder blob 
+            difference{
+              cylinder{<0,sol_dn,0>, <0,sol_up,0>s_radius}
+              torus{ s_radius,s_radius scale<1,2,1> translate<0,sol_up,0>}
+              torus{ s_radius,s_radius scale<1,2,1> translate<0,sol_dn,0>}
+            }
+            // Pins from GLCD, to main board 
+            union{
+              box{<-0.25,-(height_add+3),-0.25><0.25,b_height+0.5,0.25>
+                texture{T_Gold_5E}
+              }
+              // Plastic pin holder
+              cylinder{<0,-(b_height-0.1),0><0,-(b_height+1.5),0>,1.75
+                texture{pigment{Black} finish { phong 1  ambient (0.1 * global_ambient_mul)}}
+              }
+            }
+          }
+        #else
           difference{
-            cylinder{<0,sol_dn>, <0,sol_up,0>solder_rad}
-            torus{ solder_rad,solder_rad scale<1,2,1> translate<0,sol_up,0>}
-            torus{ solder_rad,solder_rad scale<1,2,1> translate<0,sol_dn,0>}
+            // Pad
+            box{<-1,-(b_height+b_cuheight),2.25><1,b_cuheight,-1>}
+            cylinder{<0,-(b_height+2),0><0,b_cuheight+2,0>0.5}
           }
-          // Pins from GLCD, to main board 
-          box{<-0.25,-(height_add+3),-0.25><0.25,pcb_height+0.5,0.25>
-            texture{T_Gold_5E}
-          }
-          texture{col_thl} // Color of solder pads
-        }
+        #end
+        texture{col_thl} // Color of solder pads
       };
-      object{Pad translate <8.000,0,33.5>} 
+      object{Pad translate <8.000,0,33.5>} // Pad 1
       object{Pad translate <10.54,0,33.5>} 
       object{Pad translate <13.08,0,33.5>} 
       object{Pad translate <15.62,0,33.5>} 
@@ -221,11 +229,11 @@ union{
       object{Pad translate <38.48,0,33.5>} 
       object{Pad translate <41.02,0,33.5>} 
       object{Pad translate <43.56,0,33.5>} 
-      object{Pad translate <46.10,0,33.5>} 
+      object{Pad translate <46.10,0,33.5>} // Pad 16
     }
   }
-  // Backlight behind LCD Panel
-/*  light_source {
+/*  // Backlight behind LCD Panel - Not really needed, used for demonstrations
+  light_source {
     <0, 0, 0>
     color White
     area_light <1, 0, 0>, <0, 1, 0>, 2, 2
@@ -240,10 +248,10 @@ union{
   }*/
   // Edge banding
   union{
-    #local BL_FB = box{<0,0,0><71.3,5.95,1.00> texture{pigment{Gray50}}};
+    #local BL_FB = box{<0,0,0><71.3,5.95,1.00> texture{pigment{Gray70}}};
     object{BL_FB translate< 4.35,0, 6.85>}
     object{BL_FB translate< 4.35,0,28.15>} 
-    #local BL_LR = box{<0,0,0><1.00,5.95,20.3> texture{pigment{Gray50}}};
+    #local BL_LR = box{<0,0,0><1.00,5.95,20.3> texture{pigment{Gray70}}};
     object{BL_LR translate< 4.35,0, 7.85>}
     object{BL_LR translate<74.65,0, 7.85>}
   }
