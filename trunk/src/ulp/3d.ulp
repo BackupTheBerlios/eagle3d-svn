@@ -3184,7 +3184,6 @@ do{
       // LCD Options 2
       else if(pack_tra[5] == "3")
       {
-        real lcd_height = 5;
         string color_lcd_list[] = {
           "Amber on Black",
           "Amber on Blue",
@@ -3193,7 +3192,12 @@ do{
           "White on Blue"
         };
         int color_lcd = 0;
+
         int backlight_on = 0;
+        int stand_on = 1;
+        int pinh_on = 1;
+        real lcd_height = 2.5;
+
         dlgDialog(lang[81])
         {
           dlgGridLayout
@@ -3204,14 +3208,20 @@ do{
             dlgCell(0,3) dlgLabel(E.value);
             dlgCell(1,0,1,3) dlgComboBox(color_lcd_list,color_lcd);
             dlgCell(2,0,2,1) dlgCheckBox("backlight on?",backlight_on);
-            dlgCell(3,0,3,1) dlgLabel("height:");
-            dlgCell(3,2,3,3) dlgRealEdit(lcd_height,0,40);
+            dlgCell(3,0,3,1) dlgCheckBox("Standoffs?",stand_on);
+            dlgCell(4,0,4,1) dlgCheckBox("Pin Headers?",pinh_on);
+            
+            dlgCell(5,0,5,1) dlgLabel("height above board (mm):");
+            dlgCell(5,2,5,3) dlgRealEdit(lcd_height,0,40);
+
           }
           dlgPushButton("+OK") dlgAccept();
         };
         sprintf(pov_pack,"%s%d,",pov_pack,color_lcd);
         sprintf(pov_pack,"%s%d,",pov_pack,backlight_on);
         sprintf(pov_pack,"%s%f,",pov_pack,lcd_height);
+        sprintf(pov_pack,"%s%d,",pov_pack,stand_on);
+        sprintf(pov_pack,"%s%d,",pov_pack,pinh_on);
       }
 
 
