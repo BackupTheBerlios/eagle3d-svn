@@ -18,11 +18,11 @@
 //  height_add:  Additional height necessary to clear components on back of board.
 //
 ###############################################################################
-16X2_LCD:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2:
-LCD1602:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2:
-LCD-16X2:0:0:0:0:3:0:0:0:0:0:0:0:0:0:-40:0:-18:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2:
-LCD-16X2_NOHOLES:0:0:0:0:3:0:0:0:0:0:0:0:0:0:-40:0:-18:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2:
-LCD-16X2_NOSILK:0:0:0:0:3:0:0:0:0:0:0:0:0:0:-40:0:-18:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2:
+LCD1602:0:0:0:0:3:0:0:0:0:0:0:0:0:0:40:0:18:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - Adafruit:
+LCD-16X2:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - SparkFun:
+LCD-16X2_NOHOLES:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - SparkFun:
+LCD-16X2_NOSILK:0:0:0:0:3:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - SparkFun:
+LCD_16X2:0:0:0:0:3:0:0:0:0:0:0:0:0:0:-1.02:0:-0.26:0:0:0:0:0:0:0:0:0:0:0:0:0:SPC_LCD_16X2(:LCD 16 x 2 - Eagle3D:
 ###############################################################################
 SPC_LCD_16X2_GRND
 (col,bl,height)
@@ -59,6 +59,10 @@ union{
   #local lower        = 16;
   #local lupper = -global_pcb_layer_dis[upper-1]+pcb_cuheight+0.002;
   #local llower = -global_pcb_layer_dis[lower-1]-0.002;
+
+  // Raise the board above the components that are SUPPOSED
+  //  to be on the back of the board
+  #local height_add = (height+2.3)+pcb_height;
 
   //Simulated holes
   #local col_hls =  texture{
@@ -111,8 +115,6 @@ union{
       #local C_LCD = pigment{DarkSlateBlue}; 
     #end
   #end
-  // Raise Board above the components that should be on the back of the board
-  #local height_add = (height+2.3)+pcb_height;
 
   // Standoffs
   union{
@@ -129,7 +131,7 @@ union{
   // Complete Board
   union{
     difference{
-      // LCD PC Board
+      // Main LCD PC Board
       union{
         prism{-1.50,0.00,8
           < 0.00, 0.00><80.00, 0.00>
@@ -211,7 +213,7 @@ union{
             texture{T_Gold_5E}
           }
           cylinder{<0,-(pcb_height-0.1),0><0,-(pcb_height+1.5),0>,1.75
-            texture{pigment{Black} finish { phong 1  ambient (0.1 * global_ambient_mul)}}
+            texture{pigment{Black}}
           }
         }
       };
@@ -284,9 +286,9 @@ union{
   union{
     difference{
       // Top Cover
-      box{<0,0,0>     <71.3,1,26.3> translate<4.35,7.6,4.85>}
+      box{<0,0,0>   <71.3,1.0,26.3> translate<4.35,7.6,4.85>}
       // Cutout
-      box{<0,-0.1,0><64.5,1.1,16.4> translate<7.75,7.6,9.8>}
+      box{<0,-0.1,0><64.5,1.1,16.4> translate<7.75,7.6,9.80>}
       // Clip Corners
       #local Cor = box{<-0.1,-0.1,-0.1><0.51,1.1,0.51>}
       object{Cor translate< 4.35,7.6,30.75>} // Top Left
@@ -297,12 +299,12 @@ union{
     }
     // Front and Back Radius
     #local FB_Cyl = cylinder{<0.5,0,0><70.8,0,0>0.5};
-    object{FB_Cyl translate<4.35,8.1,31.15>} // Front
-    object{FB_Cyl translate<4.35,8.1, 4.85>} // Back
+    object{FB_Cyl  translate<4.35,8.1,31.15>} // Front
+    object{FB_Cyl  translate<4.35,8.1, 4.85>} // Back
     // Left and Right Radius
     #local LR_Cyl = cylinder{<0,0,0.5><0,0,25.8>0.5};
-    object{LR_Cyl translate<4.35,8.1,4.85>} // Left
-    object{LR_Cyl translate<75.65,8.1,4.85>} // Right
+    object{LR_Cyl  translate<4.35,8.1,4.85>} // Left
+    object{LR_Cyl  translate<75.65,8.1,4.85>} // Right
     // Front and Back Panel
     #local FB_Side = box{<0.5,0,0><70.8,7.6,1>};
     object{FB_Side translate<4.35,0.5,30.65>} // Front
@@ -313,7 +315,8 @@ union{
     object{LR_Side translate<75.05,0.5,4.85>} // Right
     texture{pigment{P_Chrome1}}
   }
-  translate<0,height_add,0>
+  //translate<0,height_add,0>
+  translate<-40,height_add,-18>
 }
 #end
 
