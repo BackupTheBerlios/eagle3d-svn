@@ -534,7 +534,7 @@ class _ConfigParser(ConfigParser.SafeConfigParser):
 			self.add_section(section)
 		self.set(section, 'value,col,tra,height',             '"POV",Red,0.7,0')
 		self.set(section, 'col,tra,height',                   'Red,0.7,0')
-		self.set(section, 'col,bl,height',                    '3,1,0')
+		self.set(section, 'col,bl,height',                    '3,1,5')
 		self.set(section, 'col,tra',                          'Red,0.7')
 		self.set(section, 'color_sub',                        'DarkWood')
 		self.set(section, 'value,logo',                       '"POV",""')
