@@ -1347,6 +1347,7 @@ global_settings{charset utf8}
 #end
 
 //*****************************************************************************
+// This macro is licensed under the terms of the CC-LGPL
 // Persistence of Vision Ray Tracer Scene Description Include File
 // File: spring.inc
 // Vers: 3.7
