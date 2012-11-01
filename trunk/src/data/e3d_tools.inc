@@ -1522,7 +1522,7 @@ global_settings{charset utf8}
 #end
 
 //*****************************************************************************
-This macro is used for simple object generation
+// This macro is used for simple object generation
 //*****************************************************************************
 #macro TOOLS_SSDL_BOX( corner1, corner2, trans, rot, sca, c)
   #ifdef(global_create_ssdl_file)
