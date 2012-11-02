@@ -1,0 +1,99 @@
+
+Updates - 2012-10-31
+  Created new macros:
+    inc/cap/CAP_DIS_MLCC_GRND.inc.src
+      TDK FK Series MLCC capaciotrs
+
+    inc/resistor/RES_DIS_TRIM_BI_TECH_GRND.inc.src
+      BI-Technologies 64 Series trimmer resistors
+      These trimmers are different than the spectrol series of the same name 
+
+    inc/special/SPC_GLCD_128X54_GRND.inc.src
+      Xiamen GDM12864HLCM 128 x 64 display (SparkFun Electornics)
+      I created this to be fairly generic.
+
+    inc/special/SPC_LCD_16X2_GRND.inc.src
+      Xiamen ADM1602K 16 x 2 display (SparFun Electronics)
+      I created this to be fairly generic.
+
+    inc/switch/SWITCH_RIGHTANGLE_GRND.inc.src
+      C&K PN Series right angle switches
+
+    inc/switch/SWITCH_TACT_GRND.inc.src
+      Tactile Switches.  This macro is modular, and can build multiple sizes
+
+  Added Eagle3D Library files:
+    libraries/eagle/Eagle3D-Switch.lbr
+      New library files for Eagle-4.16+
+
+    libraries/eagle-6x/Eagle3D-Displays.lbr
+    libraries/eagle-6x/Eagle3D-Pads_and_Holes.lbr
+    libraries/eagle-6x/Eagle3D-Passives.lbr
+    libraries/eagle-6x/Eagle3D-Switch.lbr
+      New library files for Eagle-6.0.0+
+
+  Added additional files:
+    examples/MoDsMega.gif
+      Animated .gif
+
+    examples/MoDsMega.bat
+      Allows MoDsMega to be rebuilt in Windows
+
+    examples/MoDsMega.sh
+      Allows MoDsMega to be rebuilt in Linux/Mac
+
+  Updated existing macros:
+    inc/cap/CAP_DIS_CERAMIC_GRND.inc.src
+      Fixed lead lengths
+
+    inc/cap/CAP_DIS_ELKO_AXIAL_GRND.inc.src
+    inc/cap/CAP_DIS_ELKO_GRND.inc.src
+      Changed to automatically rotate color bands
+      Added new capacitor sizes
+
+    inc/diode/DIODE_DIS_LED_5MM_GRND.inc.src
+      Update diameter of LEDs, and made it more modular.
+      Transparent LEDs, are truly tranparent now.
+
+    inc/ic/IC_DIS_DIP_GRND.inc.src
+      Changed to conform to ANSI maximum values
+      This fixes problems where IC will overlap, when a REAL board is made
+
+    inc/resistor/RES_DIS_GRND.inc.src
+    inc/resistor/RES_SMD_CHIP_GRND.inc.src
+    inc/resistor/RES_SMD_MELF_GRND.inc.src
+      Changed to automatically rotate color bands
+
+    inc/transistor/TR_TO92_G_GRND.inc.src
+      Changed height to actual values
+
+
+  Updated additional files:
+    ulp/3d.ulp
+      Massive changes
+
+    ulp/3dfunc.ulp
+      Massive changes
+
+    ulp/3dlang.dat
+    ulp/3dlang_e.dat
+    ulp/3dlang_fr.dat
+    ulp/3dlang_hu.dat
+    ulp/3dlang_it.dat
+    ulp/3dlang_pt.dat
+    ulp/3dlang_sp.dat
+      update for additional 3d.ulp entries
+
+    ulp/e3d_tools.inc
+      Added new macro to create springs
+
+    ulp/eagle2svg
+      minor formatting changes
+
+    examples/MoDsMega.brd
+    examples/MoDsMega.ini
+    examples/MoDsMega.pov
+      Updated to work with Eagle-4.16 - Eagle-6.0.0+
+
+    tools/eagle3d.py
+      Updated to add new components to the build/eagle3d/* folders
