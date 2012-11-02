@@ -108,15 +108,15 @@ RES_DIS_TRIM_BI_TECH_64Y(value)
       texture{col_silver}
     }
     union{
-      text {ttf besch_font value 0.1,0 scale<1,1,0>
+      text {ttf besch_font value 0.1,0 scale<1,1,1>
         rotate<-270,0,0> translate<-L/2+1.25,H+0.01,-W+2.5>}
-      text {ttf besch_font Model 0.1,0 scale<1,1,0>
+      text {ttf besch_font Model 0.1,0 scale<1,1,1>
         rotate<-270,0,0> translate< L/2-2.5 ,H+0.01, W/2-1.25>}
-      text {ttf besch_font "1"   0.1,0 scale<2,3,0>
+      text {ttf besch_font "1"   0.1,0 scale<2,3,1>
         translate<-2.5,0.52,-W/2-0.01>}
-      text {ttf besch_font "2"   0.1,0 scale<2,3,0>
+      text {ttf besch_font "2"   0.1,0 scale<2,3,1>
         translate< -0.5,0.52,-W/2-0.01>}
-      text {ttf besch_font "3"   0.1,0 scale<2,3,0>
+      text {ttf besch_font "3"   0.1,0 scale<2,3,1>
         translate< 1.5,0.52,-W/2-0.01>}
       pigment{Black}
     }
