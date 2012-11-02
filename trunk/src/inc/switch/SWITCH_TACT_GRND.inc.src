@@ -93,7 +93,7 @@ union{
   }
 
   // Plastic rivet construction
-  #local Rivet_Shape=union{cylinder{<0,H,0><0,H+0.3,0>B_Dia/10 pigment{Black}}}
+  #local Rivet_Shape=object{cylinder{<0,H,0><0,H+0.3,0>B_Dia/10 pigment{Black}}}
 
   //// Placement of rivets
   // Rivet 1 - Upper Left
