@@ -942,7 +942,7 @@ if(board)
     //Macroname setzen und Sonderzeichen entfernen
     // Macro name is set and special characters removed
     macro_name = make_pov_str(strupr(filesetext(filename(B.name), "")));
-    base_name  = make_pov_str(filesetext(filename(B.name), ""));
+    base_name  = filename(B.name);
 
     //Kopfzeilen erzeugen
     // Create headers
