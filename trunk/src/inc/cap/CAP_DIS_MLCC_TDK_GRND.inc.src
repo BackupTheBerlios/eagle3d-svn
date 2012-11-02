@@ -65,7 +65,7 @@ union{
     cylinder{<0,0,-4><0,0,4>2.2 pigment{Color}}
     // Value Marking
     object{
-      text{ ttf besch_font,value,Z/2,0 scale<X/5,1,1> translate<-X/4,(Y/2)+1,-Z/2> } 
+      text{ ttf besch_font,value,Z/2,0 scale<X/5,1,1> translate<-X/6,(Y/2)+1,-Z/2> } 
     }
   }
   //Leads
