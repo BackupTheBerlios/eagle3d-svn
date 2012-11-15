@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1.27" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.0005" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -47,7 +47,7 @@
 <layer number="52" name="bDocu" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
-<layer number="93" name="Pins" color="2" fill="1" visible="no" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
@@ -141,8 +141,8 @@
 <wire x1="-1.016" y1="1.397" x2="-0.508" y2="1.397" width="0.1524" layer="21"/>
 <wire x1="-0.762" y1="1.143" x2="-0.762" y2="1.651" width="0.1524" layer="21"/>
 <circle x="0" y="0" radius="2.032" width="0.1524" layer="21"/>
-<pad name="-" x="0.889" y="0" drill="0.7112" diameter="1.1684" shape="octagon"/>
-<pad name="+" x="-0.889" y="0" drill="0.7112" diameter="1.1684"/>
+<pad name="-" x="0.889" y="0" drill="0.8128" shape="octagon"/>
+<pad name="+" x="-0.889" y="0" drill="0.8128"/>
 <text x="2.159" y="0.762" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="2.159" y="-1.778" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <rectangle x1="0.254" y1="-1.016" x2="0.762" y2="1.016" layer="51"/>
@@ -161,8 +161,8 @@
 <wire x1="-1.016" y1="1.397" x2="-0.508" y2="1.397" width="0.1524" layer="21"/>
 <wire x1="-0.762" y1="1.143" x2="-0.762" y2="1.651" width="0.1524" layer="21"/>
 <circle x="0" y="0" radius="2.032" width="0.1524" layer="21"/>
-<pad name="-" x="0.889" y="0" drill="0.7112" diameter="1.1684" shape="octagon"/>
-<pad name="+" x="-0.889" y="0" drill="0.7112" diameter="1.1684"/>
+<pad name="-" x="0.889" y="0" drill="0.8128" shape="octagon"/>
+<pad name="+" x="-0.889" y="0" drill="0.8128"/>
 <text x="2.159" y="0.762" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="2.159" y="-1.778" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <rectangle x1="0.254" y1="-1.016" x2="0.762" y2="1.016" layer="51"/>
@@ -222,8 +222,8 @@
 <wire x1="-0.816" y1="0.947" x2="-0.308" y2="0.947" width="0.1524" layer="21"/>
 <wire x1="-0.562" y1="0.693" x2="-0.562" y2="1.201" width="0.1524" layer="21"/>
 <circle x="0" y="0" radius="1.5" width="0.1524" layer="21"/>
-<pad name="-" x="0.5" y="0" drill="0.5" diameter="0.8128" shape="octagon"/>
-<pad name="+" x="-0.5" y="0" drill="0.5" diameter="0.8128"/>
+<pad name="-" x="0.5" y="0" drill="0.508" diameter="0.8128" shape="octagon"/>
+<pad name="+" x="-0.5" y="0" drill="0.508" diameter="0.8128"/>
 <text x="2.159" y="0.762" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="2.159" y="-1.778" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <rectangle x1="0.1" y1="-0.7" x2="0.4" y2="0.7" layer="51"/>
@@ -242,8 +242,8 @@
 <wire x1="-1.016" y1="1.397" x2="-0.508" y2="1.397" width="0.1524" layer="21"/>
 <wire x1="-0.762" y1="1.143" x2="-0.762" y2="1.651" width="0.1524" layer="21"/>
 <circle x="0" y="0" radius="2.032" width="0.1524" layer="21"/>
-<pad name="-" x="0.75" y="0" drill="0.7112" diameter="1.1684" shape="octagon"/>
-<pad name="+" x="-0.75" y="0" drill="0.7112" diameter="1.1684"/>
+<pad name="-" x="0.75" y="0" drill="0.8128" diameter="1.27" shape="octagon"/>
+<pad name="+" x="-0.75" y="0" drill="0.8128" diameter="1.27"/>
 <text x="2.159" y="0.762" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="2.159" y="-1.778" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <rectangle x1="0.254" y1="-1.016" x2="0.762" y2="1.016" layer="51"/>
@@ -258,9 +258,9 @@
 <wire x1="-3.175" y1="-2.095" x2="-3.175" y2="2.095" width="0.254" layer="21"/>
 <wire x1="-3.175" y1="2.095" x2="3.175" y2="2.095" width="0.254" layer="21"/>
 <circle x="-1.65" y="0.695" radius="0.89" width="0.1524" layer="21"/>
-<pad name="1" x="-2.54" y="0" drill="0.6096"/>
-<pad name="2" x="0" y="0" drill="0.6096"/>
-<pad name="3" x="2.54" y="0" drill="0.6096"/>
+<pad name="1" x="-2.54" y="-1.27" drill="0.8128"/>
+<pad name="2" x="0" y="1.27" drill="0.8128"/>
+<pad name="3" x="2.54" y="-1.27" drill="0.8128"/>
 <text x="-3.81" y="2.54" size="1.27" layer="25">&gt;NAME</text>
 <text x="-3.81" y="-3.81" size="1.27" layer="27">&gt;VALUE</text>
 <wire x1="3.175" y1="2.095" x2="3.175" y2="-2.095" width="0.254" layer="21"/>
@@ -272,9 +272,9 @@
   Multi-Turn Cermet 
 
   BI Technologies</description>
-<pad name="1" x="-2.54" y="-1.27" drill="0.6096"/>
-<pad name="2" x="0" y="1.27" drill="0.6096"/>
-<pad name="3" x="2.54" y="-1.27" drill="0.6096"/>
+<pad name="1" x="-2.54" y="0" drill="0.8128"/>
+<pad name="2" x="0" y="0" drill="0.8128"/>
+<pad name="3" x="2.54" y="0" drill="0.8128"/>
 <wire x1="3.175" y1="-2.095" x2="-3.175" y2="-2.095" width="0.254" layer="21"/>
 <wire x1="-3.175" y1="-2.095" x2="-3.175" y2="2.095" width="0.254" layer="21"/>
 <wire x1="-3.175" y1="2.095" x2="3.175" y2="2.095" width="0.254" layer="21"/>
@@ -597,6 +597,32 @@
 <text x="-3.286" y="-4.318" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
 <wire x1="1.27" y1="-1.27" x2="1.27" y2="1.27" width="0.3048" layer="21" curve="-180"/>
 </package>
+<package name="0204/10">
+<wire x1="5.08" y1="0" x2="3.81" y2="0" width="0.508" layer="51"/>
+<wire x1="-5.08" y1="0" x2="-3.81" y2="0" width="0.508" layer="51"/>
+<pad name="1" x="-5.08" y="0" drill="0.8128" shape="octagon"/>
+<pad name="2" x="5.08" y="0" drill="0.8128" shape="octagon"/>
+<text x="-2.54" y="1.27" size="0.9906" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.54" y="-2.54" size="0.9906" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="1.778" y1="-0.254" x2="3.81" y2="0.254" layer="21"/>
+<rectangle x1="-3.81" y1="-0.254" x2="-1.778" y2="0.254" layer="21"/>
+<wire x1="-1.778" y1="0.635" x2="-1.524" y2="0.889" width="0.1524" layer="21" curve="-90"/>
+<wire x1="-1.778" y1="-0.635" x2="-1.524" y2="-0.889" width="0.1524" layer="21" curve="90"/>
+<wire x1="1.524" y1="-0.889" x2="1.778" y2="-0.635" width="0.1524" layer="21" curve="90"/>
+<wire x1="1.524" y1="0.889" x2="1.778" y2="0.635" width="0.1524" layer="21" curve="-90"/>
+<wire x1="-1.778" y1="-0.635" x2="-1.778" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="-1.524" y1="0.889" x2="-1.27" y2="0.889" width="0.1524" layer="21"/>
+<wire x1="-1.143" y1="0.762" x2="-1.27" y2="0.889" width="0.1524" layer="21"/>
+<wire x1="-1.524" y1="-0.889" x2="-1.27" y2="-0.889" width="0.1524" layer="21"/>
+<wire x1="-1.143" y1="-0.762" x2="-1.27" y2="-0.889" width="0.1524" layer="21"/>
+<wire x1="1.143" y1="0.762" x2="1.27" y2="0.889" width="0.1524" layer="21"/>
+<wire x1="1.143" y1="0.762" x2="-1.143" y2="0.762" width="0.1524" layer="21"/>
+<wire x1="1.143" y1="-0.762" x2="1.27" y2="-0.889" width="0.1524" layer="21"/>
+<wire x1="1.143" y1="-0.762" x2="-1.143" y2="-0.762" width="0.1524" layer="21"/>
+<wire x1="1.524" y1="0.889" x2="1.27" y2="0.889" width="0.1524" layer="21"/>
+<wire x1="1.524" y1="-0.889" x2="1.27" y2="-0.889" width="0.1524" layer="21"/>
+<wire x1="1.778" y1="-0.635" x2="1.778" y2="0.635" width="0.1524" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="R-EU-SYM">
@@ -787,6 +813,15 @@
 <technology name=""/>
 </technologies>
 </device>
+<device name="0204/10.16" package="0204/10">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
 </devices>
 </deviceset>
 <deviceset name="R-US_" prefix="R" uservalue="yes">
@@ -814,6 +849,15 @@
 </technologies>
 </device>
 <device name="0204/7.62" package="0204/7">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+<connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="0204/10.16" package="0204/10">
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
