@@ -26,6 +26,7 @@ Diskreter Widerstand
 0204V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_025MMV(:Diskreter Widerstand 0,15W stehend 100mil:Discrete Resistor 0,15W Vertical 100mil
 0204/5:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_054MM(:Diskreter Widerstand 0,15W 5,4MM Raster:Discrete Resistor 0,15W 5,4MM Grid
 0204/7:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_075MM(:Diskreter Widerstand 0,15W 7,5MM Raster:Discrete Resistor 0,15W 7,5MM Grid
+0204/10:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0204_1016MM(:Diskreter Widerstand 0,15W 10,16MM Raster:Discrete Resistor 0,15W 10,16MM Grid
 0207/2V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_025MMV(:Diskreter Widerstand 0,25W stehend 100mil:Discrete Resistor 0,25W Vertical 100mil
 0207/5V:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_050MMV(:Diskreter Widerstand 0,25W stehend 200mil:Discrete Resistor 0,25W Vertical 200mil
 0207/7:0:0:1:0:0:0:0:0:0:0:0:0:0:R:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:RES_DIS_0207_075MM(:Diskreter Widerstand 0,3W 7,5MM Raster:Discrete Resistor 0,3W 7,5MM Grid
@@ -53,6 +54,8 @@ RES_DIS_0204_054MM(c1,c2,c3,c4)
 (3.3,1.6,c1,c2,c3,c4,2.54*2,20,0.6,0,"H",0.2)
 RES_DIS_0204_075MM(c1,c2,c3,c4)
 (3.3,1.6,c1,c2,c3,c4,2.54*3,20,0.6,0,"H",0.2)
+RES_DIS_0204_1016MM(c1,c2,c3,c4)
+(3.3,1.6,c1,c2,c3,c4,2.54*4,20,0.6,0,"H",0.2)
 //0207
 RES_DIS_0207_025MMV(c1,c2,c3,c4)
 (5.8,2.2,c1,c2,c3,c4,2.54,20,0.6,0,"V",0.3)
