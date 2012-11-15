@@ -1,7 +1,7 @@
 DIP
 // The following is a modified module section by:
 //    Joseph Zeglinski - Aug. 20, 2003
-//    MC Cason farmerboy1967(replace with at)gmail.com - 20121031
+//    MC Cason farmerboy1967(replace with at)gmail.com - 2012-10-31
 //
 // This macro now produces either a fully pin populated DIL,  or a DIL
 //  with fewer "quads" of pins.
@@ -166,148 +166,162 @@ IC_DIS_DIP68_9(name,logo)
 (68,68,9,3.2,name,logo)
 ###############################################################################
 ###############################################################################
-union{
-/*    //Body
-  difference{
-    box{<0,0,0><(p/2)*2.54-0.2,h,b*2.54-1>}
-    box{<-0.1,0,0><(p/2)*2.54+2,-2,-2> rotate<-15,0,0> translate<0,h/2-0.3,0>}
-    box{<-0.1,0,0><(p/2)*2.54+2,2,-2> rotate<15,0,0> translate<0,h/2+0.3,0>}
-    box{<-0.1,0,0><(p/2)*2.54+2,-2,2> rotate<15,0,0> translate<0,h/2-0.3,b*2.54-1>}
-    box{<-0.1,0,0><(p/2)*2.54+2,2,2> rotate<-15,0,0> translate<0,h/2+0.3,b*2.54-1>}
-    box{<0,0,b*2.54><-2,-2,-b*2> rotate<0,0,15> translate<0,h/2-0.3,0>}
-    box{<0,0,b*2.54><-2,2,-b*2> rotate<0,0,-15> translate<0,h/2+0.3,0>}
-    box{<0,0,b*2.54><2,-2,-b*2> rotate<0,0,-15> translate<p/2*2.54-0.2,h/2-0.3,0>}
-    box{<0,0,b*2.54><2,2,-b*2> rotate<0,0,15> translate<p/2*2.54-0.2,h/2+0.3,0>}
-    cylinder{<0,h-0.3,(b*2.54-1)/2><0,h+0.3,(b*2.54-1)/2>1}
-    translate<-(p/2*2.54-0.2)/2,0,-(b*2.54-1)/2>
-  }*/
-  difference{
-    box{<0,0,0><(p/2)*2.75,h,b*2.54-1>}
-    box{<-0.1,0,0><(p/2)*2.54+2,-2,-2> rotate<-15,0,0> translate<0,h/2-0.3,0>}
-    box{<-0.1,0,0><(p/2)*2.54+2,2,-2> rotate<15,0,0> translate<0,h/2+0.3,0>}
-    box{<-0.1,0,0><(p/2)*2.54+2,-2,2> rotate<15,0,0> translate<0,h/2-0.3,b*2.54-1>}
-    box{<-0.1,0,0><(p/2)*2.54+2,2,2> rotate<-15,0,0> translate<0,h/2+0.3,b*2.54-1>}
-    box{<0,0,b*2.54><-2,-2,-b*2> rotate<0,0,15> translate<0,h/2-0.3,0>}
-    box{<0,0,b*2.54><-2,2,-b*2> rotate<0,0,-15> translate<0,h/2+0.3,0>}
-    box{<0,0,b*2.54><2,-2,-b*2> rotate<0,0,-15> translate<p/2*2.75,h/2-0.3,0>}
-    box{<0,0,b*2.54><2,2,-b*2> rotate<0,0,15> translate<p/2*2.75,h/2+0.3,0>}
-    cylinder{<0,h-0.3,(b*2.54-1)/2><0,h+0.3,(b*2.54-1)/2>1}
-    translate<-(p/2*2.75)/2,0,-(b*2.54-1)/2>
-  }
-
-  //Pins
   union{
-    #local i=0;
-    #while(i<(p/2))
-      // Check for special  "Partial Pin Population" DIL condition
-      #if( (p>a) & (i=a/4) )
-        #local i=i+(p-a)/2;
-      #end
-
-      object{IC_DIS_PIN() rotate<0,180,0> translate<i*2.54,-3.75,b*2.54/2>}
-      object{IC_DIS_PIN() translate<i*2.54,-3.75,-b*2.54/2>}
-      #local i=i+1;
-    #end
-    translate<-p/2*1.27+1.27,0,0>
-    texture{e3d_tex_silver}
-  }
-
-  // ADAPTIVE print scaling for small IC's
-  // Check if printing will fall off the end of the DIP surface
-  // Automatically size the X-scaling factor for the value (n) to fit the DIP IC surface:
-  // DIP4 - because it is so short, printing will be "rotated to fit" the width (b) of this IC
-
-  //Marking
-  union{
-    // create a TrueType text shape
-    #local astring = text {ttf besch_font,n,0.2,0}
-
-    // MM width of text string (n)
-    #local L=(max_extent(astring).x);
-
-    //scale to width for tiny DIP4
-    #local astrscale = ( (p=4) ? (b*2-1.0)/L : ((p/2)*2.54-0.2 -2.5 )/L );
-
-    #if(p=4)
-      // Leave normal scaling, if a short label will fit
-      #local astrscale = (astrscale<1.5 ? astrscale : 1.5);
-      object{astring rotate<90,-90,0,>
-        scale <1.5,1,astrscale>
-        translate<0.3,h+0.01,-L*astrscale/2>
+/*
+    //Body
+    difference{
+      box{<0,0,0><(p/2)*2.54-0.2,h,b*2.54-1>}
+      box{<-0.1,0,0><(p/2)*2.54+2,-2,-2> rotate<-15,0,0> translate<0,h/2-0.3,0>}
+      box{<-0.1,0,0><(p/2)*2.54+2, 2,-2> rotate<15,0,0> translate<0,h/2+0.3,0>}
+      box{<-0.1,0,0><(p/2)*2.54+2,-2, 2> rotate<15,0,0>
+        translate<0,h/2-0.3,b*2.54-1>
       }
-    #else 
-      // For DP6 & DIP8 check if a normal scale label will still fit
-      #if(astrscale < 1.5)
-        //No - shrink in X-direction      
-        object{astring rotate<90,0,0,>
-          scale <astrscale,1,1.5>
-          translate<-(p/4)*2.54+1.5,h+0.01,-0.3>
-        }
-      #else
-        text{ttf global_fontfile_arial_bold n 0.2, 0
-          rotate <90,0,0>
-          scale<b/2,1,b/2>
-          translate<-b,h+0.01,0.6>
-        }
-      #end
-    #end
+      box{<-0.1,0,0><(p/2)*2.54+2, 2, 2> rotate<-15,0,0>
+        translate<0,h/2+0.3,b*2.54-1>
+      }
+      box{<0,0,b*2.54><-2,-2,-b*2> rotate<0,0, 15> translate<0,h/2-0.3,0>}
+      box{<0,0,b*2.54><-2, 2,-b*2> rotate<0,0,-15> translate<0,h/2+0.3,0>}
+      box{<0,0,b*2.54>< 2,-2,-b*2> rotate<0,0,-15>
+        translate<p/2*2.54-0.2,h/2-0.3,0>
+      }
+      box{<0,0,b*2.54><2,2,-b*2> rotate<0,0,15>
+        translate<p/2*2.54-0.2,h/2+0.3,0>
+      }
+      cylinder{<0,h-0.3,(b*2.54-1)/2><0,h+0.3,(b*2.54-1)/2>1}
+      translate<-(p/2*2.54-0.2)/2,0,-(b*2.54-1)/2>
+    }*/
+    difference{
+      box{<0,0,0><(p/2)*2.75,h,b*2.54-1>}
+      box{<-0.1,0,0><(p/2)*2.54+2,-2,-2> rotate<-15,0,0> translate<0,h/2-0.3,0>}
+      box{<-0.1,0,0><(p/2)*2.54+2, 2,-2> rotate< 15,0,0> translate<0,h/2+0.3,0>}
+      box{<-0.1,0,0><(p/2)*2.54+2,-2, 2> rotate< 15,0,0>
+        translate<0,h/2-0.3,b*2.54-1>
+      }
+      box{<-0.1,0,0><(p/2)*2.54+2, 2, 2> rotate<-15,0,0>
+        translate<0,h/2+0.3,b*2.54-1>
+      }
+      box{<0,0,b*2.54><-2,-2,-b*2> rotate<0,0, 15> translate<0,h/2-0.3,0>}
+      box{<0,0,b*2.54><-2, 2,-b*2> rotate<0,0,-15> translate<0,h/2+0.3,0>}
+      box{<0,0,b*2.54>< 2,-2,-b*2> rotate<0,0,-15> translate<p/2*2.75,h/2-0.3,0>}
+      box{<0,0,b*2.54>< 2, 2,-b*2> rotate<0,0, 15> translate<p/2*2.75,h/2+0.3,0>}
+      cylinder{<0,h-0.3,(b*2.54-1)/2><0,h+0.3,(b*2.54-1)/2>1}
+      translate<-(p/2*2.75)/2,0,-(b*2.54-1)/2>
+    }
 
-    #if(p>12)
-      #if(strcmp(logo,"MICROCHIP")=0.0)
-        text{ttf global_fontfile_eagle3d "m" 0.2,0
-          scale<b+1,b+1,b+1>
-          rotate<90,0,0>
-          translate<-(p/5)*2.54+0.5,h+0.01,-b/1.8>
-        }                        
-        text{ttf besch_font "Microchip" 0.2,0
-          rotate<90,0,0>
-          scale<b/1.5,b/1.5,b/1.5>
-          translate<-b,h+0.01,-b/2>
+    //Pins
+    union{
+      #local i=0;
+      #while(i<(p/2))
+        // Check for special  "Partial Pin Population" DIL condition
+        #if( (p>a) & (i=a/4) )
+          #local i=i+(p-a)/2;
+        #end
+
+        object{IC_DIS_PIN() rotate<0,180,0> translate<i*2.54,-3.75,b*2.54/2>}
+        object{IC_DIS_PIN() translate<i*2.54,-3.75,-b*2.54/2>}
+        #local i=i+1;
+      #end
+      translate<-p/2*1.27+1.27,0,0>
+      texture{e3d_tex_silver}
+    }
+
+    // ADAPTIVE print scaling for small IC's
+    // Check if printing will fall off the end of the DIP surface
+    // Automatically size the X-scaling factor for the value (n) to
+    //  fit the DIP IC surface: DIP4 - because it is so short, printing
+    //  will be "rotated to fit" the width (b) of this IC
+
+    //Marking
+    union{
+      // create a TrueType text shape
+      #local astring = text {ttf besch_font,n,0.2,0}
+
+      // MM width of text string (n)
+      #local L=(max_extent(astring).x);
+
+      //scale to width for tiny DIP4
+      #local astrscale = ( (p=4) ? (b*2-1.0)/L : ((p/2)*2.54-0.2 -2.5 )/L );
+
+      #if(p=4)
+        // Leave normal scaling, if a short label will fit
+        #local astrscale = (astrscale<1.5 ? astrscale : 1.5);
+        object{astring rotate<90,-90,0,>
+          scale <1.5,1,astrscale>
+          translate<0.3,h+0.01,-L*astrscale/2>
         }
-        #if(p>14)
+      #else 
+        // For DP6 & DIP8 check if a normal scale label will still fit
+        #if(astrscale < 1.5)
+          //No - shrink in X-direction      
+          object{astring rotate<90,0,0,>
+            scale <astrscale,1,1.5>
+            translate<-(p/4)*2.54+1.5,h+0.01,-0.3>
+          }
+        #else
+          text{ttf global_fontfile_arial_bold n 0.2, 0
+            rotate <90,0,0>
+            scale<b/2,1,b/2>
+            translate<-b,h+0.01,0.6>
+          }
+        #end
+      #end
+
+      #if(p>12)
+        #if(strcmp(logo,"MICROCHIP")=0.0)
+          text{ttf global_fontfile_eagle3d "m" 0.2,0
+            scale<b+1,b+1,b+1>
+            rotate<90,0,0>
+            translate<-(p/5)*2.54+0.5,h+0.01,-b/1.8>
+          }                        
           text{ttf besch_font "Microchip" 0.2,0
             rotate<90,0,0>
             scale<b/1.5,b/1.5,b/1.5>
             translate<-b,h+0.01,-b/2>
           }
+          #if(p>14)
+            text{ttf besch_font "Microchip" 0.2,0
+              rotate<90,0,0>
+              scale<b/1.5,b/1.5,b/1.5>
+              translate<-b,h+0.01,-b/2>
+            }
+          #end
         #end
-      #end
 
-      #if(strcmp(logo,"PHILIPS")=0.0)
-        text{ttf global_fontfile_eagle3d "p" 0.2,0
-          scale<b*1.5,b*1.5,b*1.5>
-          rotate<90,0,0>
-          translate<-(p/5)*2.54+1.5,h+0.01,-b/1.5>
-        }                        
-      #end
+        #if(strcmp(logo,"PHILIPS")=0.0)
+          text{ttf global_fontfile_eagle3d "p" 0.2,0
+            scale<b*1.5,b*1.5,b*1.5>
+            rotate<90,0,0>
+            translate<-(p/5)*2.54+1.5,h+0.01,-b/1.5>
+          }                        
+        #end
 
-      #if(strcmp(logo,"MAXIM")=0.0)
-        text{ttf global_fontfile_eagle3d "-" 0.2,0
-          scale<b/2.5,b/2.5,b/2.5>
-          rotate<90,0,0>
-          translate<-(p/5)*2.54,h+0.01,-b/2.2>
-        }                        
-      #end
+        #if(strcmp(logo,"MAXIM")=0.0)
+          text{ttf global_fontfile_eagle3d "-" 0.2,0
+            scale<b/2.5,b/2.5,b/2.5>
+            rotate<90,0,0>
+            translate<-(p/5)*2.54,h+0.01,-b/2.2>
+          }                        
+        #end
 
-      #if(strcmp(logo,"ST")=0.0)
-        text{ttf global_fontfile_eagle3d "s" 0.2,0
-          scale<b,b,b>
-          rotate<90,0,0>
-          translate<-(p/5)*2.54+0.5,h+0.01,-b/2.2>
-        }                        
-      #end
+        #if(strcmp(logo,"ST")=0.0)
+          text{ttf global_fontfile_eagle3d "s" 0.2,0
+            scale<b,b,b>
+            rotate<90,0,0>
+            translate<-(p/5)*2.54+0.5,h+0.01,-b/2.2>
+          }                        
+        #end
 
-      #if(strcmp(logo,"TEXAS")=0.0)
-        text{ttf global_fontfile_eagle3d "t" 0.2,0
-          scale<b*0.9,b*0.9,b*0.9>
-          rotate<90,0,0>
-          translate<-(p/5)*2.54,h+0.01,-b/2.2>
-        }                        
-      #end    
-    #end                            
-    texture{e3d_tex_ic_marking_bright}
+        #if(strcmp(logo,"TEXAS")=0.0)
+          text{ttf global_fontfile_eagle3d "t" 0.2,0
+            scale<b*0.9,b*0.9,b*0.9>
+            rotate<90,0,0>
+            translate<-(p/5)*2.54,h+0.01,-b/2.2>
+          }                        
+        #end    
+      #end                            
+      texture{e3d_tex_ic_marking_bright}
+    }
+    translate<0,0.25,0>
+    texture{e3d_tex_ic_body_1}
   }
-  translate<0,0.25,0>
-  texture{e3d_tex_ic_body_1}
-}
 #end
