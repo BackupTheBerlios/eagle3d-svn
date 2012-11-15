@@ -5,10 +5,11 @@ Tactile Switch
 //
 // Based off of a C&K Components Tactile switch.
 // By MC Cason  farmerboy1967(replace with at)gmail.com
-// Created from the B3F-10XX switch
+// Created from the B3F-10XX switch macro
 // by Tobias Mueller <Tobias_Mueller(replace with at)twam.info>
 //
 //  This macro is modular, so that it can support several different sizes
+//   and manufacturers 
 //
 // L:           Lenght of switch
 // W:           Width of switch
@@ -22,23 +23,25 @@ Tactile Switch
 // B_Height:    Button Height
 // Color:       Button Color
 //*****************************************************************************
-####################################################################################################
+###############################################################################
 TACT_6X6X43:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X43(:Tact switch 6x6x4.3:
 TACT_6X6X50:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X50(:Tact switch 6x6x5.0:
 TACT_6X6X70:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X70(:Tact switch 6x6x7.0:
-TACT_6X6X95:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X95(:Tact switch 6 x 6 x9.3:
+TACT_6X6X95:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X95(:Tact switch 6x6x9.5:
+TACT_6X6X130:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X130(:Tact switch 6x6x13.0:
 TACT_6X6X43-ESD:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X43_ESD(:Tact switch 6x6x4.3-ESD:
 TACT_6X6X50-ESD:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X50_ESD(:Tact switch 6x6x5.0-ESD:
 TACT_6X6X70-ESD:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X70_ESD(:Tact switch 6x6x7.0-ESD:
 TACT_6X6X95-ESD:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X95_ESD(:Tact switch 6x6x9.5-ESD:
+TACT_6X6X130-ESD:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_6X6X130_ESD(:Tact switch 6x6x13.0-ESD:
 TACT_12X12X43:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_12X12X43(:Tact switch 12x12x4.3:
 TACT_12X12X73:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_12X12X73(:Tact switch 12x12x4.3:
 TACT_12X12X85:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_12X12X85(:Tact switch 12x12x4.3:
 TACT_12X12X120:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:SWITCH_TACT_12X12X120(:Tact switch 12x12x4.3:
-####################################################################################################
+###############################################################################
 SWITCH_TACT_GRND
 (L, W, H, L_Width, Lead_X, Lead_Y, Lead_Y_ESD, B_Dia, B_Height, Color)
-####################################################################################################
+###############################################################################
 SWITCH_TACT_6X6X43()
 (6, 6, 3.6, 0.7, 3.25, 2.25, 0, 4, 4.3, Black)
 SWITCH_TACT_6X6X50()
@@ -47,6 +50,8 @@ SWITCH_TACT_6X6X70()
 (6, 6, 3.6, 0.7, 3.25, 2.25, 0, 4, 7.0, Black)
 SWITCH_TACT_6X6X95()
 (6, 6, 3.6, 0.7, 3.25, 2.25, 0, 4, 9.5, Black)
+SWITCH_TACT_6X6X130()
+(6, 6, 3.6, 0.7, 3.25, 2.25, 0, 4, 13.0, Black)
 SWITCH_TACT_6X6X43_ESD()
 (6, 6, 3.6, 0.7, 3.25, 2.25, -4.1, 4, 4.3, Black)
 SWITCH_TACT_6X6X50_ESD()
@@ -55,6 +60,8 @@ SWITCH_TACT_6X6X70_ESD()
 (6, 6, 3.6, 0.7, 3.25, 2.25, -4.1, 4, 7.0, Black)
 SWITCH_TACT_6X6X95_ESD()
 (6, 6, 3.6, 0.7, 3.25, 2.25, -4.1, 4, 9.5, Black)
+SWITCH_TACT_6X6X130_ESD()
+(6, 6, 3.6, 0.7, 3.25, 2.25, -4.1, 4, 13.0, Black)
 SWITCH_TACT_12X12X43()
 (12, 12, 3.5, 1.0, 6.25, 2.25, 0, 6.9, 4.3, Black)
 SWITCH_TACT_12X12X73()
@@ -63,95 +70,97 @@ SWITCH_TACT_12X12X85()
 (12, 12, 3.5, 1.0, 6.25, 2.25, 0, 6.9, 8.5, Black)
 SWITCH_TACT_12X12X120()
 (12, 12, 3.5, 1.0, 6.25, 2.25, 0, 6.9, 12.0, Black)
-####################################################################################################
-####################################################################################################
-union{
-  // Plastic Body
-  box{<-(L/2),0,-(W/2)><(L/2),(H-(L_Width/2)),(W/2)> pigment{Black}}
+###############################################################################
+###############################################################################
+  union{
+    // Plastic Body
+    box{<-(L/2),0,-(W/2)><(L/2),(H-(L_Width/2)),(W/2)> pigment{Black}}
 
-  // Metal Frame on top of body
-  difference{
-    // Metal Plate
-    box{<-(L/2),(H-(L_Width/2)),-(W/2)><(L/2),H,(W/2)>}
-    // Relief around Button
-    cylinder { <0,H/2,0> <0,H+1,0> (B_Dia/2)+0.15}
-    // Metallic Color and Finish
-    texture{pigment{Gray70}
-      finish{F_MetalA ambient (0.1 * global_ambient_mul)}
+    // Metal Frame on top of body
+    difference{
+      // Metal Plate
+      box{<-(L/2),(H-(L_Width/2)),-(W/2)><(L/2),H,(W/2)>}
+      // Relief around Button
+      cylinder { <0,H/2,0> <0,H+1,0> (B_Dia/2)+0.15}
+      // Metallic Color and Finish
+      texture{pigment{Gray70}
+        finish{F_MetalA ambient (0.1 * global_ambient_mul)}
+      }
     }
-  }
-  // Button
-  object{
-    // Main Button Component
-    Round_Cylinder_Union(<0,(H-(L_Width/2)),0>,
-      <0,B_Height,0>, B_Dia/2, (B_Dia/2)/10
-    )
-    // Button Color, and Finish
-    texture {pigment{Color}
-      finish{phong 0.4 reflection{0.2} ambient(0.1 * global_ambient_mul)}
+    // Button
+    object{
+      // Main Button Component
+      Round_Cylinder_Union(<0,(H-(L_Width/2)),0>,
+        <0,B_Height,0>, B_Dia/2, (B_Dia/2)/10
+      )
+      // Button Color, and Finish
+      texture {pigment{Color}
+        finish{phong 0.4 reflection{0.2} ambient(0.1 * global_ambient_mul)}
+      }
     }
-  }
 
-  // Plastic rivet construction
-  #local Rivet_Shape=object{cylinder{<0,H,0><0,H+0.3,0>B_Dia/10 pigment{Black}}}
-
-  //// Placement of rivets
-  // Rivet 1 - Upper Left
-  union{Rivet_Shape translate<-((L/2)-(B_Dia/5)),0, ((W/2)-(B_Dia/5))>}	
-  // Rivet 2 - Upper Right
-  union{Rivet_Shape translate< ((L/2)-(B_Dia/5)),0, ((W/2)-(B_Dia/5))>}
-  // Rivet 3 - Lower Left
-  union{Rivet_Shape translate<-((L/2)-(B_Dia/5)),0,-((W/2)-(B_Dia/5))>}
-  // Rivet 4 - Lower Right
-  union{Rivet_Shape translate< ((L/2)-(B_Dia/5)),0,-((W/2)-(B_Dia/5))>}
-
-  // Lead construction
-  #local Lead_Shape = union {
-    // Horizontal Lead segment
-    box { <L/3,(H/3),-L_Width> <0,(H/3)+(L_Width/2),L_Width>}
-    // Radius on top of Lead
-    cylinder { <-0,H/3,-L_Width>  <0,H/3,L_Width> L_Width/2}
-    // Vertical Lead segment
-    box { <-L_Width/2,-1,-L_Width> <L_Width/2,H/3,L_Width>}
-    // Metallic Color (Lead Color)
-    texture{pigment{Gray70}
-      finish{F_MetalA ambient (0.1 * global_ambient_mul)}
+    // Plastic rivet construction
+    #local Rivet_Shape=object{
+      cylinder{<0,H,0><0,H+0.3,0>B_Dia/10 pigment{Black}}
     }
-  }
-  //// Placement of leads
-  // Lead 1 - Upper Left
-  union { Lead_Shape translate                  <-Lead_X,0, Lead_Y>}
-  // Lead 2 - Upper Right
-  union { Lead_Shape rotate <0,180,0> translate < Lead_X,0, Lead_Y>}
-  // Lead 3 - Lower Left
-  union { Lead_Shape translate                  <-Lead_X,0,-Lead_Y>}
-  // Lead 4 - Lower Rigth
-  union { Lead_Shape rotate <0,180,0> translate < Lead_X,0,-Lead_Y>}
 
-  //ESD Lead - Bottom Center
-  #if(Lead_Y_ESD != 0)
-    union {
+    //// Placement of rivets
+    // Rivet 1 - Upper Left
+    union{Rivet_Shape translate<-((L/2)-(B_Dia/5)),0, ((W/2)-(B_Dia/5))>}	
+    // Rivet 2 - Upper Right
+    union{Rivet_Shape translate< ((L/2)-(B_Dia/5)),0, ((W/2)-(B_Dia/5))>}
+    // Rivet 3 - Lower Left
+    union{Rivet_Shape translate<-((L/2)-(B_Dia/5)),0,-((W/2)-(B_Dia/5))>}
+    // Rivet 4 - Lower Right
+    union{Rivet_Shape translate< ((L/2)-(B_Dia/5)),0,-((W/2)-(B_Dia/5))>}
+
+    // Lead construction
+    #local Lead_Shape = union {
       // Horizontal Lead segment
-      box { <-L_Width*2,(H-(L_Width/2)),0><L_Width*2,H-0.001,L/3>}
+      box { <L/3,(H/3),-L_Width> <0,(H/3)+(L_Width/2),L_Width>}
       // Radius on top of Lead
-      cylinder { <-L_Width*2,(H-(L_Width/2)),0>
-        <L_Width*2,(H-(L_Width/2)),0> L_Width/2
-      }
-      // Vertical Lead segment - Upper
-      box { <-L_Width*2,H/2,-L_Width/2>
-        <L_Width*2,(H-(L_Width/2)),L_Width/2>
-      }
-      // Vertical Lead segment - Lower
-      box { <-L_Width,-1,-L_Width/2><L_Width,H/2,L_Width/2>}
-      // Position Lead at 0, and Y location.
-      translate <0,0,Lead_Y_ESD>
+      cylinder { <-0,H/3,-L_Width>  <0,H/3,L_Width> L_Width/2}
+      // Vertical Lead segment
+      box { <-L_Width/2,-1,-L_Width> <L_Width/2,H/3,L_Width>}
       // Metallic Color (Lead Color)
       texture{pigment{Gray70}
         finish{F_MetalA ambient (0.1 * global_ambient_mul)}
       }
     }
-  #end
-}
+    //// Placement of leads
+    // Lead 1 - Upper Left
+    union { Lead_Shape translate                  <-Lead_X,0, Lead_Y>}
+    // Lead 2 - Upper Right
+    union { Lead_Shape rotate <0,180,0> translate < Lead_X,0, Lead_Y>}
+    // Lead 3 - Lower Left
+    union { Lead_Shape translate                  <-Lead_X,0,-Lead_Y>}
+    // Lead 4 - Lower Rigth
+    union { Lead_Shape rotate <0,180,0> translate < Lead_X,0,-Lead_Y>}
+
+    //ESD Lead - Bottom Center
+    #if(Lead_Y_ESD != 0)
+      union {
+        // Horizontal Lead segment
+        box { <-L_Width*2,(H-(L_Width/2)),0><L_Width*2,H-0.001,L/3>}
+        // Radius on top of Lead
+        cylinder { <-L_Width*2,(H-(L_Width/2)),0>
+          <L_Width*2,(H-(L_Width/2)),0> L_Width/2
+        }
+        // Vertical Lead segment - Upper
+        box { <-L_Width*2,H/2,-L_Width/2>
+          <L_Width*2,(H-(L_Width/2)),L_Width/2>
+        }
+        // Vertical Lead segment - Lower
+        box { <-L_Width,-1,-L_Width/2><L_Width,H/2,L_Width/2>}
+        // Position Lead at 0, and Y location.
+        translate <0,0,Lead_Y_ESD>
+        // Metallic Color (Lead Color)
+        texture{pigment{Gray70}
+          finish{F_MetalA ambient (0.1 * global_ambient_mul)}
+        }
+      }
+    #end
+  }
 #end
 
 
