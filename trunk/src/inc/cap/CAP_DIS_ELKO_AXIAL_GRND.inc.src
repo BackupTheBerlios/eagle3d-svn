@@ -92,102 +92,108 @@ CAP_DIS_ELKO_AXIAL_55MM_25MM(value)
 (5,55.88,25/2,1/2,value)
 CAP_DIS_ELKO_AXIAL_55MM_30MM(value)
 (5,55.88,30/2,1/2,value)
-####################################################################################################
-####################################################################################################
-// 2012-09-27 Changed the lead bond to be less intrusive.  Added 12.7 x 6.35mm cap
-union{
+###############################################################################
+###############################################################################
+// 2012-09-27 Changed the lead bond to be less intrusive. Added 12.7x6.35mm cap
   union{
-    //Elko Koerper
-    //Electrolytics Body
-    difference{
-      union{
-        cylinder{<0,dis/2-3.5,0><0,-(dis/2-3.5),0>dia}
-        //Elko Rundung oben
-        //Electrolytics Rounding Up
-        torus{dia-0.5,0.5 translate<0,-(dis/2-3.5),0>}
-        difference{
-          cylinder{<0,-(dis/2-3.5),0><0,-(dis/2-3.0),0>dia-0.5}
-          cylinder{<0,-(dis/2-3.5),0><0,-(dis/2-2.9),0>dia*0.8*pow(dia/16,0.11)}
+    union{
+      //Elko Koerper
+      //Electrolytics Body
+      difference{
+        union{
+          cylinder{<0,dis/2-3.5,0><0,-(dis/2-3.5),0>dia}
+          //Elko Rundung oben
+          //Electrolytics Rounding Up
+          torus{dia-0.5,0.5 translate<0,-(dis/2-3.5),0>}
+          difference{
+            cylinder{<0,-(dis/2-3.5),0><0,-(dis/2-3.0),0>dia-0.5}
+            cylinder{<0,-(dis/2-3.5),0><0,-(dis/2-2.9),0>dia*0.8*pow(dia/16,0.11)}
+          }
+          //Elko Rundung unten
+          //Electrolytics Rounding Down
+          torus{dia-0.5,0.5 translate<0,dis/2-3.5,0>}
+          difference{
+            cylinder{<0,dis/2-3.5,0><0,dis/2-3.0,0>dia-0.5}
+            cylinder{<0,dis/2-3.5,0><0,dis/2-2.9,0>dia*0.8*pow(dia/16,0.11)}
+          }
         }
-        //Elko Rundung unten
-        //Electrolytics Rounding Down
-        torus{dia-0.5,0.5 translate<0,dis/2-3.5,0>}
-        difference{
-          cylinder{<0,dis/2-3.5,0><0,dis/2-3.0,0>dia-0.5}
-          cylinder{<0,dis/2-3.5,0><0,dis/2-2.9,0>dia*0.8*pow(dia/16,0.11)}
+        //Aussparung unten
+        //Cut Down
+        torus{dia+0.85,1 translate<0,dis/2-5,0>}
+
+        //Textur fuer Minusmarkierung
+        //Texture for Negative Marking
+        pigment{
+          image_map{png "tex_elko_axial.png" map_type 2 interpolate 4}
+          scale <dia*2*pi*1.35,dia*2*pi,dia*2*pi*1.35>
+        }
+        finish{reflection { 0.03, 0.1}
+          phong 0.4 crand 0.05 ambient (0.1 * global_ambient_mul)
         }
       }
-      //Aussparung unten
-      //Cut Down
-      torus{dia+0.85,1 translate<0,dis/2-5,0>}
 
-      //Textur fuer Minusmarkierung
-      //Texture for Negative Marking
-      pigment{
-        image_map{png "tex_elko_axial.png" map_type 2 interpolate 4}
-        scale <dia*2*pi*1.35,dia*2*pi,dia*2*pi*1.35>
+      //Abdeckung oben
+      //Top Cover
+      cylinder{<0,-(dis/2-3.6),0><0,-(dis/2-3.1),0>dia*0.8*pow(dia/16,0.11)
+        texture{e3d_tex_silver}
       }
-      finish{reflection { 0.03, 0.1}
-        phong 0.4 crand 0.05 ambient (0.1 * global_ambient_mul)
+
+      //Abdeckung unten
+      //Bottom Cover
+      cylinder{<0,dis/2-3.2,0><0,dis/2-3.5,0>dia-0.5 pigment{Black}}
+
+      //Kontakt
+      //Contact
+      // Fix that oversized tit sticking off the back of the cap.
+      // This needs to be changed, so that the diameter
+      // changes with wire diameter, and case diameter
+      //cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2),0> 1.5
+      //  texture{e3d_tex_silver}
+      //}
+      //cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2.95),0> 1.5
+      //  texture{e3d_tex_silver}
+      //}
+      //cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2.85),0> (1/(dia/2-3.5))
+      //  texture{e3d_tex_silver}
+      //}
+
+      // This one looks a lot like the caps I have.
+      cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2.85),0> (dia/3.5)
+        texture{e3d_tex_silver}
       }
-    }
-
-    //Abdeckung oben
-    //Top Cover
-    cylinder{<0,-(dis/2-3.6),0><0,-(dis/2-3.1),0>dia*0.8*pow(dia/16,0.11)
-      texture{e3d_tex_silver}
-    }
-
-    //Abdeckung unten
-    //Bottom Cover
-    cylinder{<0,dis/2-3.2,0><0,dis/2-3.5,0>dia-0.5 pigment{Black}}
-
-    //Kontakt
-    //Contact
-    // Fix that oversized tit sticking off the back of the cap.
-    // This needs to be changed to a small torus, whose diameter
-    // changes with wire diameter, and case diameter
-    //cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2),0> 1.5 texture{e3d_tex_silver}}
-    //cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2.95),0> 1.5 texture{e3d_tex_silver}}
-    //cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2.85),0> (1/(dia/2-3.5)) texture{e3d_tex_silver}}
-
-    // This one looks a lot like the caps I have.
-    cylinder{<0,-(dis/2-3.2),0><0,-(dis/2-2.85),0> (dia/3.5)
-      texture{e3d_tex_silver}
-    }
-    intersection{
-      cylinder{<0,dis/2,0><0,-dis/2 + val_size + 3.5,0>dia}
-      text {ttf besch_font value 0.2, 0 scale val_size
+      intersection{
+        cylinder{<0,dis/2,0><0,-dis/2 + val_size + 3.5,0>dia}
+        text {ttf besch_font value 0.2, 0 scale val_size
         rotate<0,0,-90> translate<0, dis/4,-dia>
+        }
+        rotate<0,10,0>
+        translate<0,-val_size,-0.001>
+        pigment {rgb<0.4,0.6,1>}
       }
-      rotate<0,10,0>
-      translate<0,-val_size,-0.001>
-      pigment {rgb<0.4,0.6,1>}
-    }
-    intersection{
+      intersection{
       cylinder{<0,dis/2,0><0,-dis/2 + val_size + 3.5,0>dia}
-      text {ttf besch_font value 0.2, 0 scale val_size
-        rotate<0,0,-90> translate<0, dis/4,-dia>
-      }
-      rotate<0,100,0>
-      translate<-0.001,-val_size,0>
+        text {ttf besch_font value 0.2, 0 scale val_size
+          rotate<0,0,-90> translate<0, dis/4,-dia>
+        }
+        rotate<0,100,0>
+        translate<-0.001,-val_size,0>
       pigment {rgb<0.4,0.6,1>}
-    }
-    intersection{
-      cylinder{<0,dis/2,0><0,-dis/2 + val_size + 3.5,0>dia}
-      text {ttf besch_font value 0.2, 0 scale val_size
-        rotate<0,0,-90> translate<0, dis/4,-dia>
       }
-      rotate<0,190,0>
-      translate<0,-val_size,0.001>
+      intersection{
+        cylinder{<0,dis/2,0><0,-dis/2 + val_size + 3.5,0>dia}
+        text {ttf besch_font value 0.2, 0 scale val_size
+          rotate<0,0,-90> translate<0, dis/4,-dia>
+        }
+        rotate<0,190,0>
+        translate<0,-val_size,0.001>
       pigment {rgb<0.4,0.6,1>}
+      }
+      rotate<0,180,>
+      rotate<0,0,90>
     }
-    rotate<0,180,>
-    rotate<0,0,90>
+    object{TOOLS_WIRE_LEADS(dis-7,dia,35,dia_b,dis,global_res_bend_radius,0,"H")}
+    pigment{Red}
+    finish{F_MetalE ambient(0.1 * global_ambient_mul)}
+    translate<0,dia,0>
   }
-  object{TOOLS_WIRE_LEADS(dis-7,dia,35,dia_b,dis,global_res_bend_radius,0,"H")}
-  pigment{Red}
-  finish{F_MetalE ambient(0.1 * global_ambient_mul)}
-  translate<0,dia,0>
-}
 #end
