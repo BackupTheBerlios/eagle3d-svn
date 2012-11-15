@@ -2595,11 +2595,7 @@ do{
         );
       }
       else
-      {  //runde oder prism-Platine
-
-        //union um Platine
-        //union to board
-        printf("union{\n");
+      {  //runde oder prism-Platine  // Create prism{} for PCB
 
         pcb_shape=0;
         B.circles(C)
@@ -2637,10 +2633,16 @@ do{
           if(0 == i) pcb_shape=2;
           else pcb_shape=3;                
         }  // End of if statement pcb_shape==3
-        printf("//"+lang[67]+"\n");
 
         if(pcb_shape==0)
         {
+          //union um Platine
+          // Adds union{ into pov file
+          printf("object{\n");
+
+          // Adds //Board comment
+          printf("//"+lang[67]+"\n");
+
           //prismplatinen
           //prism electronic boards
 #41       printf(make_prism_from_board_elements_package_layer(B, 20, pcb_arc_prc, -pcb_height, 0, "texture{col_brd}"));
@@ -2648,11 +2650,25 @@ do{
         }
         else if(pcb_shape==2)
         {
+          //union um Platine
+          // Adds union{ into pov file
+          printf("object{\n");
+
+          // Adds //Board comment
+          printf("//"+lang[67]+"\n");
+
 #41       printf(make_prism_from_board_layer(B, 20, pcb_arc_prc, -pcb_height, 0, "texture{col_brd}"));
 #40       printf(make_prism_from_board_layer(B, 20,           0, -pcb_height, 0, "texture{col_brd}"));
         }  // End of if/else statement pcb_shape==0
         else
         {
+          //union um Platine
+          // Adds union{ into pov file
+          printf("union{\n");
+
+          // Adds //Board comment
+          printf("//"+lang[67]+"\n");
+
           //Runde Platine
           //round board
           i=0;
@@ -4350,13 +4366,13 @@ do{
     printf("}//End union\n#end\n\n");
 
     printf("#if(use_file_as_inc=off)\n");
-    printf("object{  %s(%f,0,%f,pcb_rotate_x,pcb_rotate_y,pcb_rotate_z)\n",
+    printf("  object{  %s(%f,0,%f,pcb_rotate_x,pcb_rotate_y,pcb_rotate_z)\n",
       macro_name,x_ver,y_ver
     );
 
-    printf("#if(pcb_upsidedown=on)\n");
-    printf("rotate pcb_rotdir*180\n");
-    printf("#end\n}\n");
+    printf("  #if(pcb_upsidedown=on)\n");
+    printf("    rotate pcb_rotdir*180\n");
+    printf("  #end\n  }\n");
     printf("#end\n");
 
     printf("\n\n//Parts not found in 3dpack.dat or 3dusrpac.dat are:\n%s",ukpack);
