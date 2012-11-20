@@ -71,7 +71,7 @@ string usrinc =
   "//0=Green, 1=\"normal color\" 2=Blue 3=Brown\n"
   "#declare global_res_col = 1;\n"
   "//Set the length of short pins over the PCB\n"
-  "#declare pin_length = 2.5;\n"
+  "#declare pin_length = 1;\n"
   "#declare global_diode_bend_radius = 1;\n"
   "#declare global_res_bend_radius = 1;\n"
   "#declare global_solder = on;\n\n"
