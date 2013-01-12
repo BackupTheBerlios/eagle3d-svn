@@ -36,6 +36,8 @@ E1,0-3-5:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELK
 E1,5-4-5:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_1MM5_4MM_5MM(:Elko 1,5mm Pitch, 4mm Durchmesser, 5mm Hoehe:Elko 1.5mm Pitch, 4mm Dia, 5mm High
 E1,8-4-7:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_1MM8_4MM_7MM(:Elko 1,8mm Pitch, 4mm Durchmesser, 7mm Hoehe:Elko 1.8mm Pitch, 4mm Dia, 7mm High
 E1,8-4-11:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_1MM8_4MM_11MM(:Elko 1,8mm Pitch, 4mm Durchmesser, 11mm Hoehe:Elko 1.8mm Pitch, 4mm Dia, 11mm High
+E2.5-6.3-5:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_2MM5_6MM3_5MM(:Elko 2,5mm Pitch, 6,3mm Durchmesser, 5mm Hoehe:Elko 2.5mm Pitch, 6.3mm Dia, 5mm High
+E2.5-6.3-7:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_2MM5_6MM3_7MM(:Elko 2,5mm Pitch, 6,3mm Durchmesser, 7mm Hoehe:Elko 2.5mm Pitch, 6.3mm Dia, 7mm High
 E3,5-8-7:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_3MM5_8MM_7MM(:Elko 3,5mm Pitch, 8mm Durchmesser, 7mm Hoehe:Elko 3.5mm Pitch, 8mm Dia, 7mm High
 E3,5-8-11:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_3MM5_8MM_11MM(:Elko 3,5mm Pitch, 8mm Durchmesser, 11mm Hoehe:Elko 3.5mm Pitch, 8mm Dia, 11mm High
 E5,0-10-13:0:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:CAP_DIS_ELKO_5MM_10MM_13MM(:Elko 5mm Pitch, 10mm Durchmesser, 13mm Hoehe:Elko 5mm Pitch, 10mm Dia, 13mm High
@@ -74,6 +76,10 @@ CAP_DIS_ELKO_1MM8_4MM_7MM(value)
 (<5.11,20,5.11>,1.0,1.8,4.0,7.0,0.5,value)
 CAP_DIS_ELKO_1MM8_4MM_11MM(value)
 (<5.11,20,5.11>,1.0,1.8,4.0,11.0,0.5,value)
+CAP_DIS_ELKO_2MM5_6MM3_5MM(value)
+(<5.11,20,5.11>,1.0,2.5,6.3,5.0,0.5,value)
+CAP_DIS_ELKO_2MM5_6MM3_7MM(value)
+(<5.11,20,5.11>,1.0,2.5,6.3,7.0,0.5,value)
 CAP_DIS_ELKO_3MM5_8MM_7MM(value)
 (<10.22,20,10.22>,1.0,3.5,8.0,7.0,0.5,value)
 CAP_DIS_ELKO_3MM5_8MM_11MM(value)
