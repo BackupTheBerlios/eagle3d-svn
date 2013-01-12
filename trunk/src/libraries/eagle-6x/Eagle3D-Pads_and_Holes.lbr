@@ -665,6 +665,45 @@
 <text x="-2.794" y="1.27" size="1.27" layer="25">&gt;NAME</text>
 <text x="-2.794" y="-2.667" size="1.27" layer="27">&gt;VALUE</text>
 </package>
+<package name="SOLPAD-0.063X0.0312">
+<pad name="1" x="0" y="0" drill="0.79248125" diameter="1.6002" shape="octagon"/>
+<wire x1="-0.381" y1="0.889" x2="-0.889" y2="0.381" width="0.127" layer="21"/>
+<wire x1="-0.889" y1="0.381" x2="-0.889" y2="-0.381" width="0.127" layer="21"/>
+<wire x1="-0.889" y1="-0.381" x2="-0.381" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-0.381" y1="-0.889" x2="0.381" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="0.381" y1="-0.889" x2="0.889" y2="-0.381" width="0.127" layer="21"/>
+<wire x1="0.889" y1="-0.381" x2="0.889" y2="0.381" width="0.127" layer="21"/>
+<wire x1="0.889" y1="0.381" x2="0.381" y2="0.889" width="0.127" layer="21"/>
+<wire x1="0.381" y1="0.889" x2="-0.381" y2="0.889" width="0.127" layer="21"/>
+<text x="-2.54" y="1.27" size="1.27" layer="25">&gt;NAME</text>
+<text x="-2.54" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="SOLPAD-0.063X0.0320">
+<pad name="1" x="0" y="0" drill="0.8128" diameter="1.6002" shape="octagon"/>
+<wire x1="-0.381" y1="0.889" x2="-0.889" y2="0.381" width="0.127" layer="21"/>
+<wire x1="-0.889" y1="0.381" x2="-0.889" y2="-0.381" width="0.127" layer="21"/>
+<wire x1="-0.889" y1="-0.381" x2="-0.381" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-0.381" y1="-0.889" x2="0.381" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="0.381" y1="-0.889" x2="0.889" y2="-0.381" width="0.127" layer="21"/>
+<wire x1="0.889" y1="-0.381" x2="0.889" y2="0.381" width="0.127" layer="21"/>
+<wire x1="0.889" y1="0.381" x2="0.381" y2="0.889" width="0.127" layer="21"/>
+<wire x1="0.381" y1="0.889" x2="-0.381" y2="0.889" width="0.127" layer="21"/>
+<text x="-2.54" y="1.27" size="1.27" layer="25">&gt;NAME</text>
+<text x="-2.54" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+<package name="SOLPAD-0.076X0.0320">
+<pad name="1" x="0" y="0" drill="0.8128" diameter="1.9304" shape="octagon"/>
+<wire x1="-0.4445" y1="1.0795" x2="-1.0795" y2="0.4445" width="0.127" layer="21"/>
+<wire x1="-1.0795" y1="0.4445" x2="-1.0795" y2="-0.4445" width="0.127" layer="21"/>
+<wire x1="-1.0795" y1="-0.4445" x2="-0.4445" y2="-1.0795" width="0.127" layer="21"/>
+<wire x1="-0.4445" y1="-1.0795" x2="0.4445" y2="-1.0795" width="0.127" layer="21"/>
+<wire x1="0.4445" y1="-1.0795" x2="1.0795" y2="-0.4445" width="0.127" layer="21"/>
+<wire x1="1.0795" y1="-0.4445" x2="1.0795" y2="0.4445" width="0.127" layer="21"/>
+<wire x1="1.0795" y1="0.4445" x2="0.4445" y2="1.0795" width="0.127" layer="21"/>
+<wire x1="0.4445" y1="1.0795" x2="-0.4445" y2="1.0795" width="0.127" layer="21"/>
+<text x="-2.54" y="1.27" size="1.27" layer="25">&gt;NAME</text>
+<text x="-2.54" y="-2.54" size="1.27" layer="27">&gt;VALUE</text>
+</package>
 </packages>
 <symbols>
 <symbol name="SCREWHOLE">
@@ -732,7 +771,7 @@
 </device>
 </devices>
 </deviceset>
-<deviceset name="SOLDERPADS" prefix="PAD" uservalue="yes">
+<deviceset name="SOLDERPADS-METRIC" prefix="PAD" uservalue="yes">
 <description>Solder Pads in various diameters</description>
 <gates>
 <gate name="G$1" symbol="SOLPAD" x="0" y="0"/>
@@ -1060,6 +1099,37 @@
 </technologies>
 </device>
 <device name="_PLATED-NO_RESTRICT" package="M2.5X045_PLATED-NO_RESTRICT">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="SOLDERPADS-US" prefix="PAD" uservalue="yes">
+<gates>
+<gate name="G$1" symbol="SOLPAD" x="0" y="0"/>
+</gates>
+<devices>
+<device name="_0.063X0.0312" package="SOLPAD-0.063X0.0312">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="_0.063X0.0320" package="SOLPAD-0.063X0.0320">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="_0.076X0.0320" package="SOLPAD-0.076X0.0320">
+<connects>
+<connect gate="G$1" pin="1" pad="1"/>
+</connects>
 <technologies>
 <technology name=""/>
 </technologies>
